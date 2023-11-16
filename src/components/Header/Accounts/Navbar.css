@@ -11,3 +11,30 @@
 .animate-waveMotion {
   animation: waveMotion 0.6s;
 }
+
+.animate-wave{
+  animation: SlideDownfade 1s ease-in forwards ,  SlideDown .4s ease-in forwards;
+  background-color: transparent;
+  
+}
+
+@keyframes SlideDown {
+  from{
+    top:-3.3rem;
+
+  ;}
+  to{
+    top:3.8rem;
+
+  }
+}
+
+@keyframes SlideDownfade {
+  from{
+
+    opacity: 0;
+  ;}
+  to{
+    opacity: 1;
+  }
+}

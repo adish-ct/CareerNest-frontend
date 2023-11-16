@@ -11,11 +11,23 @@ function Navbar() {
     setMobileMenuOpen(!isMobileMenuOpen);
   };
 
+  const [isIconClicked, setIconClicked] = useState(false);
+
+  const handleIconClick = () => {
+    setIconClicked(!isIconClicked);
+  };
+
+  const [isOpen, setIsOpen] = useState(false);
+
+  const toggleDropdown = () => {
+    setIsOpen(!isOpen);
+  };
+
   return (
     <div>
       <FirstHeader />
       {/* Main Navbar */}
-      <header className="relative w-full h-20 border-b-2 z-50">
+      <header className="relative w-full h-20 border-b-2 z-[999]">
         <div className="container mx-auto flex items-center justify-between h-full max-w-6xl px-8 sm:px-6 lg:px-8 xl:px-0">
           <a
             href="/"
@@ -29,7 +41,7 @@ function Navbar() {
             id=""
             className={`${
               isMobileMenuOpen ? "flex animate-waveMotion" : "hidden"
-            } absolute top-0 left-0 z-50 flex flex-col items-center justify-between w-full h-64 pt-5 mt-24 text-sm text-gray-800 bg-white border-t border-gray-200 md:w-auto md:flex-row md:h-24 lg:text-base md:bg-transparent md:mt-0 md:border-none md:py-0 md:flex md:relative transition-all duration-300`}
+            } absolute top-0 left-0  flex flex-col items-center justify-between w-full h-64 pt-5 mt-24 text-sm text-gray-800 bg-white border-t border-gray-200 md:w-auto md:flex-row md:h-24 lg:text-base md:bg-transparent md:mt-0 md:border-none md:py-0 md:flex md:relative transition-all duration-300`}
           >
             <a
               href="#"
@@ -74,7 +86,6 @@ function Navbar() {
               </a>
             </div>
           </nav>
-
           {/* <div className="absolute left-0 mt-0 flex-col items-center justify-center hidden w-full pb-8 border-b border-gray-100 md:relative md:w-auto md:bg-transparent md:border-none md:mt-0 md:flex-row md:p-0 md:items-end md:flex md:justify-between">
             <a
               href="#"
@@ -99,7 +110,7 @@ function Navbar() {
               Signup
             </a>
           </div> */}
-          <div className="flex-initial">
+          {/* <div className="flex-initial">
             <div className="flex justify-end items-center relative">
               <div className="hidden md:inline">
                 <div className="inline relative">
@@ -153,10 +164,83 @@ function Navbar() {
                 </div>
               </div>
             </div>
+          </div> */}
+
+          <div className="flex-initial">
+            <div className="flex justify-end items-center relative">
+              <div className="hidden md:inline">
+                <div className="inline relative">
+                  <button
+                    type="button"
+                    className="inline-flex items-center relative px-2 border rounded-full hover:shadow-lg"
+                    onClick={handleIconClick}
+                  >
+                    <div className="pl-1">
+                      {/* SVG for the user icon */}
+                      <svg
+                        viewBox="0 0 32 32"
+                        xmlns="http://www.w3.org/2000/svg"
+                        aria-hidden="true"
+                        role="presentation"
+                        focusable="false"
+                        style={{
+                          display: "block",
+                          fill: "none",
+                          height: "16px",
+                          width: "16px",
+                          stroke: "currentcolor",
+                          strokeWidth: "3",
+                          overflow: "visible",
+                        }}
+                      >
+                        <g fill="none" fillRule="nonzero">
+                          <path d="m2 16h28"></path>
+                          <path d="m2 24h28"></path>
+                          <path d="m2 8h28"></path>
+                        </g>
+                      </svg>
+                    </div>
+
+                    <div className="block flex-grow-0 flex-shrink-0 h-10 w-12 pl-5 relative">
+                      <svg
+                        viewBox="0 0 32 32"
+                        xmlns="http://www.w3.org/2000/svg"
+                        aria-hidden="true"
+                        role="presentation"
+                        focusable="false"
+                        style={{
+                          display: "block",
+                          height: "100%",
+                          width: "100%",
+                          fill: "currentcolor",
+                        }}
+                      >
+                        <path d="m16 .7c-8.437 0-15.3 6.863-15.3 15.3s6.863 15.3 15.3 15.3 15.3-6.863 15.3-15.3-6.863-15.3-15.3-15.3zm0 28c-4.021 0-7.605-1.884-9.933-4.81a12.425 12.425 0 0 1 6.451-4.4 6.507 6.507 0 0 1 -3.018-5.49c0-3.584 2.916-6.5 6.5-6.5s6.5 2.916 6.5 6.5a6.513 6.513 0 0 1 -3.019 5.491 12.42 12.42 0 0 1 6.452 4.4c-2.328 2.925-5.912 4.809-9.933 4.809z"></path>
+                      </svg>
+                      {isIconClicked && (
+                        <div className="animate-wave absolute left-[-3.4rem] w-32 mr-1 py-2 border border-gray-200 divide-y divide-gray-100 rounded-xl shadow-lg outline-none z-0">
+                          <div className="px-4 py-3">
+                            <p className="text-base leading-6 hover:text-red-500">
+                              Profile
+                            </p>
+                            <p className="text-base leading-5 mt-1 hover:text-red-500">
+                              Settings
+                            </p>
+                            <p className="text-base leading-5 mt-1 border hover:text-red-500">
+                              Logout
+                            </p>
+                          </div>
+                        </div>
+                      )}
+                    </div>
+                  </button>
+                </div>
+              </div>
+            </div>
           </div>
           <div
             id="nav-mobile-btn"
-            className="absolute top-0 right-0 z-50 block w-8 md:w-10 mt-7 mr-6 md:mr-10 cursor-pointer select-none md:hidden sm:mt-7 transition-transform duration-300 ease-in-out"
+            className="absolute top-0 right-0  block w-8 md:w-10 mt-7 mr-6 md:mr-10 cursor-pointer select-none md:hidden sm:mt-7 transition-transform duration-300 ease-in-out"
             onClick={toggleMobileMenu}
           >
             <span

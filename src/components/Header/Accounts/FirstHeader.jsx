@@ -7,7 +7,7 @@ function FirstHeader() {
       {/* Top Navbar */}
       <div className="w-full h-8 flex items-center justify-end bg-blue-gray-50">
         <div className="flex items-center h-5">
-          <div className="_xpkakx mr-6 cursor-pointer">
+          <div className="_xpkakx mr-6 cursor-pointer hover:text-red-500">
             <svg
               viewBox="0 0 16 16"
               xmlns="http://www.w3.org/2000/svg"
@@ -26,7 +26,7 @@ function FirstHeader() {
           </div>
         </div>
         <a href="">
-          <p className="mr-2 text-sm sm:mr-7">For Employer</p>
+          <p className="mr-2 text-sm sm:mr-7 hover:text-red-500">For Employer</p>
         </a>
         <div
           className="mr-2 sm:mr-10"
@@ -35,7 +35,7 @@ function FirstHeader() {
           <MdOutlineHorizontalRule />
         </div>
         <a href="">
-          <p className="mr-2 text-sm sm:mr-16">Help</p>
+          <p className="mr-2 text-sm sm:mr-16 hover:text-red-500">Help</p>
         </a>
       </div>
       {/* .................................. */}
