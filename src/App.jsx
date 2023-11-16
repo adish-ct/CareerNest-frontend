@@ -1,11 +1,11 @@
 import React from "react";
 import "./App.css";
-import FirstHeader from "./components/Header/Candidate/FirstHeader";
+import Navbar from "./components/Header/Accounts/Navbar";
 
 function App() {
   return (
     <>
-      <FirstHeader />
+      <Navbar />
     </>
   );
 }
