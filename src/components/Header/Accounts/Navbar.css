@@ -14,7 +14,7 @@
 
 .animate-wave{
   animation: SlideDownfade 1s ease-in forwards ,  SlideDown .4s ease-in forwards;
-  background-color: transparent;
+  background-color: white;
   
 }
 
