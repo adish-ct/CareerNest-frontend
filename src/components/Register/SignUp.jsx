@@ -70,11 +70,11 @@ function SignUp() {
             </h1>
             <h1 className="font-thin pt-1 text-green-800">it's free!</h1>
           </div>
-          <div className="flex justify-between pt-10 bg-brown-300">
-            <div className="flex items-center justify-center w-1/3 h-10 ml-20 rounded-xl bg-orange-700">
+          <div className="flex justify-between pt-9">
+            <div className="flex items-center justify-center w-1/3 h-10 ml-20 rounded-xl bg-blue-gray-400">
               Google
             </div>
-            <div className="flex items-center justify-center w-1/3 h-10 mr-20 rounded-xl bg-orange-700">
+            <div className="flex items-center justify-center w-1/3 h-10 mr-20 rounded-xl bg-blue-gray-400">
               LinkedIn
             </div>
           </div>
