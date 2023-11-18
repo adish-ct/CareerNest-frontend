@@ -1,11 +1,9 @@
 import React from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
-import { Button } from "@material-tailwind/react";
 import { useDispatch, useSelector } from 'react-redux';
-import Register from './sample/Register';
 import Login from './sample/Login';
+import { BrowserRouter as Router, Route, Routes, Navigate, } from "react-router-dom";
+import EmployerDashboard from './sample/EmployerDashboard';
 
 const App = () => {
   const value = useSelector((state) => {
@@ -19,8 +17,14 @@ const App = () => {
 
   return (
     <>
-      <Register />
-      <Login />
+      <Router>
+        <Routes>
+          <Route path="/" element={<Login />} />
+          <Route path="dash/" element={<EmployerDashboard />} />
+
+          <Route />
+        </Routes>
+      </Router>
     </>
   )
 }
