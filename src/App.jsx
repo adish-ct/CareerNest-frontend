@@ -5,6 +5,7 @@ import './App.css'
 import { Button } from "@material-tailwind/react";
 import { useDispatch, useSelector } from 'react-redux';
 import Register from './sample/Register';
+import Login from './sample/Login';
 
 const App = () => {
   const value = useSelector((state) => {
@@ -19,6 +20,7 @@ const App = () => {
   return (
     <>
       <Register />
+      <Login />
     </>
   )
 }
