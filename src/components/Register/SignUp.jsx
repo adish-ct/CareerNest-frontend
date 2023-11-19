@@ -47,7 +47,7 @@ function SignUp() {
       <div className="w-full flex">
         {/* Image section */}
         <div className="w-1/3 h-96 text-center">
-          <div className="flex flex-col gap-3 pt-5">
+          <div className="flex flex-col gap-3 pt-16">
             <div className="flex flex-col gap-2 items-center">
               <img className="w-40" src={boy} alt="" />
               <h1 className="text-xl font-medium">On registering, you can</h1>
@@ -75,25 +75,30 @@ function SignUp() {
         <div className="w-2/3 h-96 pt-8 text-center">
           <div className="border rounded-3xl shadow-xl">
             <div>
-              <h1 className="text-4xl pt-3">Create an account</h1>
-              <h1 className="font-thin pt-3">
+              <h1 className="text-4xl pt-7">Create an account</h1>
+              <h1 className="font-thin pt-3 text-gray-500">
                 It only takes a couple of minutes to get started!
               </h1>
               <h1 className="font-thin pt-1 text-green-800">it's free!</h1>
             </div>
             <div className="flex justify-center gap-16 pt-5">
-              <div className="flex flex-row gap-10 items-center justify-center shadow-lg w-1/3 h-12 ml-20 rounded-xl border">
-                <div className="flex flex-row gap-2 items-center ">
+              <div className="flex flex-row gap-10 cursor-pointer items-center justify-center shadow-lg w-1/3 h-12 ml-20 rounded-xl border">
+                <div className="flex flex-row gap-2 items-center transition-transform duration-300 hover:translate-x-1">
                   <FcGoogle className="text-2xl" />
                   <p className="text-xl">Google</p>
                 </div>
               </div>
-              <div className="flex items-center  justify-center shadow-lg w-1/3 h-12 mr-20 rounded-xl border ">
-                <div className="flex flex-row gap-2 items-center ">
+              <div className="flex items-center cursor-pointer justify-center shadow-lg w-1/3 h-12 mr-20 rounded-xl border ">
+                <div className="flex flex-row gap-2 items-center transition-transform duration-300 hover:translate-x-1">
                   <FaLinkedin className="text-blue-800 text-2xl" />
                   <p className="text-xl">LinkedIn</p>
                 </div>
               </div>
+            </div>
+            <div className="flex items-center mt-4">
+              <hr className="h-px border-b border-solid border-gray-200 grow" />
+              <p className="mx-4 text-gray-600">or</p>
+              <hr className="h-px border-b border-solid border-gray-200 grow" />
             </div>
             <div className="flex justify-center gap-16 pt-5">
               <div className="flex flex-row gap-10 items-center justify-center shadow-lg w-52 h-10 ml-20 rounded-xl border">
@@ -124,7 +129,7 @@ function SignUp() {
                       </svg>
                     </div>
                   </label>
-                  <p className="text-xl">Employeer</p>
+                  <p className="text-lg">Employeer</p>
                 </div>
               </div>
               <div className="flex items-center  justify-center shadow-lg w-52 h-10 mr-20 rounded-xl border">
@@ -155,7 +160,7 @@ function SignUp() {
                       </svg>
                     </div>
                   </label>
-                  <p className="text-xl">Candidate</p>
+                  <p className="text-lg">Candidate</p>
                 </div>
               </div>
             </div>
@@ -165,7 +170,7 @@ function SignUp() {
                 <form className="md:p-10 min-w-full">
                   <div>
                     <label
-                      className="text-gray-800 font-semibold text-start block my-3 text-md"
+                      className="text-gray-800 font-medium text-start block my-3 text-md"
                       htmlFor="username"
                     >
                       Full Name
@@ -180,7 +185,7 @@ function SignUp() {
                   </div>
                   <div>
                     <label
-                      className="text-gray-800 text-start font-semibold block my-3 text-md"
+                      className="text-gray-800 text-start font-medium block my-3 text-md"
                       htmlFor="email"
                     >
                       Email
@@ -195,7 +200,7 @@ function SignUp() {
                   </div>
                   <div>
                     <label
-                      className="text-gray-800 text-start font-semibold block my-3 text-md"
+                      className="text-gray-800 text-start font-medium block my-3 text-md"
                       htmlFor="phone"
                     >
                       Mobile Number
@@ -211,7 +216,7 @@ function SignUp() {
                         color: "black",
                         border: "None",
                         background: "rgb(245,245,245)",
-                        borderRadius: "6px",
+                        borderRadius: "8px",
                       }}
                       value={phone}
                       onChange={(phone) => setPhone(phone)}
@@ -219,7 +224,7 @@ function SignUp() {
                   </div>
                   <div>
                     <label
-                      className="text-gray-800 text-start font-semibold block my-3 text-md"
+                      className="text-gray-800 text-start font-medium block my-3 text-md"
                       htmlFor="password"
                     >
                       Password
@@ -234,7 +239,7 @@ function SignUp() {
                   </div>
                   <div>
                     <label
-                      className="text-gray-800 text-start font-semibold block my-3 text-md"
+                      className="text-gray-800 text-start font-medium block my-3 text-md"
                       htmlFor="confirm"
                     >
                       Confirm password
@@ -271,31 +276,31 @@ function SignUp() {
                           </span>
                         </label>
                       </div>
-                      <div className="flex gap-11 text-base">
+                      <div className="flex gap-4 text-base">
                         <h1 className="">Receive recruiter notifications on</h1>
                         <h1 className="">WhatsApp</h1>
                       </div>
                     </div>
-                    <div className="flex gap-6 pt-2 font-thin text-sm text-gray-600">
+                    <div className="flex gap-3 pt-2 font-thin text-sm text-gray-600">
                       I agree to foundit’s
-                      <span className="text-blue-800 cursor-pointer">
+                      <span className="text-blue-800 cursor-pointer transition-transform duration-300 hover:translate-x-1">
                         Terms and Conditions
                       </span>{" "}
-                      <span className="text-blue-800 cursor-pointer">
+                      <span className="text-blue-800 cursor-pointer transition-transform duration-300 hover:translate-x-1">
                         Privacy Policy
                       </span>
                     </div>
-                    <div className="flex gap-6 pt-2 text-sm text-gray-600">
+                    <div className="flex gap-2 pt-2 text-sm text-gray-600">
                       and default mailer and communications settings governing
                       the use of{" "}
-                      <span className="text-blue-800 cursor-pointer">
+                      <span className="text-blue-800 cursor-pointer transition-transform duration-300 hover:translate-x-1">
                         careernest.in
                       </span>
                     </div>
                   </div>
                   <button
                     type="submit"
-                    className="w-full mt-6 bg-indigo-600 rounded-lg px-4 py-2 text-lg text-white tracking-wide font-semibold font-sans"
+                    className="w-full mt-6 bg-indigo-600 rounded-lg px-4 py-2 text-lg text-white tracking-wide font-semibold font-sans transition-transform duration-300 hover:translate-x-1"
                   >
                     Register
                   </button>

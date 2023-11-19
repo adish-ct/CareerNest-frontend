@@ -1,14 +1,17 @@
 import React from "react";
 import "./App.css";
 import SignUp from "./components/Register/SignUp";
-import SignupPage from "./pages/Register/SignupPage";
 import Footer from "./components/Header/Accounts/Footer";
+import Banner from "./components/Candidate/Banner";
+import HomePage from "./pages/Candidate/HomePage";
 
 function App() {
   return (
     <>
-      {/* <SignupPage /> */}
-      <Footer />
+      {/* <SignUp /> */}
+      {/* <Footer /> */}
+      {/* <Banner /> */}
+      <HomePage />
     </>
   );
 }
