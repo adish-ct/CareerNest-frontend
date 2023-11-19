@@ -9,32 +9,28 @@
 }
 
 .animate-waveMotion {
-  animation: waveMotion 0.6s;
+  animation: waveMotion 0.5s;
 }
 
-.animate-wave{
-  animation: SlideDownfade 1s ease-in forwards ,  SlideDown .4s ease-in forwards;
+.animate-wave {
+  animation: SlideDownfade 1s ease-in forwards, SlideDown 0.2s ease-in forwards;
   background-color: white;
-  
 }
 
 @keyframes SlideDown {
-  from{
-    top:-3.3rem;
-
-  ;}
-  to{
-    top:3.8rem;
-
+  from {
+    top: -3.3rem;
+  }
+  to {
+    top: 3.8rem;
   }
 }
 
 @keyframes SlideDownfade {
-  from{
-
+  from {
     opacity: 0;
-  ;}
-  to{
+  }
+  to {
     opacity: 1;
   }
 }
