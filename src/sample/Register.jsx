@@ -108,7 +108,6 @@ function Register() {
                     <Button type='submit'>Sign in</Button>
 
                 </form>
-                <Button onClick={getData}>Sign in</Button>
 
             </div>
         </div>
