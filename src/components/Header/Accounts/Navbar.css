@@ -1,0 +1,36 @@
+@keyframes waveMotion {
+  0%,
+  100% {
+    transform: scaleY(1);
+  }
+  50% {
+    transform: scaleY(1.2);
+  }
+}
+
+.animate-waveMotion {
+  animation: waveMotion 0.5s;
+}
+
+.animate-wave {
+  animation: SlideDownfade 1s ease-in forwards, SlideDown 0.2s ease-in forwards;
+  background-color: white;
+}
+
+@keyframes SlideDown {
+  from {
+    top: -3.3rem;
+  }
+  to {
+    top: 3.8rem;
+  }
+}
+
+@keyframes SlideDownfade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
