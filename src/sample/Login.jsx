@@ -1,38 +1,36 @@
 import React, { useState } from 'react'
-import { Button, Navbar } from '@material-tailwind/react'
-import axios from 'axios'
-import { baseUrl } from '../api/Api'
+import { Button } from '@material-tailwind/react'
+// import axios from 'axios'
+// import { baseUrl } from '../api/Api'
 import { Card, CardHeader, CardBody, CardFooter, Typography, Input, Checkbox } from "@material-tailwind/react";
 import { IconButton } from "@material-tailwind/react";
-
+import Navbar from '../components/Header/Accounts/Navbar';
 
 function Login() {
 
-    const [email, setEmail] = useState('')
-    const [password, setPassword] = useState('')
+    // const [email, setEmail] = useState('')
+    // const [password, setPassword] = useState('')
 
-    const loginHandler = async (e) => {
-        e.preventDefault()
-        // post request to backend
-        const response = await axios.post(`${baseUrl}/accounts/login/`, {
-            "email": email,
-            "password": password
-        })
-        // get token from the response
-        const token = response.data.access
-        // store data to local storage
-        localStorage.setItem("jwtToken", token)
+    // const loginHandler = async (e) => {
+    //     e.preventDefault()
+    //     // post request to backend
+    //     const response = await axios.post(`${baseUrl}/accounts/login/`, {
+    //         "email": email,
+    //         "password": password
+    //     })
+    //     // get token from the response
+    //     const token = response.data.access
+    //     // store data to local storage
+    //     localStorage.setItem("jwtToken", token)
 
-        const storedToken = localStorage.getItem("jwtToken")
-        const [header, payload, signature] = storedToken.split(".");
-        const decodePayload = JSON.parse(atob(payload))
-        console.log(decodePayload);
+    //     const storedToken = localStorage.getItem("jwtToken")
+    //     const [header, payload, signature] = storedToken.split(".");
+    //     const decodePayload = JSON.parse(atob(payload))
+    //     console.log(decodePayload);
 
-    }
+    // }
     return (
         <>
-            {/* <FirstHeader />
-            <Navbar /> */}
             {/* <form action="post" onSubmit={loginHandler}>
                 <div>
                     <label htmlFor="username">Email</label>

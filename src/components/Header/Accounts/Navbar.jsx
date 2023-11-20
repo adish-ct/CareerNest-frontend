@@ -39,9 +39,8 @@ function Navbar() {
 
           <nav
             id=""
-            className={`${
-              isMobileMenuOpen ? "flex animate-waveMotion" : "hidden"
-            } absolute top-0 left-0  flex flex-col items-center justify-between w-full h-64 pt-5 mt-24 text-sm text-gray-800 bg-white border-t border-gray-200 md:w-auto md:flex-row md:h-24 lg:text-base md:bg-transparent md:mt-0 md:border-none md:py-0 md:flex md:relative transition-all duration-300`}
+            className={`${isMobileMenuOpen ? "flex animate-waveMotion" : "hidden"
+              } absolute top-0 left-0  flex flex-col items-center justify-between w-full h-64 pt-5 mt-24 text-sm text-gray-800 bg-white border-t border-gray-200 md:w-auto md:flex-row md:h-24 lg:text-base md:bg-transparent md:mt-0 md:border-none md:py-0 md:flex md:relative transition-all duration-300`}
           >
             <a
               href="#"
@@ -244,19 +243,16 @@ function Navbar() {
             onClick={toggleMobileMenu}
           >
             <span
-              className={`block w-full h-1 transform bg-red-800 rounded-full ${
-                isMobileMenuOpen ? "rotate-45 translate-y-1.5" : ""
-              }`}
+              className={`block w-full h-1 transform bg-red-800 rounded-full ${isMobileMenuOpen ? "rotate-45 translate-y-1.5" : ""
+                }`}
             ></span>
             <span
-              className={`block w-full h-1 mt-1 transform bg-red-800 rounded-full ${
-                isMobileMenuOpen ? "opacity-0" : ""
-              }`}
+              className={`block w-full h-1 mt-1 transform bg-red-800 rounded-full ${isMobileMenuOpen ? "opacity-0" : ""
+                }`}
             ></span>
             <span
-              className={`block w-full h-1 mt-1 transform bg-red-800 rounded-full ${
-                isMobileMenuOpen ? "-rotate-45 -translate-y-1.5" : ""
-              }`}
+              className={`block w-full h-1 mt-1 transform bg-red-800 rounded-full ${isMobileMenuOpen ? "-rotate-45 -translate-y-1.5" : ""
+                }`}
             ></span>
           </div>
         </div>
