@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import Login from './pages/Login/Login';
 import { BrowserRouter as Router, Route, Routes, Navigate, } from "react-router-dom";
 import EmployerDashboard from './sample/EmployerDashboard';
-import CreateJob from './sample/CreateJob';
+import CreateJob from './pages/Employer/Job/CreateJob';
 import SignupPage from './pages/Register/SignupPage';
 import Navbar from './components/Header/Accounts/Navbar';
 
