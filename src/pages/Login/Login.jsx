@@ -4,6 +4,9 @@ import { baseUrl } from '../../api/Api'
 import { Card, CardHeader, CardBody, CardFooter, Typography, Input, Checkbox } from "@material-tailwind/react";
 import { IconButton } from "@material-tailwind/react";
 import Navbar from "../../components/Header/Accounts/Navbar"
+import { ToastContainer, toast } from 'react-toastify';
+import { useNavigate } from 'react-router-dom';
+
 
 
 
@@ -11,6 +14,8 @@ function Login() {
 
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
+
+    const navigate = useNavigate()
 
     useEffect(() => {
         console.log(email);
@@ -23,6 +28,8 @@ function Login() {
             "password": password
         })
         // get token from the response
+        toast.success("login successfully")
+
         const token = response.data.access
         // store data to local storage
         localStorage.setItem("jwtToken", token)
@@ -31,10 +38,12 @@ function Login() {
         const [header, payload, signature] = storedToken.split(".");
         const decodePayload = JSON.parse(atob(payload))
         console.log(decodePayload);
+        navigate('/')
 
     }
     return (
         <>
+            <ToastContainer />
             <div className="flex flex-col h-screen justify-between">
                 <Navbar />
                 <form action="post" onSubmit={loginHandler}>

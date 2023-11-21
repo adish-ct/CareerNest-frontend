@@ -3,15 +3,11 @@ import Sidebar from '../../components/Employer/Sidebar'
 import { Card, Typography } from '@material-tailwind/react'
 import { Input } from "@material-tailwind/react";
 import "./CreateJob.css"
+import { locations } from '../../components/HelperFile/Locations'
 
 function CreateJob() {
 
-    const locations = [
-        "Mumbai, Maharashtra", "Delhi, Delhi", "Bangalore, Karnataka", "Hyderabad, Telangana", "Chennai, Tamil Nadu",
-        "Kolkata, West Bengal", "Jaipur, Rajasthan", "Ahmedabad, Gujarat", "Pune, Maharashtra",
-        "Lucknow, Uttar Pradesh", "Chandigarh", "Bhopal, Madhya Pradesh", "Visakhapatnam, Andhra Pradesh", "Kochi, Kerala", "Indore, Madhya Pradesh",
-        "Agra, Uttar Pradesh", "Amritsar, Punjab", "Patna, Bihar", "Bhubaneswar, Odisha", "Dehradun, Uttarakhand"
-    ];
+
     const workType = ["Permanent", "Contract", "Intern"]
     const jobType = ["Work from home", "Work from office", "Hybrid"]
 
@@ -23,7 +19,7 @@ function CreateJob() {
                 <div className="h-screen w-5/6">
                     {/* Dashboard Heading */}
                     <div className="text-center md:p-10 p-5 bg-[#eee] border-black">
-                        <Typography variant="body1" className="text-3xl font-bold">
+                        <Typography variant="h1" className="text-3xl font-bold">
                             CREATE JOB
                         </Typography>
                     </div>
@@ -31,7 +27,7 @@ function CreateJob() {
 
                     {/* Dashboard cards */}
                     <div className="text-start p-5 md:ps-20 ps-10 md:pt-10">
-                        <Typography variant="body1" className="text-3xl font-bold">
+                        <Typography variant="h1" className="text-3xl font-bold">
                             Provide the job details
                         </Typography>
                     </div>

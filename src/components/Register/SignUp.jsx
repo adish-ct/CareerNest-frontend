@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { FaArrowRight } from "react-icons/fa6";
-import { FaUserCircle } from "react-icons/fa";
+import { FaUserCircle, FaWhatsapp } from "react-icons/fa";
 import { IoSearchCircle } from "react-icons/io5";
 import { PiPhoneCallFill } from "react-icons/pi";
 import { BsFillCheckCircleFill } from "react-icons/bs";
@@ -108,7 +108,7 @@ const SignUp = () => {
 
         {/* --------------------left section--------------------- */}
 
-        <div className="text-center hidden md:block lg:w-1/3 xl:w-1/3 md:w-1/3">
+        <div className="text-center hidden md:block lg:w-1/3 xl:w-1/3 md:w-1/3 p-10">
           <div className="flex flex-col gap-3">
             <div className="flex flex-col gap-4 items-center">
               <img className="w-40" src={boy} alt="" />
@@ -137,11 +137,11 @@ const SignUp = () => {
         {/*--------------------- right section ---------------------*/}
 
         <div className="w-2/3 text-center :w-3/3">
-          <div className="border rounded-3xl shadow-xl">
+          <div className="border rounded-3xl shadow-xl p-10">
             <p> { } </p>
             <form action="" onSubmit={signUpHandler} >
               <div>
-                <h1 className="text-4xl pt-7">Create an account</h1>
+                <h1 className="text-4xl">Create an account</h1>
                 <h1 className="font-thin pt-3 text-gray-500">
                   It only takes a couple of minutes to get started!
                 </h1>
@@ -171,23 +171,21 @@ const SignUp = () => {
               <div className="flex justify-center gap-16 pt-5">
                 {
                   setstore.map((role, index) => (
-                    <div className="flex flex-row gap-10 items-center justify-center shadow-lg w-52 h-10 ml-20 rounded-xl border">
-                      <div className="flex flex-row gap-2 items-center ">
-                        <label
-                          className="relative flex cursor-pointer items-center rounded-full p-3"
-                          htmlFor="indigo"
-                        >
-                          <input id="indigo" key={index} name="color" type="radio" value={role.id} onChange={(e) => setRole(e.target.value)}
-                            className="before:content[''] peer relative h-5 w-5 cursor-pointer appearance-none rounded-full border border-blue-gray-200 text-indigo-500 transition-all before:absolute before:top-2/4 before:left-2/4 before:block before:h-12 before:w-12 before:-translate-y-2/4 before:-translate-x-2/4 before:rounded-full before:bg-blue-gray-500 before:opacity-0 before:transition-opacity checked:border-indigo-500 checked:before:bg-indigo-500 hover:before:opacity-10"
-                          />
-                          <div className="pointer-events-none absolute top-2/4 left-2/4 -translate-y-2/4 -translate-x-2/4 text-indigo-500 opacity-0 transition-opacity peer-checked:opacity-100">
-                            <svg xmlns="http://www.w3.org/2000/svg" className="h-3.5 w-3.5" viewBox="0 0 16 16" fill="currentColor">
-                              <circle data-name="ellipse" cx="8" cy="8" r="8"></circle>
-                            </svg>
-                          </div>
-                        </label>
-                        <p className="text-lg">{role.role}</p>
-                      </div>
+                    <div className="flex flex-row gap-10 p-2 ps-6 pe-6 items-center justify-center shadow-lg rounded-2xl border">
+                      <label
+                        className="relative flex cursor-pointer items-center rounded-full"
+                        htmlFor="indigo"
+                      >
+                        <input id="indigo" key={index} name="color" type="radio" value={role.id} onChange={(e) => setRole(e.target.value)}
+                          className="before:content[''] peer relative h-5 w-5 cursor-pointer appearance-none rounded-full border border-blue-gray-200 text-indigo-500 transition-all before:absolute before:top-2/4 before:left-2/4 before:block before:h-12 before:w-12 before:-translate-y-2/4 before:-translate-x-2/4 before:rounded-full before:bg-blue-gray-500 before:opacity-0 before:transition-opacity checked:border-indigo-500 checked:before:bg-indigo-500 hover:before:opacity-10"
+                        />
+                        <div className="pointer-events-none absolute top-2/4 left-2/4 -translate-y-2/4 -translate-x-2/4 text-indigo-500 opacity-0 transition-opacity peer-checked:opacity-100">
+                          <svg xmlns="http://www.w3.org/2000/svg" className="h-3.5 w-3.5" viewBox="0 0 16 16" fill="currentColor">
+                            <circle data-name="ellipse" cx="8" cy="8" r="8"></circle>
+                          </svg>
+                        </div>
+                      </label>
+                      <p className="text-lg">{role.role}</p>
                     </div>
                   ))
                 }
@@ -218,7 +216,7 @@ const SignUp = () => {
                       enableSearch={true}
                       inputStyle={{
                         width: "100%",
-                        maxWidth: "674px",
+                        maxWidth: "100%",
                         height: "42px",
                         fontSize: "14px",
                         color: "black",
@@ -285,7 +283,10 @@ const SignUp = () => {
                       </div>
                       <div className="flex gap-4 text-base">
                         <h1 className="">Receive recruiter notifications on</h1>
-                        <h1 className="">WhatsApp</h1>
+                        <h1 className="text-green-800 flex gap-2">
+                          <FaWhatsapp className="mt-1" />
+                          WhatsApp
+                        </h1>
                       </div>
                     </div>
                     <div className="flex gap-3 pt-2 font-thin text-sm text-gray-600">
