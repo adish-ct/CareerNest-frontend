@@ -1,12 +1,11 @@
 import React, { useState } from 'react';
 import { FaCamera } from 'react-icons/fa';
 import { Button, Input } from "@material-tailwind/react";
-import Navbar from '../components/Header/Accounts/Navbar';
-import indianStates from '../components/HelperFile/IndianStates';
+import Navbar from '../../components/Header/Accounts/Navbar';
+import indianStates from '../../components/HelperFile/IndianStates';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { format } from 'date-fns';
-import "./Profile.css"
 
 function Profile() {
     const [selectedImage, setSelectedImage] = useState(null);

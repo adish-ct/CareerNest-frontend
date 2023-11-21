@@ -13,6 +13,7 @@ import axios from 'axios'
 import { baseUrl } from '../../api/Api'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { useNavigate } from "react-router-dom";
 
 const SignUp = () => {
   const [phone, setPhone] = useState("");
@@ -25,6 +26,7 @@ const SignUp = () => {
   const [setstore, setSetstore] = useState([])
   const [error, setError] = useState("")
 
+  const navigate = useNavigate()
 
   const handleCheckboxChange = () => {
     setIsChecked(!isChecked);
@@ -43,25 +45,35 @@ const SignUp = () => {
   const signUpHandler = async (e) => {
     e.preventDefault();
 
-    const response = await axios.post(`${baseUrl}/accounts/register/`, {
-      username,
-      email,
-      phone,
-      password,
-      role
-    })
-    console.log(response.data);
     try {
+      const response = await axios.post(`${baseUrl}/accounts/register/`, {
+        username,
+        email,
+        phone,
+        password,
+        role
+      });
+
       if (response.data) {
-        toast.error("registered")
-        console.log("Successfully register");
+        toast.success("Successfully registered");
+        navigate('/login/')
       }
     } catch (error) {
-      toast.error("registered")
+      if (error.response) {
+        // The request was made and the server responded with a status code
+        // that falls out of the range of 2xx
+        console.error("Error response data:", error.response.data);
+        toast.error("Registration failed. Please check your inputs.");
+      } else if (error.request) {
+        // The request was made but no response was received
+        console.error("Error request data:", error.request);
+        toast.error("No response from the server. Please try again later.");
+      } else {
+        // Something happened in setting up the request that triggered an Error
+        console.error("Error message:", error.message);
+        toast.error("An unexpected error occurred. Please try again.");
+      }
     }
-
-
-
 
   }
   return (

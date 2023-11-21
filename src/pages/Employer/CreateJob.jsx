@@ -1,8 +1,8 @@
 import React from 'react'
-import Sidebar from '../../../myComponents/employer/Sidebar'
+import Sidebar from '../../components/Employer/Sidebar'
 import { Card, Typography } from '@material-tailwind/react'
 import { Input } from "@material-tailwind/react";
-import "../Job/CreateJob.css"
+import "./CreateJob.css"
 
 function CreateJob() {
 

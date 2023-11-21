@@ -1,8 +1,8 @@
 import React from 'react'
 
 import { Typography, Card, CardBody, Button } from '@material-tailwind/react';
-import Sidebar from '../myComponents/employer/Sidebar';
-import DashboardSmallCard from '../myComponents/DashboardSmallCard';
+import Sidebar from '../../components/Employer/Sidebar';
+import DashboardSmallCard from '../../components/Employer/Dashboard/DashboardSmallCard';
 
 function EmployerDashboard() {
     var ar = ['a', 'b', 'c', 'd']
