@@ -9,11 +9,11 @@
 }
 
 .animate-waveMotion {
-  animation: waveMotion 0.6s;
+  animation: waveMotion 0.5s;
 }
 
 .animate-wave {
-  animation: SlideDownfade 1s ease-in forwards, SlideDown 0.4s ease-in forwards;
+  animation: SlideDownfade 1s ease-in forwards, SlideDown 0.2s ease-in forwards;
   background-color: white;
 }
 

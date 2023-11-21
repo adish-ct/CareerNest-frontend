@@ -1,37 +1,22 @@
 import React from 'react'
+<<<<<<< HEAD:src/sample/EmployerDashboard.jsx
 import { MdDashboard } from "react-icons/md";
 import { FaSuitcase, FaRegCalendarTimes, FaUserFriends, FaFilter, FaSearch } from "react-icons/fa";
 import { IoSettings, IoFilter } from "react-icons/io5";
 import { Typography, Card, CardBody, Button, Input } from '@material-tailwind/react';
+=======
+
+import { Typography, Card, CardBody, Button } from '@material-tailwind/react';
+import Sidebar from '../../components/Employer/Sidebar';
+import DashboardSmallCard from '../../components/Employer/Dashboard/DashboardSmallCard';
+>>>>>>> 25ff375134911eef1299e7208dfdf9c08645422f:src/pages/Employer/EmployerDashboard.jsx
 
 function EmployerDashboard() {
     var ar = ['a', 'b', 'c', 'd']
     return (
         <>
             <div className="flex">
-                {/* side bar */}
-                <div className="h-screen text-center bg-black w-1/6">
-                    <div className="flex flex-col items-center gap-5">
-                        <div className="text-start flex flex-col gap-7 text-white">
-                            <div className="flex flex-row gap-3">
-                                <MdDashboard /><h1>Dashboard</h1>
-                            </div>
-                            <div className="flex flex-row gap-3">
-                                <FaSuitcase /><h1>Jobs</h1>
-                            </div>
-                            <div className="flex flex-row gap-3">
-                                <FaUserFriends /><h1>Candidates</h1>
-                            </div>
-                            <div className="flex flex-row gap-3">
-                                <FaRegCalendarTimes /><h1>Interviews</h1>
-                            </div>
-                            <div className="flex flex-row gap-3">
-                                <IoSettings /><h1>Settings</h1>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                {/* side bar end */}
+                <Sidebar />
                 {/* main dashboard */}
                 <div className="h-screen bg-deep-orange-100 w-5/6">
                     {/* Dashboard Heading */}
@@ -46,6 +31,7 @@ function EmployerDashboard() {
                     <div className="md:flex-row md:justify-around flex flex-col items-center">
                         {
                             ar.map(() => (
+<<<<<<< HEAD:src/sample/EmployerDashboard.jsx
                                 <Card className="mt-6 w-44 md:w-72">
                                     <CardBody className='text-center'>
                                         <Typography variant="h5" color="blue-gray" className="mb-2">
@@ -59,6 +45,9 @@ function EmployerDashboard() {
                                         </Typography>
                                     </CardBody>
                                 </Card>
+=======
+                                <DashboardSmallCard />
+>>>>>>> 25ff375134911eef1299e7208dfdf9c08645422f:src/pages/Employer/EmployerDashboard.jsx
                             ))
                         }
                     </div>
