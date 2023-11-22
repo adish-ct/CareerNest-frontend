@@ -1,3 +1,0 @@
-export const SET_USER_DETAILS = 'SET_USER_DETAILS';
-export const AUTHENTICATION = 'AUTHENTICATION';
-export const LOADING = 'LOADING';
