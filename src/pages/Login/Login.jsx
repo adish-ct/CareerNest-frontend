@@ -6,7 +6,8 @@ import { IconButton } from "@material-tailwind/react";
 import Navbar from "../../components/Header/Accounts/Navbar"
 import { ToastContainer, toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
-
+import { useFormik } from 'formik'
+import * as Yup from 'yup'
 
 
 
@@ -18,35 +19,70 @@ function Login() {
     const navigate = useNavigate()
 
     useEffect(() => {
-        console.log(email);
+    }, [])
+
+    // useFormik: It's a hook from the Formik library that helps in managing form state, handling form submissions, and validation.
+    const formik = useFormik({
+
+        // initialValues: It defines the initial values for your form fields (email and password).
+        initialValues: {
+            email: "",
+            password: "",
+        },
+
+        // validationSchema: It defines the validation rules for the form fields using Yup, a validation library
+        validationSchema: Yup.object({
+            email: Yup.string().email('Invalid email address').required('Field Required'),
+            password: Yup.string().required('Required')
+        }),
+
+        // onSubmit: This is a callback function that is executed when the form is submitted
+        onSubmit: async (values) => {
+            try {
+                const response = await axios.post(`${baseUrl}/accounts/login/`, {
+                    email: values.email,
+                    password: values.password,
+                })
+
+                toast.success("Login Successfull")
+                const token = response.data.access
+                localStorage.setItem('jwtToken', token)
+                navigate('/')
+            } catch (error) {
+                toast.error('Credentials not matched')
+            }
+        }
     })
-    const loginHandler = async (e) => {
-        e.preventDefault()
-        // post request to backend
-        const response = await axios.post(`${baseUrl}/accounts/login/`, {
-            "email": email,
-            "password": password
-        })
-        // get token from the response
-        toast.success("login successfully")
 
-        const token = response.data.access
-        // store data to local storage
-        localStorage.setItem("jwtToken", token)
+    // const loginHandler = async (e) => {
+    //     e.preventDefault()
+    //     // post request to backend
+    //     const response = await axios.post(`${baseUrl}/accounts/login/`, {
+    //         "email": email,
+    //         "password": password
+    //     })
+    //     // get token from the response
+    //     toast.success("login successfully")
 
-        const storedToken = localStorage.getItem("jwtToken")
-        const [header, payload, signature] = storedToken.split(".");
-        const decodePayload = JSON.parse(atob(payload))
-        console.log(decodePayload);
-        navigate('/')
+    //     const token = response.data.access
+    //     // store data to local storage
+    //     localStorage.setItem("jwtToken", token)
 
-    }
+    //     const storedToken = localStorage.getItem("jwtToken")
+    //     const [header, payload, signature] = storedToken.split(".");
+    //     const decodePayload = JSON.parse(atob(payload))
+    //     console.log(decodePayload);
+    //     navigate('/')
+
+    // }
+
+
     return (
         <>
             <ToastContainer />
             <div className="flex flex-col h-screen justify-between">
                 <Navbar />
-                <form action="post" onSubmit={loginHandler}>
+                <form action="" onSubmit={formik.handleSubmit}>
                     <div className="h-full md:gap-20 flex flex-col md:justify-center items-center">
 
                         {/* top section */}
@@ -78,10 +114,28 @@ function Login() {
 
                                     <CardBody className="flex flex-col gap-4">
 
-                                        <Input onChange={(e) => setEmail(e.target.value)} label="Email" size="lg" />
+                                        <Input {...formik.getFieldProps("email")} label="Email" size="lg" className={
+                                            formik.errors.email && formik.touched.email
+                                                ? "form-control shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline border-red-500"
+                                                : "form-control shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                                        } />
+                                        {formik.errors.email && formik.touched.email && (
+                                            <p className="text-red-500 text-xs italic">
+                                                {formik.errors.email}
+                                            </p>
+                                        )}
 
-                                        <Input onChange={(e) => setPassword(e.target.value)} label="Password" size="lg" />
+                                        <Input {...formik.getFieldProps("password")} label="Password" type='password' size="lg" className={
+                                            formik.errors.email && formik.touched.email
+                                                ? "form-control shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline border-red-500"
+                                                : "form-control shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                                        } />
 
+                                        {formik.errors.password && formik.touched.password && (
+                                            <p className="text-red-500 text-xs italic">
+                                                {formik.errors.password}
+                                            </p>
+                                        )}
                                         <div className="-ml-2.5">
                                             <Checkbox label="Remember Me" />
                                         </div>
@@ -109,9 +163,9 @@ function Login() {
 
                         {/* bottom section */}
                         <div className="text-center">
-                            <IconButton type='submit' variant="text" className="rounded-full bg-red-500 w-32 md:p-10 h-32 text-lg sm:p-8 p-8 text-white">
+                            <button type='submit' className="rounded-full bg-red-500 w-28 md:p-10 h-28 text-2xl sm:p-8 p-8 text-white">
                                 GO
-                            </IconButton>
+                            </button>
                         </div>
 
                     </div>

@@ -1,23 +1,10 @@
 import { createStore, combineReducers } from 'redux'
 
 
-
-// const appReducer = (prevState = initialState, action) => {
-//     return {
-//         value: valueReducer(prevState.value, action),
-//         name: "",
-//         loading: loadingReducer(prevState.loading, action)
-//     }
-// };
-
-const valueReducer = (prevState = 0, action) => {
+const isAuthenticateReducer = (prevState = false, action) => {
     switch (action.type) {
-        case 'INCREMENT':
-            return prevState + 1;
-        case
-
-            'DECREMENT':
-            return prevState - 1;
+        case 'AUTHENTICATION':
+            return !prevState;
 
         default:
             return prevState;
@@ -37,7 +24,7 @@ const loadingReducer = (prevState = false, action) => {
 }
 
 const appReducer = combineReducers({
-    value: valueReducer,
+    isAuthenticated: isAuthenticateReducer,
     loading: loadingReducer
 })
 
