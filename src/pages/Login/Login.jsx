@@ -8,10 +8,21 @@ import { ToastContainer, toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
 import { useFormik } from 'formik'
 import * as Yup from 'yup'
+import { useDispatch, useSelector } from 'react-redux';
+import { toggleAuthentication, toggleLoading } from '../../redux/Actions/AuthAction'
+import setUserDetails from '../../redux/Actions/UserAction'
+import { jwtDecode } from "jwt-decode";
+
 
 
 
 function Login() {
+
+    const dispatch = useDispatch()
+    const user = useSelector((state) => {
+        return state.user;
+    })
+
 
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
@@ -19,6 +30,7 @@ function Login() {
     const navigate = useNavigate()
 
     useEffect(() => {
+
     }, [])
 
     // useFormik: It's a hook from the Formik library that helps in managing form state, handling form submissions, and validation.
@@ -43,38 +55,20 @@ function Login() {
                     email: values.email,
                     password: values.password,
                 })
-
                 toast.success("Login Successfull")
                 const token = response.data.access
+
                 localStorage.setItem('jwtToken', token)
+                const decoded_token = jwtDecode(token);
+                console.log(token);
+                console.log(decoded_token);
+                dispatch(setUserDetails(decoded_token))
                 navigate('/')
             } catch (error) {
                 toast.error('Credentials not matched')
             }
         }
     })
-
-    // const loginHandler = async (e) => {
-    //     e.preventDefault()
-    //     // post request to backend
-    //     const response = await axios.post(`${baseUrl}/accounts/login/`, {
-    //         "email": email,
-    //         "password": password
-    //     })
-    //     // get token from the response
-    //     toast.success("login successfully")
-
-    //     const token = response.data.access
-    //     // store data to local storage
-    //     localStorage.setItem("jwtToken", token)
-
-    //     const storedToken = localStorage.getItem("jwtToken")
-    //     const [header, payload, signature] = storedToken.split(".");
-    //     const decodePayload = JSON.parse(atob(payload))
-    //     console.log(decodePayload);
-    //     navigate('/')
-
-    // }
 
 
     return (
