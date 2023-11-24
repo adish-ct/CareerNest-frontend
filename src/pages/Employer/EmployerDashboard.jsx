@@ -1,11 +1,14 @@
 import React from 'react'
-
 import { Typography, Card, CardBody, Button } from '@material-tailwind/react';
 import Sidebar from '../../components/Employer/Sidebar';
 import DashboardSmallCard from '../../components/Employer/Dashboard/DashboardSmallCard';
 
+
+
 function EmployerDashboard() {
+
     var ar = ['a', 'b', 'c', 'd']
+
     return (
         <>
             <div className="flex">
@@ -14,7 +17,7 @@ function EmployerDashboard() {
                 <div className="h-screen bg-deep-orange-100 w-5/6">
                     {/* Dashboard Heading */}
                     <div className="text-center md:p-10 border-b border-black">
-                        <Typography variant="body1" className="text-3xl font-bold">
+                        <Typography variant="h1" className="text-3xl font-bold">
                             DASHBOARD
                         </Typography>
                     </div>
@@ -23,8 +26,8 @@ function EmployerDashboard() {
                     {/* Dashboard cards */}
                     <div className="flex flex-row justify-around">
                         {
-                            ar.map(() => (
-                                <DashboardSmallCard />
+                            ar.map((index) => (
+                                <DashboardSmallCard key={index} />
                             ))
                         }
                     </div>

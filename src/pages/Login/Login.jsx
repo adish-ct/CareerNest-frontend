@@ -60,10 +60,17 @@ function Login() {
 
                 localStorage.setItem('jwtToken', token)
                 const decoded_token = jwtDecode(token);
-                console.log(token);
-                console.log(decoded_token);
                 dispatch(setUserDetails(decoded_token))
-                navigate('/')
+                if (decoded_token.role === 'Candidate') {
+                    console.log("user login");
+                    navigate("/")
+                } else if (decoded_token.role === 'Employer') {
+                    console.log("employer login");
+                    navigate("/employer/dash")
+                } else {
+                    console.log("super admin");
+                }
+                // navigate('/')
             } catch (error) {
                 toast.error('Credentials not matched')
             }
