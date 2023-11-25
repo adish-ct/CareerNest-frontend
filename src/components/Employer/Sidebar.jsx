@@ -19,13 +19,11 @@ function Sidebar() {
                         <FaSuitcase /><h1>Jobs</h1>
                     </div>
                     {
-                        jobToggle ? (
-                            <div div className="job-toggle-content">
+                        jobToggle && (
+                            <div className="job-toggle-content">
                                 <Link to='/employer/create-job/'>Create Job</Link>
                                 <p>Vies Jobs</p>
                             </div>
-                        ) : (
-                            ""
                         )
                     }
 

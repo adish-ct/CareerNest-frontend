@@ -27,48 +27,37 @@ function CreateJob() {
         return state.loading
     })
 
-    useEffect(() => {
-        const token = localStorage.getItem("jwtToken")
-        const decoded_token = jwtDecode(token)
-        dispatch(setUserDetails(decoded_token))
-        dispatch(toggleLoading())
-        console.log(user.username);
-    }, [])
-
     const formik = useFormik({
         initialValues: {
             employer: "",
-            jobRole: "",
-            location: "",
-            ctc: "",
+            job_role: "",
+            job_location: "",
+            job_ctc: "",
+            job_type: "",
             experience: 0,
-            jobType: "",
-            workType: "",
-            vacancy: 1,
-            department: "",
+            work_type: "",
+            vaccancy: 1,
             skills: "",
             qualifications: "",
             description: "",
+            department: "",
             highlight: ""
         },
         validationSchema: Yup.object({
-            jobRole: Yup.string().required("* Required field"),
-            location: Yup.string().required("* Required field"),
-            workType: Yup.string().required("* Required field"),
-            jobType: Yup.string().required("* Required field"),
+            job_role: Yup.string().required("* Required field"),
+            job_location: Yup.string().required("* Required field"),
+            job_ctc: Yup.number().min(1, "* ctc cannot be less than 1"),
+            job_type: Yup.string().required("* Required field"),
+            work_type: Yup.string().required("* Required field"),
+            vaccancy: Yup.number().min(1, "* Vacancy cannot be less than 1").required("* Required field"),
             department: Yup.string().required("* Required field"),
             description: Yup.string().required("* Required field"),
-            vacancy: Yup.number().min(1, "* Vacancy cannot be less than 1").required("* Required field"),
-            ctc: Yup.number().min(1, "* ctc cannot be less than 1"),
             experience: Yup.number().min(0, "* Experience cannot be less than 0").required("* Required field"),
         }),
         onSubmit: async (values) => {
             try {
-                console.log("Form submitted with values:", values);
-                // Add your logic here, such as making an API call
-                // Example:
-                // const response = await axios.post(baseUrl, values);
-                // console.log("API Response:", response.data);
+                const response = await axios.post(`${baseUrl}/jobs/`, values)
+
             } catch (error) {
                 console.error("Error submitting form:", error);
             }
@@ -78,6 +67,22 @@ function CreateJob() {
     const handleInputChange = (fieldName, value) => {
         formik.setFieldValue(fieldName, value);
     };
+
+    useEffect(() => {
+        const token = localStorage.getItem("jwtToken");
+        const fetchData = async () => {
+            const decoded_token = await jwtDecode(token);
+            dispatch(setUserDetails(decoded_token));
+            if (decoded_token) {
+                handleInputChange("employer", decoded_token.user_id);
+            }
+
+            dispatch(toggleLoading());
+        };
+        fetchData(); // Call the async function
+    }, []);
+
+
 
     return (
         <>
@@ -114,32 +119,32 @@ function CreateJob() {
                                                 <Input
                                                     label="Job Role"
                                                     type="text"
-                                                    name="jobRole"
-                                                    value={formik.values.jobRole}
-                                                    onChange={(e) => handleInputChange("jobRole", e.target.value)}
+                                                    name="job_role"
+                                                    value={formik.values.job_role}
+                                                    onChange={(e) => handleInputChange("job_role", e.target.value)}
                                                     className={
-                                                        formik.errors.jobRole && formik.touched.jobRole
+                                                        formik.errors.job_role && formik.touched.job_role
                                                             ? "form-control shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline "
                                                             : "form-control shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                                                     }
                                                 />
-                                                {formik.errors.jobRole && formik.touched.jobRole && (
+                                                {formik.errors.job_role && formik.touched.job_role && (
                                                     <small className="text-red-500 text-xs italic">
-                                                        {formik.errors.jobRole}
+                                                        {formik.errors.job_role}
                                                     </small>
                                                 )}
                                             </div>
                                             <div className='flex flex-col text-left'>
                                                 <select
-                                                    id="location"
-                                                    name='location'
+                                                    id="job_location"
+                                                    name='job_location'
                                                     color="lightBlue"
                                                     size="lg"
                                                     placeholder="Select a location"
-                                                    value={formik.values.location}
-                                                    onChange={(e) => handleInputChange("location", e.target.value)}
+                                                    value={formik.values.job_location}
+                                                    onChange={(e) => handleInputChange("job_location", e.target.value)}
                                                     className={
-                                                        formik.errors.location && formik.touched.location
+                                                        formik.errors.job_location && formik.touched.job_location
                                                             ? "form-control shadow appearance-none border  rounded w-full  py-2 px-3  text-gray-700 leading-tight focus:outline-none focus:shadow-outline "
                                                             : "form-control shadow appearance-none border   rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                                                     }
@@ -150,11 +155,10 @@ function CreateJob() {
                                                         </option>
                                                     ))}
                                                 </select>
-                                                {formik.errors.location && formik.touched.location && (
+                                                {formik.errors.job_location && formik.touched.job_location && (
                                                     <small className="text-red-500 text-xs italic">
-                                                        {formik.errors.location}
+                                                        {formik.errors.job_location}
                                                     </small>
-
                                                 )}
                                             </div>
                                         </div>
@@ -165,19 +169,19 @@ function CreateJob() {
                                                 <Input
                                                     label="Job CTC"
                                                     type='number'
-                                                    name='ctc'
-                                                    value={formik.values.ctc}
-                                                    onChange={(e) => handleInputChange("ctc", e.target.value)}
+                                                    name='job_ctc'
+                                                    value={formik.values.job_ctc}
+                                                    onChange={(e) => handleInputChange("job_ctc", e.target.value)}
                                                     className={
-                                                        formik.errors.ctc && formik.touched.ctc
+                                                        formik.errors.job_ctc && formik.touched.job_ctc
                                                             ? "form-control shadow appearance-none border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline "
                                                             : "form-control shadow appearance-none border rounded  py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                                                     }
                                                 />
                                                 {
-                                                    formik.errors.ctc && formik.touched.ctc && (
+                                                    formik.errors.job_ctc && formik.touched.job_ctc && (
                                                         <small className='text-red-500 text-xs'>
-                                                            {formik.errors.ctc}
+                                                            {formik.errors.job_ctc}
                                                         </small>
                                                     )
                                                 }
@@ -207,14 +211,15 @@ function CreateJob() {
                                             <div className="flex flex-col md:w-1/4 w-full text-left">
                                                 <select
                                                     // className='border w-4/5'
-                                                    id="workType"
+                                                    id="work_type"
                                                     color="lightBlue"
                                                     size="lg"
+                                                    type="text"
                                                     placeholder="Select a work type"
-                                                    value={formik.values.workType}
-                                                    onChange={(e) => handleInputChange("workType", e.target.value)}
+                                                    value={formik.values.work_type}
+                                                    onChange={(e) => handleInputChange("work_type", e.target.value)}
                                                     className={
-                                                        formik.errors.workType && formik.touched.workType
+                                                        formik.errors.work_type && formik.touched.work_type
                                                             ? "form-control shadow appearance-none border w-full md:w-4/5 rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline "
                                                             : "form-control shadow appearance-none border w-full md:w-4/5 rounded  py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                                                     }
@@ -226,9 +231,9 @@ function CreateJob() {
                                                     ))}
                                                 </select>
                                                 {
-                                                    formik.errors.workType && formik.touched.workType && (
+                                                    formik.errors.work_type && formik.touched.work_type && (
                                                         <small className='text-red-500 text-xs'>
-                                                            {formik.errors.workType}
+                                                            {formik.errors.work_type}
                                                         </small>
                                                     )
                                                 }
@@ -240,14 +245,15 @@ function CreateJob() {
                                         <div className="flex flex-col md:flex-row gap-5 w-full">
                                             <div className="flex flex-col md:w-1/4 w-full text-left">
                                                 <select
-                                                    id="jobType"
+                                                    id="job_type"
                                                     color="lightBlue"
                                                     size="lg"
+                                                    type="text"
                                                     placeholder="Select a location"
-                                                    value={formik.values.jobType}
-                                                    onChange={(e) => handleInputChange("jobType", e.target.value)}
+                                                    value={formik.values.job_type}
+                                                    onChange={(e) => handleInputChange("job_type", e.target.value)}
                                                     className={
-                                                        formik.errors.jobType && formik.touched.jobType
+                                                        formik.errors.job_type && formik.touched.job_type
                                                             ? "form-control shadow appearance-none border w-full rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline "
                                                             : "form-control shadow appearance-none border w-full rounded  py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                                                     }
@@ -259,9 +265,9 @@ function CreateJob() {
                                                     ))}
                                                 </select>
                                                 {
-                                                    formik.errors.jobType && formik.touched.jobType && (
+                                                    formik.errors.job_type && formik.touched.job_type && (
                                                         <small className='text-red-500 text-xs'>
-                                                            {formik.errors.jobType}
+                                                            {formik.errors.job_type}
                                                         </small>
                                                     )
                                                 }
@@ -271,19 +277,19 @@ function CreateJob() {
                                                     <Input
                                                         label="Total Vacancy"
                                                         type='number'
-                                                        name='vacancy'
-                                                        value={formik.values.vacancy}
-                                                        onChange={(e) => handleInputChange("vacancy", e.target.value)}
+                                                        name='vaccancy'
+                                                        value={formik.values.vaccancy}
+                                                        onChange={(e) => handleInputChange("vaccancy", e.target.value)}
                                                         className={
-                                                            formik.errors.vacancy && formik.touched.vacancy
+                                                            formik.errors.vaccancy && formik.touched.vaccancy
                                                                 ? "form-control shadow appearance-none border w-full rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline "
                                                                 : "form-control shadow appearance-none border w-full rounded  py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                                                         }
                                                     />
                                                     {
-                                                        formik.errors.vacancy && formik.touched.vacancy && (
+                                                        formik.errors.vaccancy && formik.touched.vaccancy && (
                                                             <small className='text-red-500 text-xs'>
-                                                                {formik.errors.vacancy}
+                                                                {formik.errors.vaccancy}
                                                             </small>
                                                         )
                                                     }
@@ -341,6 +347,7 @@ function CreateJob() {
                                             <label htmlFor="highlight">Highlight</label>
                                             <textarea
                                                 name='highlight'
+                                                type="text"
                                                 className='w-full border box-border'
                                                 rows="3"
                                                 value={formik.values.highlight}
@@ -353,6 +360,7 @@ function CreateJob() {
                                             <textarea
                                                 name='description'
                                                 rows="3"
+                                                type="text"
                                                 value={formik.values.description}
                                                 onChange={(e) => handleInputChange("description", e.target.value)}
                                                 placeholder="Enter your text here"
