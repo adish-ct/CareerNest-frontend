@@ -25,7 +25,6 @@ function Jobs() {
 
     if (token) {
       const decode_token = jwtDecode(token);
-      console.log(decode_token);
       dispatch(setUserDetails(decode_token));
     }
     dispatch(toggleLoading())

@@ -10,6 +10,7 @@ import Navbar from './components/Header/Accounts/Navbar';
 import EmployerProfile from './pages/Employer/EmployerProfile';
 import Profile from './pages/Common/Profile';
 import HomePage from './pages/Candidate/HomePage';
+import Jobs from './pages/Candidate/Jobs';
 
 
 
@@ -30,9 +31,9 @@ const App = () => {
           <Route path="register/" element={<SignupPage />} />
           <Route path="login/" element={<Login />} />
           <Route path="/" element={<HomePage />} />
-          <Route path="employer/dash/" element={<EmployerDashboard />} />
+          <Route path="jobs/" element={<Jobs />} />
+          <Route path="employer/dashboard/" element={<EmployerDashboard />} />
           <Route path="employer/create-job/" element={<CreateJob />} />
-          <Route path="nav/" element={<Navbar />} />
           <Route path="employer/profile" element={<EmployerProfile />} />
           <Route path="profile/" element={<Profile />} />
 
