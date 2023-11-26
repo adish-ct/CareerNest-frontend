@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { toggleLoading } from '../../redux/Actions/AuthAction'
+import { IoMdStar } from "react-icons/io";
 
 
 const TabPanel = ({ id, children, isActive }) => (
@@ -27,7 +28,7 @@ const TabButton = ({ id, label, isActive, onClick }) => (
 );
 
 function SelectedJobDetails() {
-    
+
     const [activeTab, setActiveTab] = useState('jobDetails');
 
     const dispatch = useDispatch()
@@ -60,14 +61,25 @@ function SelectedJobDetails() {
                 <TabPanel id="jobDetails" isActive={activeTab === 'jobDetails'}>
                     {job && (
                         <>
-                            <h1>{job.description}</h1>
+                            <ul>
+                                {job.description.split(',').map((value, index) => (
+                                    <div className="flex gap-2">
+                                        <IoMdStar />
+                                        <li key={index}>{value.trim()}</li>
+                                    </div>
+                                ))}
+                            </ul>
                         </>
                     )}
                 </TabPanel>
                 <TabPanel id="keySkills" isActive={activeTab === 'keySkills'}>
                     {job && (
                         <>
-                            <h1>{job.skills}</h1>
+                            {job.skills.split(',').map((value, index) => (
+                                <div className="flex gap-2">
+                                    <li key={index}>{value.trim()}</li>
+                                </div>
+                            ))}
                         </>
                     )}
                 </TabPanel>
