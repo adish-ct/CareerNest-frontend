@@ -3,7 +3,7 @@ import Sidebar from '../../components/Employer/Sidebar';
 import { Button, Card, Typography } from '@material-tailwind/react';
 import { useSelector, useDispatch } from 'react-redux'
 import { Input } from "@material-tailwind/react";
-import "./CreateJob.css";
+import "./Css/CreateJob.css";
 import { locations } from '../../components/HelperFile/Locations';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
@@ -12,12 +12,15 @@ import { baseUrl } from '../../api/Api';
 import { jwtDecode } from 'jwt-decode';
 import setUserDetails from '../../redux/Actions/UserAction'
 import { toggleLoading } from '../../redux/Actions/AuthAction'
+import { useNavigate } from 'react-router-dom';
+
 
 function CreateJob() {
 
     const workType = ["Work type", "Permanent", "Contract", "Intern"];
     const jobType = ["Job type", "Work from office", "Work from home", "Hybrid"];
     const dispatch = useDispatch()
+    const navigate = useNavigate()
 
     const user = useSelector((state) => {
         return state.user
@@ -30,6 +33,7 @@ function CreateJob() {
     const formik = useFormik({
         initialValues: {
             employer: "",
+            organization: "",
             job_role: "",
             job_location: "",
             job_ctc: "",
@@ -57,6 +61,10 @@ function CreateJob() {
         onSubmit: async (values) => {
             try {
                 const response = await axios.post(`${baseUrl}/jobs/`, values)
+                if (response.data) {
+
+                    navigate('/employer/dashboard')
+                }
 
             } catch (error) {
                 console.error("Error submitting form:", error);
@@ -75,6 +83,7 @@ function CreateJob() {
             dispatch(setUserDetails(decoded_token));
             if (decoded_token) {
                 handleInputChange("employer", decoded_token.user_id);
+                handleInputChange("organization", decoded_token.username);
             }
 
             dispatch(toggleLoading());

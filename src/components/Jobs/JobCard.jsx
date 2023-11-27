@@ -1,25 +1,38 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import employerAction from '../../redux/Actions/EmployerAction'
+import axios from 'axios';
+import { baseUrl } from '../../api/Api';
+import { IoMdStar } from 'react-icons/io';
+import { PiSuitcaseSimpleThin } from "react-icons/pi";
 
 function JobCard({ job, onClick }) {
+    const employer = useSelector((state) => state.employer);
+    const dispatch = useDispatch();
 
-    const handleCardClick = () => {
+    const handleCardClick = async () => {
         // Call the onClick function with the job as an argument
         onClick && onClick(job);
     };
 
+
+
+    useEffect(() => {
+    }, []); // Adding employer as a dependency to re-run the effect when employer changes
+
     return (
         <div className='w-full bg-white p-5 shadow-md rounded-lg' onClick={handleCardClick}>
-            <h1 className='text-xl font-bold'>Developer</h1>
-            <div className="flex flex-col gap-2">
-                <h1>{job.job_role}</h1>
-                {job.employer && (
-                    <>
-                        <h1>Employer: {job.employer.username}</h1>
-                        <h1>Email: {job.employer.email}</h1>
-                        {/* Add more employer details as needed */}
-                    </>
-                )}
-                <h1>Hello</h1>
+            <h1 className='text-xl font-bold mb-4'>{job.job_role}</h1>
+            <div className="flex flex-col">
+                <div className="flex gap-2 items-center">
+                    <PiSuitcaseSimpleThin />
+                    <h2> {job.experience} years experience</h2>
+                </div>
+                <div className="flex gap-2 items-center">
+                    <IoMdStar className="text-[#f7b32b]" />
+                    <h1>{job.organization}</h1>
+                </div>
+
             </div>
         </div>
     );

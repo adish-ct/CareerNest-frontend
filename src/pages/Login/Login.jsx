@@ -23,10 +23,6 @@ function Login() {
         return state.user;
     })
 
-
-    const [email, setEmail] = useState('')
-    const [password, setPassword] = useState('')
-
     const navigate = useNavigate()
 
     useEffect(() => {
@@ -66,7 +62,8 @@ function Login() {
                     navigate("/")
                 } else if (decoded_token.role === 'Employer') {
                     console.log("employer login");
-                    navigate("/employer/dash")
+                    toast.success('Logged in successfully')
+                    navigate("/employer/dashboard")
                 } else {
                     console.log("super admin");
                 }

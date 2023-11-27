@@ -2,6 +2,7 @@ import React from 'react'
 import { Typography, Card, CardBody, Button } from '@material-tailwind/react';
 import Sidebar from '../../components/Employer/Sidebar';
 import DashboardSmallCard from '../../components/Employer/Dashboard/DashboardSmallCard';
+import { ToastContainer } from 'react-toastify';
 
 
 
@@ -11,6 +12,7 @@ function EmployerDashboard() {
 
     return (
         <>
+            <ToastContainer />
             <div className="flex">
                 <Sidebar />
                 {/* main dashboard */}

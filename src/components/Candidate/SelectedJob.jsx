@@ -15,7 +15,6 @@ function SelectedJob() {
             <div className="flex flex-col gap-2">
                 <h1>{selectedJob.job_location}</h1>
                 <h1>{selectedJob.job_ctc}</h1>
-                {/* Add more details as needed */}
             </div>
         </div>
     );

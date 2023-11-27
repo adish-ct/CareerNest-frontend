@@ -8,6 +8,16 @@ function Sidebar() {
 
     const [jobToggle, setJobToggle] = useState(false)
 
+    const logoutHandler = () => {
+        localStorage.removeItem("jwtToken");
+        // clear user details from redux store
+        dispatch(setUserDetails(null));
+        dispatch(toggleLoading());
+        setTimeout(() => {
+            navigate('/login/')
+        }, 0)
+    };
+
     return (
         <div className="h-screen text-center bg-black w-1/6">
             <div className="flex flex-col items-center gap-5">
@@ -36,6 +46,9 @@ function Sidebar() {
                     <div className="flex flex-row gap-3">
                         <IoSettings /><h1>Settings</h1>
                     </div>
+                    <Link onClick={logoutHandler} className="text-base leading-5 mt-1 border-t border-b hover:text-red-500">
+                        Logout
+                    </Link>
                 </div>
             </div>
         </div>

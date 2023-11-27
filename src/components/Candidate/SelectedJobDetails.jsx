@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { toggleLoading } from '../../redux/Actions/AuthAction'
-import { IoMdStar } from "react-icons/io";
-
+import { toggleLoading } from '../../redux/Actions/AuthAction';
+import { IoMdStar } from 'react-icons/io';
+import employerAction from '../../redux/Actions/EmployerAction';
+import axios from 'axios';
+import { baseUrl } from '../../api/Api';
 
 const TabPanel = ({ id, children, isActive }) => (
     <div className={`p-4 bg-white rounded-lg md:p-8 dark:bg-gray-800 ${isActive ? 'block' : 'hidden'}`} id={id} role="tabpanel" aria-labelledby={`${id}-tab`}>
@@ -28,26 +30,43 @@ const TabButton = ({ id, label, isActive, onClick }) => (
 );
 
 function SelectedJobDetails() {
-
     const [activeTab, setActiveTab] = useState('jobDetails');
+    const dispatch = useDispatch();
+    const job = useSelector((state) => state.job);
+    const loading = useSelector((state) => state.loading);
+    const employer = useSelector((state) => state.employer);
 
-    const dispatch = useDispatch()
-
-    const job = useSelector((state) => state.job)
-    const loading = useSelector((state) => state.loading)
+    const getEmployer = async (job) => {
+        try {
+            const response = await axios.get(`${baseUrl}/accounts/get-user/${job.employer}`);
+            dispatch(employerAction(response.data));
+            return response.data;
+        } catch (error) {
+            console.error('Error fetching employer:', error);
+        }
+    };
 
     useEffect(() => {
-        dispatch(toggleLoading())
-    }, [])
+        const fetchData = async () => {
+            try {
+                dispatch(toggleLoading(true));
+                const employerData = await getEmployer(job);
+                // Do something with employerData if needed
+                console.log(employerData);
+            } finally {
+                dispatch(toggleLoading(false));
+            }
+        };
+
+        fetchData();
+    }, [dispatch, job]);
 
     const handleTabClick = (tabId) => {
         setActiveTab(tabId);
     };
 
     if (loading) {
-        return (
-            <h1>loading</h1>
-        )
+        return <h1>Loading...</h1>;
     }
 
     return (
@@ -63,9 +82,9 @@ function SelectedJobDetails() {
                         <>
                             <ul>
                                 {job.description.split(',').map((value, index) => (
-                                    <div className="flex gap-2">
+                                    <div className="flex gap-2" key={index}>
                                         <IoMdStar />
-                                        <li key={index}>{value.trim()}</li>
+                                        <li>{value.trim()}</li>
                                     </div>
                                 ))}
                             </ul>
@@ -76,17 +95,20 @@ function SelectedJobDetails() {
                     {job && (
                         <>
                             {job.skills.split(',').map((value, index) => (
-                                <div className="flex gap-2">
-                                    <li key={index}>{value.trim()}</li>
+                                <div className="flex gap-2" key={index}>
+                                    <li>{value.trim()}</li>
                                 </div>
                             ))}
                         </>
                     )}
                 </TabPanel>
                 <TabPanel id="recruiterDetails" isActive={activeTab === 'recruiterDetails'}>
-                    {job && job.employer && (
+                    {employer && (
                         <>
-                            <h1>{job.employer.email}</h1>
+                            <h1>Company: {employer.username}</h1>
+                            <h1>Email: {employer.email}</h1>
+                            <h1>Website: www.{employer.username}.com</h1>
+                            <p>You can share your resume through mail also.</p>
                         </>
                     )}
                 </TabPanel>
