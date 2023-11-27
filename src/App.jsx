@@ -1,28 +1,17 @@
-import React from 'react'
-import './App.css'
-import { useDispatch, useSelector } from 'react-redux';
+// App.js
+import React from 'react';
 import Login from './pages/Login/Login';
-import { BrowserRouter as Router, Route, Routes, Navigate, } from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import EmployerDashboard from './pages/Employer/EmployerDashboard';
 import CreateJob from './pages/Employer/CreateJob';
 import SignupPage from './pages/Register/SignupPage';
-import Navbar from './components/Header/Accounts/Navbar';
 import EmployerProfile from './pages/Employer/EmployerProfile';
 import Profile from './pages/Common/Profile';
 import HomePage from './pages/Candidate/HomePage';
 import Jobs from './pages/Candidate/Jobs';
-
-
+import PrivateRoute from './components/PrivateRoute';
 
 const App = () => {
-  const value = useSelector((state) => {
-    return state.value;
-  })
-
-  const loading = useSelector((state) => {
-    return state.loading;
-  })
-  const dispatch = useDispatch()
 
   return (
     <>
@@ -30,18 +19,16 @@ const App = () => {
         <Routes>
           <Route path="register/" element={<SignupPage />} />
           <Route path="login/" element={<Login />} />
-          <Route path="/" element={<HomePage />} />
-          <Route path="jobs/" element={<Jobs />} />
-          <Route path="employer/dashboard/" element={<EmployerDashboard />} />
-          <Route path="employer/create-job/" element={<CreateJob />} />
-          <Route path="employer/profile" element={<EmployerProfile />} />
+          <Route path="/" element={<PrivateRoute element={<HomePage />} accessType='user' />} />
+          <Route path="jobs/" element={<PrivateRoute element={<Jobs />} accessType="user" />} />
+          <Route path="employer/dashboard/" element={<PrivateRoute element={<EmployerDashboard />} accessType="employer" />} />
+          <Route path="employer/create-job/" element={<PrivateRoute element={<CreateJob />} accessType="employer" />} />
+          <Route path="employer/profile" element={<PrivateRoute element={<EmployerProfile />} accessType="employer" />} />
           <Route path="profile/" element={<Profile />} />
-
-          <Route />
         </Routes>
       </Router>
     </>
-  )
-}
+  );
+};
 
 export default App;
