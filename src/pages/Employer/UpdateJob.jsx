@@ -15,7 +15,7 @@ import setUserDetails from '../../redux/Actions/UserAction'
 import { toggleLoading } from '../../redux/Actions/AuthAction'
 
 function UpdateJob() {
-    
+
     const { id } = useParams();
     const workType = ["Work type", "Permanent", "Contract", "Intern"];
     const jobType = ["Job type", "Work from office", "Work from home", "Hybrid"];
@@ -60,7 +60,8 @@ function UpdateJob() {
         }),
         onSubmit: async (values) => {
             try {
-                const response = await axios.put(`${baseUrl}/jobs/${id}`, values);
+                console.log("working");
+                const response = await axios.put(`${baseUrl}/jobs/${id}/`, values);
                 if (response.data) {
                     console.log(response.data);
                     navigate('/employer/jobs/');

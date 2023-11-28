@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import setJobDetails from '../../redux/Actions/JobActions';
 import { toggleLoading } from '../../redux/Actions/AuthAction';
+import PageHeader from '../../components/Employer/PageHeader';
 
 function EmployerJobs() {
     const [jobs, setJobs] = useState([]);
@@ -55,20 +56,16 @@ function EmployerJobs() {
             <div className="flex">
                 <Sidebar />
                 {/* main dashboard */}
-                <div className="h-screen bg-deep-orange-100 w-5/6">
+                <div className="h-screen w-5/6">
                     {/* Dashboard Heading */}
-                    <div className="text-center md:p-10 border-b border-black">
-                        <Typography variant="h1" className="text-3xl font-bold">
-                            JOBS
-                        </Typography>
-                    </div>
+                    <PageHeader header="JOBS" />
                     {/* Dashboard Heading */}
 
                     {/* Dashboard content */}
                     <div className="text-center p-28">
                         <div className="text-center">
                             {jobs.map((job) => (
-                                <Card key={job.id} className="mt-6 w-full">
+                                <Card key={job.id} className="mt-6 w-full bg-[#f8f8f8]">
                                     <CardBody className="">
                                         <div className="flex justify-between ps-10 pe-10">
                                             <div className="flex flex-col text-start">
