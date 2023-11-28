@@ -10,6 +10,8 @@ import Profile from './pages/Common/Profile';
 import HomePage from './pages/Candidate/HomePage';
 import Jobs from './pages/Candidate/Jobs';
 import PrivateRoute from './components/PrivateRoute';
+import EmployerJobs from './pages/Employer/EmployerJobs';
+import UpdateJob from './pages/Employer/UpdateJob';
 
 const App = () => {
 
@@ -23,6 +25,8 @@ const App = () => {
           <Route path="jobs/" element={<PrivateRoute element={<Jobs />} accessType="user" />} />
           <Route path="employer/dashboard/" element={<PrivateRoute element={<EmployerDashboard />} accessType="employer" />} />
           <Route path="employer/create-job/" element={<PrivateRoute element={<CreateJob />} accessType="employer" />} />
+          <Route path="employer/jobs/" element={<PrivateRoute element={<EmployerJobs />} accessType="employer" />} />
+          <Route path="employer/update-job/:id/" element={<PrivateRoute element={<UpdateJob />} accessType="employer" />} />
           <Route path="employer/profile" element={<PrivateRoute element={<EmployerProfile />} accessType="employer" />} />
           <Route path="profile/" element={<Profile />} />
         </Routes>

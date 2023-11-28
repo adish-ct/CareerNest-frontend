@@ -30,9 +30,9 @@ function Sidebar() {
                     </div>
                     {
                         jobToggle && (
-                            <div className="job-toggle-content">
+                            <div className="job-toggle-content flex flex-col">
                                 <Link to='/employer/create-job/'>Create Job</Link>
-                                <p>Vies Jobs</p>
+                                <Link to='/employer/jobs/'>View Job</Link>
                             </div>
                         )
                     }
