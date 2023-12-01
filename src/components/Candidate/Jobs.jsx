@@ -42,8 +42,7 @@ function Jobs() {
 
   return (
     <>
-      <div>Jobs</div>
-      {user && <div>{user.username}</div>}
+
     </>
   );
 }

@@ -12,6 +12,7 @@ import Jobs from './pages/Candidate/Jobs';
 import PrivateRoute from './components/PrivateRoute';
 import EmployerJobs from './pages/Employer/EmployerJobs';
 import UpdateJob from './pages/Employer/UpdateJob';
+import ViewJob from './pages/Employer/ViewJob';
 
 const App = () => {
 
@@ -27,6 +28,7 @@ const App = () => {
           <Route path="employer/create-job/" element={<PrivateRoute element={<CreateJob />} accessType="employer" />} />
           <Route path="employer/jobs/" element={<PrivateRoute element={<EmployerJobs />} accessType="employer" />} />
           <Route path="employer/update-job/:id/" element={<PrivateRoute element={<UpdateJob />} accessType="employer" />} />
+          <Route path="employer/view-job/:jobId/" element={<PrivateRoute element={<ViewJob />} accessType="employer" />} />
           <Route path="employer/profile" element={<PrivateRoute element={<EmployerProfile />} accessType="employer" />} />
           <Route path="profile/" element={<Profile />} />
         </Routes>

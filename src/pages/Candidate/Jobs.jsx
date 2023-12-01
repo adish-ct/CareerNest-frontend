@@ -33,7 +33,6 @@ const Jobs = () => {
         try {
             const response = await axios.get(`${baseUrl}/accounts/get-user/${job.employer}`)
             dispatch(employerAction(response.data))
-            console.log(response.data);
             return response.data
         } catch (error) {
             console.error("Error fetching employer:", error);
@@ -46,7 +45,6 @@ const Jobs = () => {
             await getJobs();
             dispatch(toggleLoading());
         };
-        console.log(employer);
 
         fetchData();
 
@@ -77,7 +75,7 @@ const Jobs = () => {
                     <button className="bg-[#e83e3e] text-white px-6 py-3 rounded-md">Get Started</button>
                 </div>
             </div>
-            <div className="bg-blue-gray-200 p-4 lg:p-8 xl:px-24 2xl:px-72">
+            <div className=" p-4 lg:p-8 xl:px-24 2xl:px-72">
                 <div className="flex flex-col justify-between md:flex-row ">
                     <div className="w-1/3  flex gap-2 p-2 md:flex-col">
                         {jobs.map((job, index) => (

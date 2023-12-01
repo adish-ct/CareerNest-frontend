@@ -3,6 +3,7 @@ import { Typography, Card, CardBody, Button } from '@material-tailwind/react';
 import Sidebar from '../../components/Employer/Sidebar';
 import DashboardSmallCard from '../../components/Employer/Dashboard/DashboardSmallCard';
 import { ToastContainer } from 'react-toastify';
+import PageHeader from '../../components/Employer/PageHeader';
 
 
 
@@ -16,14 +17,8 @@ function EmployerDashboard() {
             <div className="flex">
                 <Sidebar />
                 {/* main dashboard */}
-                <div className="h-screen bg-deep-orange-100 w-5/6">
-                    {/* Dashboard Heading */}
-                    <div className="text-center md:p-10 border-b border-black">
-                        <Typography variant="h1" className="text-3xl font-bold">
-                            DASHBOARD
-                        </Typography>
-                    </div>
-                    {/* Dashboard Heading */}
+                <div className="h-screen w-5/6">
+                    <PageHeader header='DASHBOARD' />
 
                     {/* Dashboard cards */}
                     <div className="flex flex-row justify-around">
@@ -38,8 +33,8 @@ function EmployerDashboard() {
                     {/* Dashboard content */}
                     <div className="text-center p-28">
                         <div className="flex justify-between">
-                            <h1>hello</h1>
-                            <h1>hello</h1>
+                            <h1></h1>
+                            <h1></h1>
                         </div>
                         <div className="text-center">
                             <Card className="mt-6 w-full">
@@ -62,9 +57,6 @@ function EmployerDashboard() {
                                             </Typography>
                                         </div>
                                     </div>
-
-
-
                                 </CardBody>
                             </Card>
                         </div>

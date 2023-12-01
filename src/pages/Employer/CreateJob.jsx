@@ -13,12 +13,12 @@ import { jwtDecode } from 'jwt-decode';
 import setUserDetails from '../../redux/Actions/UserAction'
 import { toggleLoading } from '../../redux/Actions/AuthAction'
 import { useNavigate } from 'react-router-dom';
+import PageHeader from '../../components/Employer/PageHeader';
+import { jobType, workType } from '../../components/HelperFile/Types';
 
 
 function CreateJob() {
 
-    const workType = ["Work type", "Permanent", "Contract", "Intern"];
-    const jobType = ["Job type", "Work from office", "Work from home", "Hybrid"];
     const dispatch = useDispatch()
     const navigate = useNavigate()
 
@@ -65,7 +65,6 @@ function CreateJob() {
 
                     navigate('/employer/dashboard')
                 }
-
             } catch (error) {
                 console.error("Error submitting form:", error);
             }
@@ -85,13 +84,10 @@ function CreateJob() {
                 handleInputChange("employer", decoded_token.user_id);
                 handleInputChange("organization", decoded_token.username);
             }
-
             dispatch(toggleLoading());
         };
-        fetchData(); // Call the async function
+        fetchData();
     }, []);
-
-
 
     return (
         <>
@@ -99,13 +95,8 @@ function CreateJob() {
                 <Sidebar />
                 {/* main dashboard */}
                 <div className="h-screen w-5/6">
-                    {/* Dashboard Heading */}
-                    <div className="text-center md:p-10 p-5 bg-[#eee] border-black">
-                        <Typography variant="h1" className="text-3xl font-bold">
-                            CREATE JOB
-                        </Typography>
-                    </div>
-                    {/* Dashboard Heading */}
+
+                    <PageHeader header="CREATE JOB" />
 
                     {/* Dashboard cards */}
                     <div className="text-start p-5 md:ps-20 ps-10 md:pt-10">

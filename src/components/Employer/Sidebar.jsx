@@ -19,39 +19,43 @@ function Sidebar() {
     };
 
     return (
-        <div className="h-screen text-center bg-black w-1/6">
+        <div className="text-center bg-black w-1/6">
             <div className="flex flex-col items-center gap-5">
                 <div className="text-start flex flex-col gap-7 text-white">
-                    <div className="flex flex-row gap-3">
+                    <Link className='flex flex-row gap-3 items-center' to='/employer/dashboard/'>
                         <MdDashboard /><h1>Dashboard</h1>
-                    </div>
-                    <div className="flex flex-row gap-3 cursor-pointer" onClick={() => setJobToggle(!jobToggle)}>
+                    </Link>
+
+                    <div className="flex flex-row gap-3 cursor-pointer items-center" onClick={() => setJobToggle(!jobToggle)}>
                         <FaSuitcase /><h1>Jobs</h1>
                     </div>
-                    {
-                        jobToggle && (
-                            <div className="job-toggle-content flex flex-col">
-                                <Link to='/employer/create-job/'>Create Job</Link>
-                                <Link to='/employer/jobs/'>View Job</Link>
-                            </div>
-                        )
-                    }
 
-                    <div className="flex flex-row gap-3">
+                    {jobToggle && (
+                        <div className="job-toggle-content flex flex-col gap-2">
+                            <Link to='/employer/create-job/'>Create Job</Link>
+                            <Link to='/employer/jobs/'>View Job</Link>
+                        </div>
+                    )}
+
+                    <div className="flex flex-row gap-3 items-center">
                         <FaUserFriends /><h1>Candidates</h1>
                     </div>
-                    <div className="flex flex-row gap-3">
+
+                    <div className="flex flex-row gap-3 items-center">
                         <FaRegCalendarTimes /><h1>Interviews</h1>
                     </div>
-                    <div className="flex flex-row gap-3">
+
+                    <div className="flex flex-row gap-3 items-center">
                         <IoSettings /><h1>Settings</h1>
                     </div>
+
                     <Link onClick={logoutHandler} className="text-base leading-5 mt-1 border-t border-b hover:text-red-500">
                         Logout
                     </Link>
                 </div>
             </div>
         </div>
+
     )
 }
 

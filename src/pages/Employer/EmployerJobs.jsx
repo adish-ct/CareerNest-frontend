@@ -17,10 +17,7 @@ function EmployerJobs() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
-    useEffect(() => {
-        fetchEmployerJobs();
-        dispatch(toggleLoading());
-    }, []);
+
 
     const fetchEmployerJobs = async () => {
         try {
@@ -37,20 +34,27 @@ function EmployerJobs() {
         }
     };
 
+    useEffect(() => {
+        fetchEmployerJobs();
+        dispatch(toggleLoading());
+    }, []);
+
     const handleViewClick = (jobId) => {
-        // Handle logic for viewing job details
-        console.log(`View clicked for job ID: ${jobId}`);
+        console.log('Clicked on job ID:', jobId);
+        navigate(`/employer/view-job/${jobId}`);
     };
 
     const handleUpdateClick = (jobId) => {
-        // Navigate to the update job page with the job ID as a parameter
         navigate(`/employer/update-job/${jobId}`);
     };
 
     if (loading) {
-        return <h1>loading</h1>;
+        return (
+            < div className="fixed top-0 right-0 h-screen w-screen z-50 flex justify-center items-center" >
+                <div className="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-gray-900"></div>
+            </div >
+        )
     }
-
     return (
         <>
             <div className="flex">

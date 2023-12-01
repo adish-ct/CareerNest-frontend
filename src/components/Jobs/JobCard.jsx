@@ -11,14 +11,13 @@ function JobCard({ job, onClick }) {
     const dispatch = useDispatch();
 
     const handleCardClick = async () => {
-        // Call the onClick function with the job as an argument
         onClick && onClick(job);
     };
 
 
 
     useEffect(() => {
-    }, []); // Adding employer as a dependency to re-run the effect when employer changes
+    }, []);
 
     return (
         <div className='w-full bg-white p-5 shadow-md rounded-lg' onClick={handleCardClick}>
