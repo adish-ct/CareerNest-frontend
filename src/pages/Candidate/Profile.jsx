@@ -1,8 +1,43 @@
 import { Card, CardBody, Typography } from '@material-tailwind/react'
 import Navbar from '../../components/Header/Accounts/Navbar'
-import React from 'react'
+import React, { useState } from 'react'
+
+
+const TabPanel = ({ id, children, isActive }) => (
+    <div className={`bg-[#fff] rounded-lg dark:bg-gray-800 border-none ${isActive ? 'block' : 'hidden'}`} id={id} role="tabpanel" aria-labelledby={`${id}-tab`}>
+        {children}
+    </div>
+);
+
+const TabButton = ({ id, label, isActive, onClick }) => (
+    <div className="">
+        <button
+            id={`${id}-tab`}
+            data-tabs-target={`#${id}`}
+            type="button"
+            role="tab"
+            aria-controls={id}
+            aria-selected={isActive}
+            className={`border-none inline-block p-3 ${isActive ? 'text-[#952828]' : 'hover:text-gray-600'} rounded-ss-lg hover:bg-gray-100 dark:bg-gray-800 dark:hover:bg-gray-700 dark:text-blue-500 dark:hover:text-gray-300`}
+            onClick={onClick}
+        >
+            {label}
+        </button>
+    </div>
+);
+
+
+
 
 function Profile() {
+
+    // profile component set as default
+    const [activeTab, setActiveTab] = useState('profile');
+
+    const handleTabClick = (tabId) => {
+        setActiveTab(tabId);
+    };
+
     return (
         <>
             <Navbar />
@@ -28,28 +63,168 @@ function Profile() {
                 <hr className='mt-10 mb-10' />
                 <div className="flex flex-row gap-2 w-full bg-[#787777]">
                     <div className="w-1/4">
-                        <Card className="shadow">
+                        <Card className="shadow rounded-l-none">
                             <CardBody>
                                 <Typography variant="h5" color="blue-gray" className="mb-2 text-center">
                                     Quick Link
                                 </Typography>
                                 <hr />
-                                <Typography>Profile</Typography>
+                                <div className="text-left ps-10">
+                                    <TabButton id="profile" label="Profile" isActive={activeTab === 'profile'} onClick={() => handleTabClick('profile')} />
+                                    <TabButton id="appliedJobs" label="Applied Jobs" isActive={activeTab === 'appliedJobs'} onClick={() => handleTabClick('appliedJobs')} />
+                                    <TabButton id="resume" label="Resume" isActive={activeTab === 'resume'} onClick={() => handleTabClick('resume')} />
+                                    <TabButton id="experience" label="Experience" isActive={activeTab === 'experience'} onClick={() => handleTabClick('experience')} />
+                                    <TabButton id="education" label="Education" isActive={activeTab === 'education'} onClick={() => handleTabClick('education')} />
+                                    <TabButton id="skills" label="Skills" isActive={activeTab === 'skills'} onClick={() => handleTabClick('skills')} />
+                                    <TabButton id="language" label="Language" isActive={activeTab === 'language'} onClick={() => handleTabClick('language')} />
+                                    <TabButton id="project" label="Projects" isActive={activeTab === 'project'} onClick={() => handleTabClick('project')} />
+                                    <TabButton id="socialMedia" label="Social Platforms" isActive={activeTab === 'socialMedia'} onClick={() => handleTabClick('socialMedia')} />
+                                    <TabButton id="networks" label="My Networks" isActive={activeTab === 'networks'} onClick={() => handleTabClick('networks')} />
+                                    <TabButton id="settings" label="Settings" isActive={activeTab === 'settings'} onClick={() => handleTabClick('settings')} />
+                                </div>
                             </CardBody>
 
                         </Card>
                     </div>
                     <div className="w-3/4">
-                        <Card className="shadow">
+                        <Card className="shadow rounded-r-none">
                             <CardBody>
-                                <Typography variant="h5" color="blue-gray" className="mb-2">
-                                    UI/UX Review Check
-                                </Typography>
-                                <Typography>
-                                    The place is close to Barceloneta Beach and bus stop just 2 min by
-                                    walk and near to &quot;Naviglio&quot; where you can enjoy the main
-                                    night life in Barcelona.
-                                </Typography>
+
+                                {/* Profile section */}
+                                <TabPanel id="profile" isActive={activeTab === 'profile'}>
+                                    <Typography variant="h5" color="blue-gray" className="mb-2">
+                                        Profile
+                                    </Typography>
+                                    <hr />
+                                    <div className="p-3">
+                                        <h1>hello</h1>
+                                    </div>
+                                </TabPanel>
+                                {/* Profile section end */}
+
+                                {/* Applied job section */}
+                                <TabPanel id="appliedJobs" isActive={activeTab === 'appliedJobs'}>
+                                    <Typography variant="h5" color="blue-gray" className="mb-2">
+                                        Applied Jobs
+                                    </Typography>
+                                    <hr />
+                                    <div className="p-3">
+                                        <h1>hello</h1>
+                                    </div>
+                                </TabPanel>
+                                {/* Applied job section end */}
+
+                                {/* Resume section */}
+                                <TabPanel id="resume" isActive={activeTab === 'resume'}>
+                                    <Typography variant="h5" color="blue-gray" className="mb-2">
+                                        Your Resume
+                                    </Typography>
+                                    <hr />
+
+                                    <div className="flex gap-3 flex-row p-3" >
+                                        <h1>hello</h1>
+                                    </div>
+                                </TabPanel>
+                                {/* Resume section end */}
+
+                                {/* Experience section */}
+                                <TabPanel id="experience" isActive={activeTab === 'experience'}>
+                                    <Typography variant="h5" color="blue-gray" className="mb-2">
+                                        Work Experience
+                                    </Typography>
+                                    <hr />
+
+                                    <div className="flex gap-3 flex-row p-3" >
+                                        <h1>hello</h1>
+                                    </div>
+                                </TabPanel>
+                                {/* Experience section end */}
+
+                                {/* Education section */}
+                                <TabPanel id="education" isActive={activeTab === 'education'}>
+                                    <Typography variant="h5" color="blue-gray" className="mb-2">
+                                        Work Experience
+                                    </Typography>
+                                    <hr />
+
+                                    <div className="flex gap-3 flex-row p-3" >
+                                        <h1>hello</h1>
+                                    </div>
+                                </TabPanel>
+                                {/* Education section end */}
+
+                                {/* Skills section end */}
+                                <TabPanel id="skills" isActive={activeTab === 'skills'}>
+                                    <Typography variant="h5" color="blue-gray" className="mb-2">
+                                        Your Skills
+                                    </Typography>
+                                    <hr />
+                                    <div className="flex gap-3 flex-row p-3" >
+                                        <h1>hello</h1>
+                                    </div>
+                                </TabPanel>
+                                {/* Skills section end */}
+
+                                {/* Language section end */}
+                                <TabPanel id="language" isActive={activeTab === 'language'}>
+                                    <Typography variant="h5" color="blue-gray" className="mb-2">
+                                        Languages
+                                    </Typography>
+                                    <hr />
+                                    <div className="flex gap-3 flex-row p-3" >
+                                        <h1>hello</h1>
+                                    </div>
+                                </TabPanel>
+                                {/* Language section end */}
+
+                                {/* Project section end */}
+                                <TabPanel id="project" isActive={activeTab === 'project'}>
+                                    <Typography variant="h5" color="blue-gray" className="mb-2">
+                                        Projects
+                                    </Typography>
+                                    <hr />
+                                    <div className="flex gap-3 flex-row p-3" >
+                                        <h1>hello</h1>
+                                    </div>
+                                </TabPanel>
+                                {/* Project section end */}
+
+                                {/* Social Media section end */}
+                                <TabPanel id="socialMedia" isActive={activeTab === 'socialMedia'}>
+                                    <Typography variant="h5" color="blue-gray" className="mb-2">
+                                        Socail Platforms
+                                    </Typography>
+                                    <hr />
+                                    <div className="flex gap-3 flex-row p-3" >
+                                        <h1>hello</h1>
+                                    </div>
+                                </TabPanel>
+                                {/* Social Media section end */}
+
+                                {/* Network section end */}
+                                <TabPanel id="networks" isActive={activeTab === 'networks'}>
+                                    <Typography variant="h5" color="blue-gray" className="mb-2">
+                                        My Networks
+                                    </Typography>
+                                    <hr />
+                                    <div className="flex gap-3 flex-row p-3" >
+                                        <h1>hello</h1>
+                                    </div>
+                                </TabPanel>
+                                {/* Network section end */}
+
+                                {/* Settings section end */}
+                                <TabPanel id="settings" isActive={activeTab === 'settings'}>
+                                    <Typography variant="h5" color="blue-gray" className="mb-2">
+                                        My Networks
+                                    </Typography>
+                                    <hr />
+                                    <div className="flex gap-3 flex-row p-3" >
+                                        <h1>hello</h1>
+                                    </div>
+                                </TabPanel>
+                                {/* Settings section end */}
+
                             </CardBody>
                         </Card>
                     </div>
