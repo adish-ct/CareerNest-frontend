@@ -25,7 +25,6 @@ function Jobs() {
 
     if (token) {
       const decode_token = jwtDecode(token);
-      console.log(decode_token);
       dispatch(setUserDetails(decode_token));
     }
     dispatch(toggleLoading())
@@ -43,8 +42,7 @@ function Jobs() {
 
   return (
     <>
-      <div>Jobs</div>
-      {user && <div>{user.username}</div>}
+
     </>
   );
 }
