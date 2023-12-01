@@ -8,7 +8,7 @@ import setUserDetails from '../../../redux/Actions/UserAction'
 import { jwtDecode } from "jwt-decode";
 import ClipLoader from 'react-spinners/ClipLoader';
 import { toggleLoading } from '../../../redux/Actions/AuthAction'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, NavLink, useNavigate } from 'react-router-dom'
 
 
 
@@ -33,11 +33,11 @@ function Navbar() {
 
   useEffect(() => {
     const token = localStorage.getItem("jwtToken")
-    console.log(user);
     if (token) {
       const decoded_token = jwtDecode(token)
       dispatch(setUserDetails(decoded_token))
     }
+
     dispatch(toggleLoading())
   }, [])
 
@@ -71,6 +71,15 @@ function Navbar() {
     }, 0)
   };
 
+  if (loading) {
+    // You can render a loading spinner or any other loading indicator
+    return (
+      < div className="fixed top-0 right-0 h-screen w-screen z-50 flex justify-center items-center" >
+        <div className="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-gray-900"></div>
+      </div >
+    )
+  }
+
   return (
     <div>
       <FirstHeader />
@@ -90,20 +99,17 @@ function Navbar() {
             className={`${isMobileMenuOpen ? "flex animate-waveMotion" : "hidden"
               } absolute top-0 left-0  flex flex-col items-center justify-between w-full h-64 pt-5 mt-24 text-sm text-gray-800 bg-white border-t border-gray-200 md:w-auto md:flex-row md:h-24 lg:text-base md:bg-transparent md:mt-0 md:border-none md:py-0 md:flex md:relative transition-all duration-300`}
           >
-            <a
-              href="#"
-              className="group relative ml-0 mr-0 font-bold md:ml-2 md:mr-2 lg:mr-4 sm:mr-4 transition-color hover:text-red-600 transition-transform duration-300 hover:translate-x-1"
-            >
-              <span className="">Home</span>
+
+            <NavLink to='/' activeclassname="active-link" className="group relative ml-0 mr-0 font-bold md:ml-2 md:mr-2 lg:mr-4 sm:mr-4 transition-color hover:text-red-600 transition-transform duration-300 hover:translate-x-1">
+              Home
               <span className="absolute bottom-0 left-0 w-full h-0.5 bg-red-500 transform origin-bottom scale-x-0 transition-transform duration-300 group-hover:scale-x-100"></span>
-            </a>
-            <a
-              href="#"
-              className="group relative ml-0 mr-0 font-bold md:ml-2 md:mr-2 lg:mr-4 sm:mr-4 transition-color hover:text-red-600 transition-transform duration-300 hover:translate-x-1"
-            >
+            </NavLink>
+
+            <NavLink to='/jobs/' activeclassname="active-link" className="group relative ml-0 mr-0 font-bold md:ml-2 md:mr-2 lg:mr-4 sm:mr-4 transition-color hover:text-red-600 transition-transform duration-300 hover:translate-x-1">
               Jobs
               <span className="absolute bottom-0 left-0 w-full h-0.5 bg-red-500 transform origin-bottom scale-x-0 transition-transform duration-300 group-hover:scale-x-100"></span>
-            </a>
+            </NavLink>
+
             <a
               href="#"
               className="group relative ml-0 mr-0 font-bold md:ml-2 md:mr-2 lg:mr-4 sm:mr-4 transition-color hover:text-red-600 transition-transform duration-300 hover:translate-x-1"

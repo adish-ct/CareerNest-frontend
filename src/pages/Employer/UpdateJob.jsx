@@ -1,34 +1,35 @@
-import React, { useEffect } from 'react';
-import Sidebar from '../../components/Employer/Sidebar';
-import { Button, Card, Typography } from '@material-tailwind/react';
-import { useSelector, useDispatch } from 'react-redux'
-import { Input } from "@material-tailwind/react";
-import "./Css/CreateJob.css";
-import { locations } from '../../components/HelperFile/Locations';
-import { useFormik } from 'formik';
-import * as Yup from 'yup';
+// UpdateJob.jsx
+// UpdateJob.jsx
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { useNavigate, useParams } from 'react-router-dom';
 import { baseUrl } from '../../api/Api';
+import { useFormik } from 'formik';
+import { useDispatch, useSelector } from 'react-redux';
+import * as Yup from 'yup';
+import Sidebar from '../../components/Employer/Sidebar';
+import { Button, Card, Input, Typography } from '@material-tailwind/react';
+import { locations } from '../../components/HelperFile/Locations';
 import { jwtDecode } from 'jwt-decode';
 import setUserDetails from '../../redux/Actions/UserAction'
 import { toggleLoading } from '../../redux/Actions/AuthAction'
-import { useNavigate } from 'react-router-dom';
 import PageHeader from '../../components/Employer/PageHeader';
 import { jobType, workType } from '../../components/HelperFile/Types';
 
+function UpdateJob() {
 
-function CreateJob() {
+    const { id } = useParams();
 
-    const dispatch = useDispatch()
-    const navigate = useNavigate()
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     const user = useSelector((state) => {
-        return state.user
-    })
+        return state.user;
+    });
 
     const loading = useSelector((state) => {
-        return state.loading
-    })
+        return state.loading;
+    });
 
     const formik = useFormik({
         initialValues: {
@@ -60,13 +61,13 @@ function CreateJob() {
         }),
         onSubmit: async (values) => {
             try {
-                const response = await axios.post(`${baseUrl}/jobs/`, values)
+                console.log("working");
+                const response = await axios.put(`${baseUrl}/jobs/${id}/`, values);
                 if (response.data) {
-
-                    navigate('/employer/dashboard')
+                    navigate('/employer/jobs/');
                 }
             } catch (error) {
-                console.error("Error submitting form:", error);
+                console.error("Error updating job:", error);
             }
         }
     });
@@ -84,27 +85,38 @@ function CreateJob() {
                 handleInputChange("employer", decoded_token.user_id);
                 handleInputChange("organization", decoded_token.username);
             }
+
+            const existingJobData = await axios.get(`${baseUrl}/jobs/${id}/`);
+            formik.setValues(existingJobData.data);
+
             dispatch(toggleLoading());
         };
         fetchData();
-    }, []);
+    }, [id]);
+
+
+    if (loading) {
+        return (
+            < div className="fixed top-0 right-0 h-screen w-screen z-50 flex justify-center items-center" >
+                <div className="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-gray-900"></div>
+            </div >
+        )
+    }
 
     return (
         <>
             <div className="flex">
                 <Sidebar />
+
                 {/* main dashboard */}
-                <div className="h-screen w-5/6">
+                <div className=" w-5/6">
+                    <PageHeader header="UPDATE JOB" />
 
-                    <PageHeader header="CREATE JOB" />
-
-                    {/* Dashboard cards */}
                     <div className="text-start p-5 md:ps-20 ps-10 md:pt-10">
                         <Typography variant="h1" className="text-3xl font-bold">
                             Provide the job details
                         </Typography>
                     </div>
-                    {/* Dashboard cards */}
 
                     {/* Dashboard content */}
                     <div className="text-center p-10 md:pe-20 md:ps-20 rounded-3xl">
@@ -135,13 +147,7 @@ function CreateJob() {
                                                 )}
                                             </div>
                                             <div className='flex flex-col text-left'>
-                                                <select
-                                                    id="job_location"
-                                                    name='job_location'
-                                                    color="lightBlue"
-                                                    size="lg"
-                                                    placeholder="Select a location"
-                                                    value={formik.values.job_location}
+                                                <select id="job_location" name='job_location' color="lightBlue" size="lg" placeholder="Select a location" value={formik.values.job_location}
                                                     onChange={(e) => handleInputChange("job_location", e.target.value)}
                                                     className={
                                                         formik.errors.job_location && formik.touched.job_location
@@ -166,11 +172,7 @@ function CreateJob() {
                                         {/* Job CTC, Required Experience, and Work Type */}
                                         <div className="flex flex-col md:flex-row gap-5 w-full">
                                             <div className="w-full md:w-1/4">
-                                                <Input
-                                                    label="Job CTC"
-                                                    type='number'
-                                                    name='job_ctc'
-                                                    value={formik.values.job_ctc}
+                                                <Input label="Job CTC" type='number' name='job_ctc' value={formik.values.job_ctc}
                                                     onChange={(e) => handleInputChange("job_ctc", e.target.value)}
                                                     className={
                                                         formik.errors.job_ctc && formik.touched.job_ctc
@@ -188,10 +190,7 @@ function CreateJob() {
                                             </div>
                                             <div className="w-full md:w-1/4 text-left">
                                                 <Input
-                                                    label="Required Experience"
-                                                    type='number'
-                                                    name='experience'
-                                                    value={formik.values.experience}
+                                                    label="Required Experience" type='number' name='experience' value={formik.values.experience}
                                                     onChange={(e) => handleInputChange("experience", e.target.value)}
                                                     className={
                                                         formik.errors.experience && formik.touched.experience
@@ -209,14 +208,7 @@ function CreateJob() {
 
                                             </div>
                                             <div className="flex flex-col md:w-1/4 w-full text-left">
-                                                <select
-                                                    // className='border w-4/5'
-                                                    id="work_type"
-                                                    color="lightBlue"
-                                                    size="lg"
-                                                    type="text"
-                                                    placeholder="Select a work type"
-                                                    value={formik.values.work_type}
+                                                <select id="work_type" color="lightBlue" size="lg" type="text" placeholder="Select a work type" value={formik.values.work_type}
                                                     onChange={(e) => handleInputChange("work_type", e.target.value)}
                                                     className={
                                                         formik.errors.work_type && formik.touched.work_type
@@ -244,13 +236,7 @@ function CreateJob() {
                                         {/* Job Type, Total Vacancy, and Department */}
                                         <div className="flex flex-col md:flex-row gap-5 w-full">
                                             <div className="flex flex-col md:w-1/4 w-full text-left">
-                                                <select
-                                                    id="job_type"
-                                                    color="lightBlue"
-                                                    size="lg"
-                                                    type="text"
-                                                    placeholder="Select a location"
-                                                    value={formik.values.job_type}
+                                                <select id="job_type" color="lightBlue" size="lg" type="text" placeholder="Select a location" value={formik.values.job_type}
                                                     onChange={(e) => handleInputChange("job_type", e.target.value)}
                                                     className={
                                                         formik.errors.job_type && formik.touched.job_type
@@ -274,11 +260,7 @@ function CreateJob() {
                                             </div>
                                             <div className="w-full md:w-1/4">
                                                 <div className="flex flex-col">
-                                                    <Input
-                                                        label="Total Vacancy"
-                                                        type='number'
-                                                        name='vaccancy'
-                                                        value={formik.values.vaccancy}
+                                                    <Input label="Total Vacancy" type='number' name='vaccancy' value={formik.values.vaccancy}
                                                         onChange={(e) => handleInputChange("vaccancy", e.target.value)}
                                                         className={
                                                             formik.errors.vaccancy && formik.touched.vaccancy
@@ -297,11 +279,7 @@ function CreateJob() {
                                             </div>
                                             <div className="w-full md:w-1/4">
                                                 <div className="flex flex-col text-left">
-                                                    <Input
-                                                        label="Department"
-                                                        type='text'
-                                                        name='department'
-                                                        value={formik.values.department}
+                                                    <Input label="Department" type='text' name='department' value={formik.values.department}
                                                         onChange={(e) => handleInputChange("department", e.target.value)}
                                                         className={
                                                             formik.errors.department && formik.touched.department
@@ -323,20 +301,12 @@ function CreateJob() {
                                         {/* Required Skills and Qualifications */}
                                         <div className="flex flex-col md:flex-row gap-3 w-full">
                                             <div className="w-full md:w-2/4">
-                                                <Input
-                                                    label="Required Skills"
-                                                    type='text'
-                                                    name='skills'
-                                                    value={formik.values.skills}
+                                                <Input label="Required Skills" type='text' name='skills' value={formik.values.skills}
                                                     onChange={(e) => handleInputChange("skills", e.target.value)}
                                                 />
                                             </div>
                                             <div className="w-full md:w-2/4">
-                                                <Input
-                                                    label="Qualifications"
-                                                    type='text'
-                                                    name='qualifications'
-                                                    value={formik.values.qualifications}
+                                                <Input label="Qualifications" type='text' name='qualifications' value={formik.values.qualifications}
                                                     onChange={(e) => handleInputChange("qualifications", e.target.value)}
                                                 />
                                             </div>
@@ -345,23 +315,14 @@ function CreateJob() {
                                         {/* Job Description and Highlight */}
                                         <div className="w-full text-left">
                                             <label htmlFor="highlight">Highlight</label>
-                                            <textarea
-                                                name='highlight'
-                                                type="text"
-                                                className='w-full border box-border'
-                                                rows="3"
-                                                value={formik.values.highlight}
+                                            <textarea name='highlight' type="text" className='w-full border box-border' rows="3" value={formik.values.highlight}
                                                 onChange={(e) => handleInputChange("highlight", e.target.value)}
                                                 placeholder="Enter your text here"
                                             ></textarea>
                                         </div>
                                         <div className="w-full text-left">
                                             <label htmlFor="description">Job Description</label>
-                                            <textarea
-                                                name='description'
-                                                rows="3"
-                                                type="text"
-                                                value={formik.values.description}
+                                            <textarea name='description' rows="6" type="text" value={formik.values.description}
                                                 onChange={(e) => handleInputChange("description", e.target.value)}
                                                 placeholder="Enter your text here"
                                                 className={
@@ -380,7 +341,7 @@ function CreateJob() {
                                         </div>
 
                                         {/* Create Job Button */}
-                                        <Button type='submit' className='w-full md:w-1/2 mx-auto'>Create Job</Button>
+                                        <Button type='submit' className='w-full md:w-1/2 mx-auto'>Update Job</Button>
 
                                     </div>
                                 </Card>
@@ -395,4 +356,7 @@ function CreateJob() {
     );
 }
 
-export default CreateJob;
+export default UpdateJob;
+
+
+
