@@ -210,9 +210,9 @@ function Navbar() {
                         {isIconClicked && (
                           <div className="animate-wave absolute left-[-3.4rem] w-32 mr-1 py-2 border border-gray-200 divide-y divide-gray-100 rounded-xl shadow-lg outline-none z-0">
                             <div className="px-4 py-3 flex flex-col gap-1">
-                              <p className="text-base leading-6 hover:text-red-500">
+                              <Link to='/profile' className="text-base leading-6 hover:text-red-500">
                                 Profile
-                              </p>
+                              </Link>
                               <p className="text-base leading-5 mt-1 hover:text-red-500">
                                 Settings
                               </p>
