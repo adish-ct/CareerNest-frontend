@@ -48,7 +48,7 @@ function Profile() {
                 <div className="flex flex-col gap-8">
                     <div className="flex gap-8 items-end mt-[-30px] lg:mt-[-50px]">
                         <div className="rounded-xl shadow">
-                            <img className=' rounded-3xl h-36 w-36 md:h-40 md:w-40 xl:w-44 xl:h-44 2xl:h-48 2xl:w-48' src="https://png.pngtree.com/png-vector/20190710/ourlarge/pngtree-user-vector-avatar-png-image_1541962.jpg" alt="profile pic" />
+                            <img className=' rounded-3xl h-32 w-32 md:h-36 md:w-36 xl:w-40 xl:h-40 2xl:h-44 2xl:w-44' src="https://png.pngtree.com/png-vector/20190710/ourlarge/pngtree-user-vector-avatar-png-image_1541962.jpg" alt="profile pic" />
                         </div>
                         <div className="flex flex-col">
                             <h1>username</h1>
