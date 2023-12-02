@@ -1,10 +1,55 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { LiaUserEditSolid } from "react-icons/lia";
+import getLocal from '../../../helper/Auth';
+import { jwtDecode } from 'jwt-decode';
+import { useDispatch, useSelector } from 'react-redux';
+import { toggleLoading } from '../../../redux/Actions/AuthAction'
+import ProfileAction from '../../../redux/Actions/ProfileAction'
+import { baseUrl } from '../../../api/Api';
+import axios from 'axios'
 
 
 function ProfileViewCard() {
+
+    const user = useSelector((state) => state.user)
+    const loading = useSelector((state) => state.loading)
+    const dispatch = useDispatch()
+
+
+
+    const fetchProfile = async () => {
+        try {
+            const token = getLocal()
+            if (token) {
+                const decoded_token = jwtDecode(token)
+                const response = await axios.get(`${baseUrl}/profile`, {
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    }
+                })
+                console.log(response.data);
+
+            }
+        } catch (error) {
+            console.error("Error fetching profile:", error);
+        }
+    }
+
+    useEffect(() => {
+        fetchProfile()
+        dispatch(toggleLoading())
+    }, [])
+
+    if (loading) {
+        return (
+            <div className="fixed top-0 right-0 h-screen w-screen z-50 flex justify-center items-center">
+                <div className="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-gray-900"></div>
+            </div>
+        );
+    }
+
     return (
-        <section class=" py-1 bg-blueGray-50">
+        <section className=" py-1 bg-blueGray-50">
             <div className="relative flex flex-col min-w-0 break-words w-full rounded-lg bg-blueGray-100 border-0">
                 <div className="rounded-t bg-white mb-0 px-6 py-6">
                     <div className="text-center flex justify-between">
@@ -22,7 +67,7 @@ function ProfileViewCard() {
                                 <div className="relative w-full mb-3">
                                     <label
                                         className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
-                                        htmlfor="grid-password"
+                                        htmlFor="grid-password"
                                     >
                                         Designation
                                     </label>
@@ -37,7 +82,7 @@ function ProfileViewCard() {
                                 <div className="relative w-full mb-3">
                                     <label
                                         className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
-                                        htmlfor="grid-password"
+                                        htmlFor="grid-password"
                                     >
                                         Date of birth
                                     </label>
@@ -52,7 +97,7 @@ function ProfileViewCard() {
                                 <div className="relative w-full mb-3">
                                     <label
                                         className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
-                                        htmlfor="grid-password"
+                                        htmlFor="grid-password"
                                     >
                                         Username
                                     </label>
@@ -67,7 +112,7 @@ function ProfileViewCard() {
                                 <div className="relative w-full mb-3">
                                     <label
                                         className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
-                                        htmlfor="grid-password"
+                                        htmlFor="grid-password"
                                     >
                                         Phone
                                     </label>
@@ -82,7 +127,7 @@ function ProfileViewCard() {
                                 <div className="relative w-full mb-3">
                                     <label
                                         className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
-                                        htmlfor="grid-password"
+                                        htmlFor="grid-password"
                                     >
                                         First Name
                                     </label>
@@ -97,7 +142,7 @@ function ProfileViewCard() {
                                 <div className="relative w-full mb-3">
                                     <label
                                         className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
-                                        htmlfor="grid-password"
+                                        htmlFor="grid-password"
                                     >
                                         Last Name
                                     </label>
@@ -119,7 +164,7 @@ function ProfileViewCard() {
                                 <div className="relative w-full mb-3">
                                     <label
                                         className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
-                                        htmlfor="grid-password"
+                                        htmlFor="grid-password"
                                     >
                                         Address
                                     </label>
@@ -134,7 +179,7 @@ function ProfileViewCard() {
                                 <div className="relative w-full mb-3">
                                     <label
                                         className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
-                                        htmlfor="grid-password"
+                                        htmlFor="grid-password"
                                     >
                                         City
                                     </label>
@@ -149,7 +194,7 @@ function ProfileViewCard() {
                                 <div className="relative w-full mb-3">
                                     <label
                                         className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
-                                        htmlfor="grid-password"
+                                        htmlFor="grid-password"
                                     >
                                         State
                                     </label>
@@ -164,7 +209,7 @@ function ProfileViewCard() {
                                 <div className="relative w-full mb-3">
                                     <label
                                         className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
-                                        htmlfor="grid-password"
+                                        htmlFor="grid-password"
                                     >
                                         Postal Code
                                     </label>
@@ -185,7 +230,7 @@ function ProfileViewCard() {
                                 <div className="relative w-full mb-3">
                                     <label
                                         className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
-                                        htmlfor="grid-password"
+                                        htmlFor="grid-password"
                                     >
                                         About me
                                     </label>
