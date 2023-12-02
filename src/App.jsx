@@ -14,6 +14,11 @@ import EmployerJobs from './pages/Employer/EmployerJobs';
 import UpdateJob from './pages/Employer/UpdateJob';
 import ViewJob from './pages/Employer/ViewJob';
 import Profile from './pages/Candidate/Profile';
+import AdminLogin from './components/Register/AdminLogin';
+import DashboardPage from './pages/Admin/DashboardPage';
+import EmployeerManagementPage from './pages/Admin/EmployeerManagementPage';
+import CandidateManagementPage from './pages/Admin/CandidateManagementPage';
+import BannerManagementPage from './pages/Admin/BannerManagementPage';
 
 const App = () => {
 
@@ -26,13 +31,19 @@ const App = () => {
           <Route path="/" element={<PrivateRoute element={<HomePage />} accessType='user' />} />
           <Route path="jobs/" element={<PrivateRoute element={<Jobs />} accessType="user" />} />
           <Route path="profile/" element={<PrivateRoute element={<Profile />} accessType="user" />} />
+
           <Route path="employer/dashboard/" element={<PrivateRoute element={<EmployerDashboard />} accessType="employer" />} />
           <Route path="employer/create-job/" element={<PrivateRoute element={<CreateJob />} accessType="employer" />} />
           <Route path="employer/jobs/" element={<PrivateRoute element={<EmployerJobs />} accessType="employer" />} />
           <Route path="employer/update-job/:id/" element={<PrivateRoute element={<UpdateJob />} accessType="employer" />} />
           <Route path="employer/view-job/:jobId/" element={<PrivateRoute element={<ViewJob />} accessType="employer" />} />
           <Route path="employer/profile" element={<PrivateRoute element={<EmployerProfile />} accessType="employer" />} />
-          {/* <Route path="profile/" element={<Profile />} /> */}
+
+          <Route path="super-admin/login" element={<AdminLogin />} />
+          <Route path="super-admin/dashboard" element={<DashboardPage />} />
+          <Route path="super-admin/employermanagement" element={<EmployeerManagementPage />} />
+          <Route path="super-admin/candidatemanagement" element={<CandidateManagementPage />} />
+          <Route path="super-admin/bannermanagement" element={<BannerManagementPage />} />
         </Routes>
       </Router>
     </>
