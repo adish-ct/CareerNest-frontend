@@ -1,0 +1,9 @@
+
+
+.hover-scrollbar {
+  overflow-x: hidden;
+}
+
+.hover-scrollbar:hover {
+  overflow-x: auto;
+}

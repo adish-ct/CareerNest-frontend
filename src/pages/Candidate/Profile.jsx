@@ -1,6 +1,9 @@
 import { Card, CardBody, Typography } from '@material-tailwind/react'
 import Navbar from '../../components/Header/Accounts/Navbar'
 import React, { useState } from 'react'
+import ProfileViewCard from '../../components/Candidate/Profile/ProfileViewCard';
+import "../Candidate/Css/Profile.css"
+import ExperienceCard from '../../components/Candidate/Profile/ExperienceCard';
 
 
 const TabPanel = ({ id, children, isActive }) => (
@@ -61,15 +64,15 @@ function Profile() {
                     </div>
                 </div>
                 <hr className='mt-10 mb-10' />
-                <div className="flex flex-row gap-2 w-full bg-[#787777]">
-                    <div className="w-1/4">
+                <div className="flex flex-col md:flex-row gap-2 w-full">
+                    <div className="w-full md:w-1/4">
                         <Card className="shadow rounded-l-none">
                             <CardBody>
                                 <Typography variant="h5" color="blue-gray" className="mb-2 text-center">
                                     Quick Link
                                 </Typography>
                                 <hr />
-                                <div className="text-left ps-10">
+                                <div className="text-left p-s-1 flex md:flex-col flex-row p-s-1 md:ps-10 overflow-hidden hover-scrollbar">
                                     <TabButton id="profile" label="Profile" isActive={activeTab === 'profile'} onClick={() => handleTabClick('profile')} />
                                     <TabButton id="appliedJobs" label="Applied Jobs" isActive={activeTab === 'appliedJobs'} onClick={() => handleTabClick('appliedJobs')} />
                                     <TabButton id="resume" label="Resume" isActive={activeTab === 'resume'} onClick={() => handleTabClick('resume')} />
@@ -83,21 +86,16 @@ function Profile() {
                                     <TabButton id="settings" label="Settings" isActive={activeTab === 'settings'} onClick={() => handleTabClick('settings')} />
                                 </div>
                             </CardBody>
-
                         </Card>
                     </div>
-                    <div className="w-3/4">
+                    <div className="w-full md:w-3/4 p-2 rounded-xl bg-[#f7f7f7]">
                         <Card className="shadow rounded-r-none">
                             <CardBody>
 
                                 {/* Profile section */}
                                 <TabPanel id="profile" isActive={activeTab === 'profile'}>
-                                    <Typography variant="h5" color="blue-gray" className="mb-2">
-                                        Profile
-                                    </Typography>
-                                    <hr />
-                                    <div className="p-3">
-                                        <h1>hello</h1>
+                                    <div className=''>
+                                        <ProfileViewCard />
                                     </div>
                                 </TabPanel>
                                 {/* Profile section end */}
@@ -134,8 +132,11 @@ function Profile() {
                                     </Typography>
                                     <hr />
 
-                                    <div className="flex gap-3 flex-row p-3" >
-                                        <h1>hello</h1>
+                                    <div className="flex flex-col gap-3 p-3" >
+                                        <ExperienceCard />
+                                    </div>
+                                    <div className="text-end">
+                                        <h1>add exerience</h1>
                                     </div>
                                 </TabPanel>
                                 {/* Experience section end */}
