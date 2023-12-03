@@ -32,7 +32,6 @@ function ProfileBasicInformationForm({ userDetails }) {
                 toast.success('Form submitted successfully!');
                 setUserToggle(!userToggle)
             }
-
         }
     });
 
@@ -47,7 +46,6 @@ function ProfileBasicInformationForm({ userDetails }) {
                     <h6 className="text-blueGray-400 text-sm font-bold uppercase items-center">
                         User Information
                     </h6>
-                    <Button type='submit'>Update</Button>
                     <LiaUserEditSolid
                         className='text-2xl text-[#5456d8] cursor-pointer hover:text-[#f16565]'
                         onClick={() => setUserToggle(!userToggle)}
@@ -68,6 +66,7 @@ function ProfileBasicInformationForm({ userDetails }) {
                                 value={formik.values.username}
                                 onChange={formik.handleChange} // Use formik's handleChange
                                 onBlur={formik.handleBlur} // Use formik's handleBlur
+                                readOnly={!userToggle}
                                 className={
                                     formik.errors.username && formik.touched.username
                                         ? 'form-control shadow appearance-none border rounded w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline border-red-500'
@@ -92,6 +91,7 @@ function ProfileBasicInformationForm({ userDetails }) {
                                 name='phone'
                                 value={formik.values.phone}
                                 onChange={formik.handleChange}
+                                readOnly={!userToggle}
                                 className={
                                     formik.errors.phone && formik.touched.phone
                                         ? 'form-control shadow appearance-none border rounded w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline border-red-500'
@@ -116,6 +116,7 @@ function ProfileBasicInformationForm({ userDetails }) {
                                 name='first_name'
                                 value={formik.values.first_name}
                                 onChange={formik.handleChange}
+                                readOnly={!userToggle}
                                 className={
                                     formik.errors.first_name && formik.touched.first_name
                                         ? 'form-control shadow appearance-none border rounded w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline border-red-500'
@@ -138,12 +139,16 @@ function ProfileBasicInformationForm({ userDetails }) {
                             <input
                                 type="text"
                                 name='last_name'
-                                className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                                 value={formik.values.last_name}
                                 onChange={formik.handleChange}
+                                readOnly={!userToggle}
+                                className="form-control shadow appearance-none border rounded w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                             />
                         </div>
                     </div>
+                </div>
+                <div className="text-right">
+                    {userToggle && <Button type='submit' className='border bg-transparent text-red-400'>Update</Button>}
                 </div>
             </form>
         </>
