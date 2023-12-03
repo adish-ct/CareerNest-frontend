@@ -16,44 +16,48 @@ function ProfileViewCard() {
     const profile = useSelector((state) => state.profile)
     const loading = useSelector((state) => state.loading)
     const dispatch = useDispatch()
-
     const [userDetails, setUserDetails] = useState(null)
 
     const fetchProfile = async () => {
         try {
-            const token = getLocal()
+            const token = getLocal();
             if (token) {
-                const decoded_token = jwtDecode(token)
+                const decodedToken = jwtDecode(token);
                 const response = await axios.get(`${baseUrl}/profile`, {
                     headers: {
-                        Authorization: `Bearer ${token}`
-                    }
-                })
-                dispatch(profileAction(response.data[0]))
+                        Authorization: `Bearer ${token}`,
+                    },
+                });
+                dispatch(profileAction(response.data[0]));
             }
         } catch (error) {
-            console.error("Error fetching profile:", error);
+            console.error('Error fetching profile:', error);
         }
-    }
+    };
 
     const fetchUser = async () => {
         try {
-            const token = getLocal()
-            const decoded_token = jwtDecode(token)
+            const token = getLocal();
+            const decodedToken = jwtDecode(token);
             if (token) {
-                const response = await axios.get(`${baseUrl}/accounts/get-user/${decoded_token.user_id}`)
-                setUserDetails(response.data)
+                const response = await axios.get(`${baseUrl}/accounts/get-user/${decodedToken.user_id}`);
+                setUserDetails(response.data);
             }
         } catch (error) {
             console.log(error);
         }
-    }
+    };
 
     useEffect(() => {
-        fetchProfile()
-        fetchUser()
-        dispatch(toggleLoading())
-    }, [])
+        const fetchData = async () => {
+            dispatch(toggleLoading());
+            await Promise.all([fetchProfile(), fetchUser()]);
+            dispatch(toggleLoading());
+        };
+
+        fetchData();
+    }, [dispatch]);
+
 
     if (loading) {
         return (
@@ -64,7 +68,7 @@ function ProfileViewCard() {
     }
 
     if (!profile) {
-        return null; // or render a loading state or a message
+        return null;
     }
 
     return (
@@ -73,11 +77,10 @@ function ProfileViewCard() {
                 <div className="rounded-t bg-white mb-0 px-6 py-6">
                     <div className="text-center flex justify-between">
                         <h6 className="text-blueGray-700 text-xl font-bold">My account</h6>
-                        <LiaUserEditSolid className='text-2xl text-[#5456d8]' />
                     </div>
                 </div>
                 <div className="flex-auto px-4 lg:px-10 py-10 pt-0">
-                    <ProfileBasicInformationForm userDetails={userDetails} />
+                    {userDetails && <ProfileBasicInformationForm userDetails={userDetails} />}
                     <form>
                         <hr className="mt-6 border-b-1 border-blueGray-300" />
                         <h6 className="text-blueGray-400 text-sm mt-3 mb-6 font-bold uppercase">

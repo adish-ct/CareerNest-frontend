@@ -8,7 +8,6 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { Card, CardHeader, CardBody, CardFooter, Typography, Input, Checkbox } from "@material-tailwind/react";
 import { jwtDecode } from "jwt-decode";
-
 import Navbar from "../../components/Header/Accounts/Navbar";
 import { baseUrl } from '../../api/Api';
 import { toggleAuthentication, toggleLoading } from '../../redux/Actions/AuthAction';
