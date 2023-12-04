@@ -5,7 +5,6 @@ import ProfileDetailsCard from './ProfileDetailsCard';
 
 function ProfileViewCard({ userDetails }) {
 
-
     return (
         <section className=" py-1 bg-blueGray-50">
             <div className="relative flex flex-col min-w-0 break-words w-full rounded-lg bg-blueGray-100 border-0">
@@ -17,8 +16,6 @@ function ProfileViewCard({ userDetails }) {
                 <div className="flex-auto px-4 lg:px-10 py-10 pt-0">
                     {userDetails && <ProfileBasicInformationForm userDetails={userDetails} />}
                     {<ProfileDetailsCard />}
-                    
-
                 </div>
             </div>
         </section>
