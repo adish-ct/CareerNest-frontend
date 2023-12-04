@@ -19,22 +19,7 @@ function ProfileViewCard() {
     const dispatch = useDispatch()
     const [userDetails, setUserDetails] = useState(null)
 
-    const fetchProfile = async () => {
-        try {
-            const token = getLocal();
-            if (token) {
-                const decodedToken = jwtDecode(token);
-                const response = await axios.get(`${baseUrl}/profile`, {
-                    headers: {
-                        Authorization: `Bearer ${token}`,
-                    },
-                });
-                dispatch(profileAction(response.data[0]));
-            }
-        } catch (error) {
-            console.error('Error fetching profile:', error);
-        }
-    };
+
 
     const fetchUser = async () => {
         try {
@@ -51,8 +36,7 @@ function ProfileViewCard() {
 
     useEffect(() => {
         const fetchData = async () => {
-            dispatch(toggleLoading());
-            await Promise.all([fetchProfile(), fetchUser()]);
+            await Promise.all([fetchUser()]);
             dispatch(toggleLoading());
         };
 
@@ -60,7 +44,7 @@ function ProfileViewCard() {
     }, [dispatch]);
 
 
-    if (loading || !profile) {
+    if (loading) {
         return (
             <div className="fixed top-0 right-0 h-screen w-screen z-50 flex justify-center items-center">
                 <div className="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-gray-900"></div>
@@ -78,7 +62,7 @@ function ProfileViewCard() {
                 </div>
                 <div className="flex-auto px-4 lg:px-10 py-10 pt-0">
                     {userDetails && <ProfileBasicInformationForm userDetails={userDetails} />}
-                    {profile && <ProfileDetailsCard />}
+                    {<ProfileDetailsCard />}
 
                 </div>
             </div>
