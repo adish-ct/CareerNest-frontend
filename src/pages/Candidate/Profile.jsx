@@ -1,9 +1,16 @@
 import { Card, CardBody, Typography } from '@material-tailwind/react'
 import Navbar from '../../components/Header/Accounts/Navbar'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import ProfileViewCard from '../../components/Candidate/Profile/ProfileViewCard';
 import "../Candidate/Css/Profile.css"
 import ExperienceCard from '../../components/Candidate/Profile/ExperienceCard';
+import { baseUrl } from '../../api/Api';
+import { jwtDecode } from 'jwt-decode';
+import profileAction from '../../redux/Actions/ProfileAction';
+import getLocal from '../../helper/Auth';
+import { useDispatch, useSelector } from 'react-redux';
+import axios from 'axios';
+import { toggleLoading } from '../../redux/Actions/AuthAction';
 
 
 const TabPanel = ({ id, children, isActive }) => (
@@ -36,6 +43,62 @@ function Profile() {
 
     // profile component set as default
     const [activeTab, setActiveTab] = useState('profile');
+
+    const user = useSelector((state) => state.user)
+    const profile = useSelector((state) => state.profile)
+    const loading = useSelector((state) => state.loading)
+    const dispatch = useDispatch()
+    const [userDetails, setUserDetails] = useState(null)
+
+    const fetchUser = async () => {
+        try {
+            const token = getLocal();
+            const decodedToken = jwtDecode(token);
+            if (token) {
+                const response = await axios.get(`${baseUrl}/accounts/get-user/${decodedToken.user_id}`);
+                setUserDetails(response.data);
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
+    const fetchProfile = async () => {
+        try {
+            const token = getLocal();
+            if (token) {
+                const decodedToken = jwtDecode(token);
+                const response = await axios.get(`${baseUrl}/profile`, {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                });
+                dispatch(profileAction(response.data[0]));
+            }
+        } catch (error) {
+            console.error('Error fetching profile:', error);
+        }
+    };
+
+
+    useEffect(() => {
+        const fetchData = async () => {
+            await Promise.all([fetchUser(), fetchProfile()]);
+            dispatch(toggleLoading());
+        };
+
+        fetchData();
+    }, [dispatch]);
+
+
+    if (loading || !profile) {
+        return (
+            // <div className="fixed top-0 right-0 h-screen w-screen z-50 flex justify-center items-center">
+            //     <div className="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-gray-900"></div>
+            // </div>
+            null
+        );
+    }
 
     const handleTabClick = (tabId) => {
         setActiveTab(tabId);
@@ -95,7 +158,7 @@ function Profile() {
                                 {/* Profile section */}
                                 <TabPanel id="profile" isActive={activeTab === 'profile'}>
                                     <div className=''>
-                                        <ProfileViewCard />
+                                        <ProfileViewCard userDetails={userDetails} />
                                     </div>
                                 </TabPanel>
                                 {/* Profile section end */}

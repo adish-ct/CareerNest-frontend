@@ -1,85 +1,69 @@
 import React, { useEffect, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import getLocal from '../../../helper/Auth'
-import { toggleLoading } from '../../../redux/Actions/AuthAction'
-import profileAction from '../../../redux/Actions/ProfileAction'
-import axios from 'axios'
-import { jwtDecode } from 'jwt-decode'
-import { baseUrl } from '../../../api/Api'
-import { useFormik, useFormikContext } from 'formik'
+import { useSelector } from 'react-redux'
+import { useFormik } from 'formik'
 import * as Yup from 'yup';
 import { FiEdit } from "react-icons/fi";
 import { Button } from '@material-tailwind/react'
+import axios from 'axios';
+import { baseUrl } from '../../../api/Api';
+import getLocal from '../../../helper/Auth';
+import { ToastContainer, toast } from 'react-toastify';
+
 
 function ProfileDetailsCard() {
 
     const user = useSelector((state) => state.user)
     const profile = useSelector((state) => state.profile)
-    const loading = useSelector((state) => state.loading)
     const [profileToggle, setProfileToggle] = useState(false)
-    const dispatch = useDispatch()
 
     const formik = useFormik({
         initialValues: {
             about: profile?.about || '',
-            phone: profile?.phone || '',
-            address: profile?.address || '',
+            mobile: profile?.mobile || '',
+            address: profile?.address,
             place: profile?.place || '',
             city: profile?.city || '',
             state: profile?.state || '',
+            additional_email: profile.additional_email || '',
             zip_code: profile?.zip_code || '',
             candidate_designation: profile?.candidate_designation || '',
             candidate_date_of_birth: profile?.candidate_date_of_birth || '',
-            candidate_expecting_salary: profile?.candidate_expecting_salary || ''
+            candidate_expecting_salary: profile?.candidate_expecting_salary || '',
         },
         validationSchema: Yup.object({
-            phone: Yup.string().matches(/^[0-9]{10}$/, 'Invalid phone number'),
-            place: Yup.string().matches(/^[a-zA-Z]+$/, 'place should only contain alphabets'),
-            zip_code: Yup.number().typeError('must be integers').min(100000, 'must be 6 digits').max(999999, 'must be 6 digits'),
-            candidate_designation: Yup.string().matches(/^[a-zA-Z]+$/, 'designation only contain alphabets'),
-            candidate_expecting_salary: Yup.number().min(0, 'minimum 0 required')
+            about: Yup.string().required("* required field"),
+            mobile: Yup.string().matches(/^[0-9]{10}$/, 'Invalid phone number'),
+            address: Yup.string().required("* required field"),
+            place: Yup.string().matches(/^[a-zA-Z]+$/, 'place should only contain alphabets').required("* required field"),
+            city: Yup.string().required("* required field"),
+            state: Yup.string().required("* required field"),
+            additional_email: Yup.string().email('Invalid email address'),
+            zip_code: Yup.number().typeError('must be integers').min(100000, 'must be 6 digits').max(999999, 'must be 6 digits').required("* required field"),
+            candidate_designation: Yup.string().matches(/^[a-zA-Z]+$/, 'designation only contain alphabets').required("* required field"),
+            candidate_expecting_salary: Yup.number().min(0, 'minimum 0 required').required("* required field"),
+            candidate_date_of_birth: Yup.date().required("* required field")
         }),
         onSubmit: async (values) => {
-            console.log("working");
+            try {
+                if (profile) {
+                    const token = getLocal()
+                    const response = await axios.put(`${baseUrl}/profile/${profile.id}/`, values, {
+                        headers: {
+                            Authorization: `Bearer ${token}`, // Add a space after "Bearer" mandatory
+                        }
+                    });
+                    toast.success("profie updated")
+                }
+            } catch (error) {
+                console.log(error);
+                toast.error("something wrong")
+            }
         }
     })
 
-    const fetchProfile = async () => {
-        try {
-            const token = getLocal();
-            if (token) {
-                const decodedToken = jwtDecode(token);
-                const response = await axios.get(`${baseUrl}/profile`, {
-                    headers: {
-                        Authorization: `Bearer ${token}`,
-                    },
-                });
-                dispatch(profileAction(response.data[0]));
-            }
-        } catch (error) {
-            console.error('Error fetching profile:', error);
-        }
-    };
-
-    useEffect(() => {
-        const fetchData = async () => {
-            await Promise.all([fetchProfile()]);
-            dispatch(toggleLoading());
-        };
-
-        fetchData();
-    }, [dispatch]);
-
-    if (loading || !profile) {
-        return (
-            <div className="fixed top-0 right-0 h-screen w-screen z-50 flex justify-center items-center">
-                <div className="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-gray-900"></div>
-            </div>
-        );
-    }
-
     return (
         <>
+            <ToastContainer />
             <form onSubmit={formik.handleSubmit}>
                 <hr className="mt-6 border-b-1 border-blueGray-300" />
                 <div className="flex justify-between items-center">
@@ -102,9 +86,19 @@ function ProfileDetailsCard() {
                             </label>
                             <input
                                 type="text"
-                                className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                                value={profile?.address}
+                                name="address"
+                                value={formik.values.address}
+                                onChange={formik.handleChange}
+                                readOnly={!profileToggle}
+                                className={
+                                    formik.errors.address && formik.touched.address
+                                        ? 'form-control shadow appearance-none border rounded w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline border-red-500'
+                                        : 'form-control shadow appearance-none border rounded w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
+                                }
                             />
+                            {formik.errors.address && formik.touched.address && (
+                                <small className='text-red-500 text-xs- italic'> {formik.errors.address} </small>
+                            )}
                         </div>
                     </div>
                     <div className="w-full lg:w-4/12 px-4">
@@ -116,10 +110,20 @@ function ProfileDetailsCard() {
                                 place
                             </label>
                             <input
-                                type="email"
-                                className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                                defaultValue="New York"
+                                type="text"
+                                name='place'
+                                value={formik.values.place}
+                                onChange={formik.handleChange}
+                                readOnly={!profileToggle}
+                                className={
+                                    formik.errors.place && formik.touched.place
+                                        ? 'form-control shadow appearance-none border rounded w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline border-red-500'
+                                        : 'form-control shadow appearance-none border rounded w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
+                                }
                             />
+                            {formik.errors.place && formik.touched.place && (
+                                <small className='text-red-500 text-xs- italic'> {formik.errors.place} </small>
+                            )}
                         </div>
                     </div>
                     <div className="w-full lg:w-4/12 px-4">
@@ -132,9 +136,19 @@ function ProfileDetailsCard() {
                             </label>
                             <input
                                 type="text"
-                                className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                                defaultValue=""
+                                name='city'
+                                value={formik.values.city}
+                                onChange={formik.handleChange}
+                                readOnly={!profileToggle}
+                                className={
+                                    formik.errors.city && formik.touched.city
+                                        ? 'form-control shadow appearance-none border rounded w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline border-red-500'
+                                        : 'form-control shadow appearance-none border rounded w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
+                                }
                             />
+                            {formik.errors.city && formik.touched.city && (
+                                <small className='text-red-500 text-xs- italic'> {formik.errors.city} </small>
+                            )}
                         </div>
                     </div>
                     <div className="w-full lg:w-4/12 px-4">
@@ -147,9 +161,19 @@ function ProfileDetailsCard() {
                             </label>
                             <input
                                 type="text"
-                                className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                                defaultValue="Postal Code"
+                                name='state'
+                                value={formik.values.state}
+                                onChange={formik.handleChange}
+                                readOnly={!profileToggle}
+                                className={
+                                    formik.errors.state && formik.touched.state
+                                        ? 'form-control shadow appearance-none border rounded w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline border-red-500'
+                                        : 'form-control shadow appearance-none border rounded w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
+                                }
                             />
+                            {formik.errors.state && formik.touched.state && (
+                                <small className='text-red-500 text-xs- italic'> {formik.errors.state} </small>
+                            )}
                         </div>
                     </div>
                     <div className="w-full lg:w-4/12 px-4">
@@ -162,9 +186,19 @@ function ProfileDetailsCard() {
                             </label>
                             <input
                                 type="text"
-                                className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                                defaultValue="New York"
+                                name='mobile'
+                                value={formik.values.mobile}
+                                onChange={formik.handleChange}
+                                readOnly={!profileToggle}
+                                className={
+                                    formik.errors.mobile && formik.touched.mobile
+                                        ? 'form-control shadow appearance-none border rounded w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline border-red-500'
+                                        : 'form-control shadow appearance-none border rounded w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
+                                }
                             />
+                            {formik.errors.mobile && formik.touched.mobile && (
+                                <small className='text-red-500 text-xs- italic'> {formik.errors.mobile} </small>
+                            )}
                         </div>
                     </div>
                     <div className="w-full lg:w-4/12 px-4">
@@ -176,10 +210,20 @@ function ProfileDetailsCard() {
                                 email
                             </label>
                             <input
-                                type="email"
-                                className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                                defaultValue=""
+                                type="text"
+                                name='additional_email'
+                                value={formik.values.additional_email}
+                                onChange={formik.handleChange}
+                                readOnly={!profileToggle}
+                                className={
+                                    formik.errors.additional_email && formik.touched.additional_email
+                                        ? 'form-control shadow appearance-none border rounded w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline border-red-500'
+                                        : 'form-control shadow appearance-none border rounded w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
+                                }
                             />
+                            {formik.errors.additional_email && formik.touched.additional_email && (
+                                <small className='text-red-500 text-xs- italic'> {formik.errors.additional_email} </small>
+                            )}
                         </div>
                     </div>
                     <div className="w-full lg:w-4/12 px-4">
@@ -192,9 +236,18 @@ function ProfileDetailsCard() {
                             </label>
                             <input
                                 type="text"
-                                className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                                defaultValue="Postal Code"
+                                name='zip_code'
+                                value={formik.values.zip_code}
+                                onChange={formik.handleChange}
+                                className={
+                                    formik.errors.zip_code && formik.touched.zip_code
+                                        ? 'form-control shadow appearance-none border rounded w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline border-red-500'
+                                        : 'form-control shadow appearance-none border rounded w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
+                                }
                             />
+                            {formik.errors.zip_code && formik.touched.zip_code && (
+                                <small className='text-red-500 text-xs- italic'> {formik.errors.zip_code} </small>
+                            )}
                         </div>
                     </div>
                 </div>
@@ -215,9 +268,19 @@ function ProfileDetailsCard() {
                             </label>
                             <input
                                 type="text"
-                                className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                                defaultValue="lucky.jesse"
+                                name='candidate_designation'
+                                value={formik.values.candidate_designation}
+                                onChange={formik.handleChange}
+                                readOnly={!profileToggle}
+                                className={
+                                    formik.errors.candidate_designation && formik.touched.candidate_designation
+                                        ? 'form-control shadow appearance-none border rounded w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline border-red-500'
+                                        : 'form-control shadow appearance-none border rounded w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
+                                }
                             />
+                            {formik.errors.candidate_designation && formik.touched.candidate_designation && (
+                                <small className='text-red-500 text-xs- italic'> {formik.errors.candidate_designation} </small>
+                            )}
                         </div>
                     </div>
                     <div className="w-full lg:w-6/12 px-4">
@@ -229,10 +292,20 @@ function ProfileDetailsCard() {
                                 Expecting Salary
                             </label>
                             <input
-                                type="text"
-                                className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                                defaultValue="lucky.jesse"
+                                type="number"
+                                name='candidate_expecting_salary'
+                                value={formik.values.candidate_expecting_salary}
+                                onChange={formik.handleChange}
+                                readOnly={!profileToggle}
+                                className={
+                                    formik.errors.candidate_expecting_salary && formik.touched.candidate_expecting_salary
+                                        ? 'form-control shadow appearance-none border rounded w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline border-red-500'
+                                        : 'form-control shadow appearance-none border rounded w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
+                                }
                             />
+                            {formik.errors.candidate_expecting_salary && formik.touched.candidate_expecting_salary && (
+                                <small className='text-red-500 text-xs- italic'> {formik.errors.candidate_expecting_salary} </small>
+                            )}
                         </div>
                     </div>
                     <div className="w-full lg:w-6/12 px-4">
@@ -245,9 +318,19 @@ function ProfileDetailsCard() {
                             </label>
                             <input
                                 type="date"
-                                className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                                defaultValue="9876543210"
+                                name="candidate_date_of_birth"
+                                value={formik.values.candidate_date_of_birth}
+                                onChange={formik.handleChange}
+                                readOnly={!profileToggle}
+                                className={
+                                    formik.errors.candidate_date_of_birth && formik.touched.candidate_date_of_birth
+                                        ? 'form-control shadow appearance-none border rounded w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline border-red-500'
+                                        : 'form-control shadow appearance-none border rounded w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
+                                }
                             />
+                            {formik.errors.candidate_date_of_birth && formik.touched.candidate_date_of_birth && (
+                                <small className='text-red-500 text-xs- italic'> {formik.errors.candidate_date_of_birth} </small>
+                            )}
                         </div>
                     </div>
                 </div>
@@ -268,12 +351,20 @@ function ProfileDetailsCard() {
                             </label>
                             <textarea
                                 type="text"
-                                className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                                name='about'
+                                value={formik.values.about}
+                                onChange={formik.handleChange}
+                                readOnly={!profileToggle}
                                 rows={4}
-                                defaultValue={
-                                    " A beautiful UI Kit and Admin for JavaScript & Tailwind CSS. It is Freeand Open Source."
+                                className={
+                                    formik.errors.about && formik.touched.about
+                                        ? 'form-control shadow appearance-none border rounded w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline border-red-500'
+                                        : 'form-control shadow appearance-none border rounded w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
                                 }
                             />
+                            {formik.errors.about && formik.touched.about && (
+                                <small className='text-red-500 text-xs- italic'> {formik.errors.about} </small>
+                            )}
                         </div>
                     </div>
                 </div>
