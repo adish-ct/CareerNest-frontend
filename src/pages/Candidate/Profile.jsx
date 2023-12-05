@@ -3,7 +3,6 @@ import Navbar from '../../components/Header/Accounts/Navbar'
 import React, { useEffect, useState } from 'react'
 import ProfileViewCard from '../../components/Candidate/Profile/ProfileViewCard';
 import "../Candidate/Css/Profile.css"
-import ExperienceCard from '../../components/Candidate/Profile/ExperienceCard';
 import { baseUrl } from '../../api/Api';
 import { jwtDecode } from 'jwt-decode';
 import profileAction from '../../redux/Actions/ProfileAction';
@@ -11,6 +10,7 @@ import getLocal from '../../helper/Auth';
 import { useDispatch, useSelector } from 'react-redux';
 import axios from 'axios';
 import { toggleLoading } from '../../redux/Actions/AuthAction';
+import ExperienceCard from '../../components/Candidate/Profile/Experience/ExperienceCard';
 
 
 const TabPanel = ({ id, children, isActive }) => (
