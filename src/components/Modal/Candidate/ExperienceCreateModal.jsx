@@ -10,10 +10,12 @@ import * as Yup from 'yup';
 import { ToastContainer, toast } from 'react-toastify';
 import axios from 'axios';
 import { baseUrl } from '../../../api/Api';
+import getLocal from '../../../helper/Auth';
 
 
 function ExperienceDialog({ open, handleOpen }) {
 
+    const token = getLocal()
     const user = useSelector((state) => state.user)
 
     const formik = useFormik({
@@ -46,12 +48,16 @@ function ExperienceDialog({ open, handleOpen }) {
         }),
         onSubmit: async (values) => {
             try {
-                if (user && values) {
+                if (user && values && token) {
                     const formValues = {
                         ...values,
                         user: user?.user_id,
                     };
-                    // const response = await axios.post(`${baseUrl}/`)
+                    const response = await axios.post(`${baseUrl}/experience/`, formValues, {
+                        headers: {
+                            Authorization: `Bearer ${token}`
+                        }
+                    })
                     handleOpen();
                     toast.success("Experience added")
                 }
