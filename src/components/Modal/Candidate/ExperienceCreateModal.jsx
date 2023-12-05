@@ -36,7 +36,7 @@ function ExperienceDialog({ open, handleOpen }) {
             documents: null,
         },
         validationSchema: Yup.object({
-            job_role: Yup.string().matches(/^[a-zA-Z\s]+$/, 'job role should only contain alphabets').required("* required field"),
+            job_role: Yup.string().required("* required field"),
             organization: Yup.string().matches(/^[a-zA-Z\s]+$/, 'organization should only contain alphabets').required("* required field"),
             job_type: Yup.string().required("* required field"),
             location: Yup.string().matches(/^[a-zA-Z\s]+$/, 'location should only contain alphabets'),
@@ -62,8 +62,18 @@ function ExperienceDialog({ open, handleOpen }) {
                     toast.success("Experience added")
                 }
             } catch (error) {
-                console.log(error);
-                toast.error("something went wrong")
+                if (error.response && error.response.data) {
+                    // Extract validation errors from the error response
+                    const validationErrors = error.response.data;
+
+                    // Display validation errors on the front-end
+                    Object.keys(validationErrors).forEach(field => {
+                        toast.error(`${field} ${validationErrors[field].join(", ")}`);
+                    });
+                } else {
+                    console.log(error);
+                    toast.error("Something went wrong");
+                }
             }
         }
     })
@@ -73,6 +83,8 @@ function ExperienceDialog({ open, handleOpen }) {
         <>
             <ToastContainer />
             <Dialog open={open} handler={handleOpen}>
+                <ToastContainer />
+
                 {/* form should be inside the Dialog block */}
                 <form onSubmit={formik.handleSubmit}>
                     <DialogHeader>Add Experience</DialogHeader>
