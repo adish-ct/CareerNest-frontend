@@ -12,7 +12,7 @@ function ExperienceCard() {
     return (
         <>
             <div className="flex flex-col gap-2">
-                <div className="flex justify-between items-center  mb-5">
+                <div className="flex justify-between items-center  mb-2">
                     <div className="flex gap-4 items-center">
                         <FaRegStar className='text-[#000]' />
                         <Typography variant="h5" color="blue-gray" className="">

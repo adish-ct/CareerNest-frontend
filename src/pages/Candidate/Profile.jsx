@@ -11,6 +11,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import axios from 'axios';
 import { toggleLoading } from '../../redux/Actions/AuthAction';
 import ExperienceCard from '../../components/Candidate/Profile/Experience/ExperienceCard';
+import ExperienceCreateModal from '../../components/Modal/Candidate/ExperienceCreateModal';
+import { FiPlus } from "react-icons/fi";
 
 
 const TabPanel = ({ id, children, isActive }) => (
@@ -49,6 +51,9 @@ function Profile() {
     const loading = useSelector((state) => state.loading)
     const dispatch = useDispatch()
     const [userDetails, setUserDetails] = useState(null)
+    const [open, setOpen] = useState(false)
+
+    const handleOpen = () => setOpen(!open);
 
     const fetchUser = async () => {
         try {
@@ -198,9 +203,12 @@ function Profile() {
                                     <div className="flex flex-col gap-3 p-3" >
                                         <ExperienceCard />
                                     </div>
-                                    <div className="text-end">
-                                        <h1>add exerience</h1>
+                                    <div onClick={handleOpen} className="flex justify-end items-center gap-1 text-blue-900 hover:text-red-400 cursor-pointer">
+                                        <FiPlus />
+                                        <h1>add</h1>
                                     </div>
+                                    <ExperienceCreateModal open={open} handleOpen={handleOpen} />
+
                                 </TabPanel>
                                 {/* Experience section end */}
 
@@ -294,7 +302,6 @@ function Profile() {
                     </div>
                 </div>
             </div>
-
         </>
     )
 }
