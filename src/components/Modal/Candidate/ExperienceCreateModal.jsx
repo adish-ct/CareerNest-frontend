@@ -68,7 +68,13 @@ function ExperienceDialog({ open, handleOpen }) {
 
                     // Display validation errors on the front-end
                     Object.keys(validationErrors).forEach(field => {
-                        toast.error(`${field} ${validationErrors[field].join(", ")}`);
+                        if (field && field !== 'non_field_errors') {
+                            toast.error(`${field} ${validationErrors[field].join(", ")}`);
+                        } else {
+                            toast.error(`${validationErrors[field].join(", ")}`);
+
+                        }
+
                     });
                 } else {
                     console.log(error);
