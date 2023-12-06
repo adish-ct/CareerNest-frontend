@@ -253,6 +253,7 @@ function ExperienceDialog({ open, handleOpen }) {
                                 name="end_date"  // Added name attribute
                                 onChange={formik.handleChange}
                                 onBlur={formik.handleBlur}
+                                disabled={formik.values.currently_working}
                             />
                             {/* end date */}
 
@@ -261,7 +262,12 @@ function ExperienceDialog({ open, handleOpen }) {
                                 <label htmlFor="checkbox">Currently working here </label>
                                 <input
                                     name='currently_working'
-                                    onChange={formik.handleChange}
+                                    onChange={e => {
+                                        formik.handleChange(e);
+                                        if (e.target.checked) {
+                                            formik.setFieldValue('end_date', null)
+                                        }
+                                    }}
                                     onBlur={formik.handleBlur}
                                     type="checkbox"
                                     className='w-5 h-5 text-green-500'
