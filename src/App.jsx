@@ -2,7 +2,6 @@
 import React from 'react';
 import Login from './pages/Login/Login';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import EmployerDashboard from './pages/Employer/EmployerDashboard';
 import CreateJob from './pages/Employer/CreateJob';
 import SignupPage from './pages/Register/SignupPage';
 import EmployerProfile from './pages/Employer/EmployerProfile';
@@ -19,6 +18,7 @@ import DashboardPage from './pages/Admin/DashboardPage';
 import EmployeerManagementPage from './pages/Admin/EmployeerManagementPage';
 import CandidateManagementPage from './pages/Admin/CandidateManagementPage';
 import BannerManagementPage from './pages/Admin/BannerManagementPage';
+import EmployerDashboardPage from './pages/Employer/EmployerDashboardPage';
 
 const App = () => {
 
@@ -32,7 +32,7 @@ const App = () => {
           <Route path="jobs/" element={<PrivateRoute element={<Jobs />} accessType="user" />} />
           <Route path="profile/" element={<PrivateRoute element={<Profile />} accessType="user" />} />
 
-          <Route path="employer/dashboard/" element={<PrivateRoute element={<EmployerDashboard />} accessType="employer" />} />
+          <Route path="employer/dashboard/" element={<PrivateRoute element={<EmployerDashboardPage />} accessType="employer" />} />
           <Route path="employer/create-job/" element={<PrivateRoute element={<CreateJob />} accessType="employer" />} />
           <Route path="employer/jobs/" element={<PrivateRoute element={<EmployerJobs />} accessType="employer" />} />
           <Route path="employer/update-job/:id/" element={<PrivateRoute element={<UpdateJob />} accessType="employer" />} />

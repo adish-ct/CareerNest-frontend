@@ -17,10 +17,6 @@ function ExperienceEditModal({ open, handleOpen }) {
         handleOpen();
     }
 
-    useEffect(() => {
-        console.log("Selected Experience Updated:", selectedExperience);
-        // ... rest of the useEffect
-    }, [selectedExperience]);
 
     const formik = useFormik({
         initialValues: {
@@ -56,12 +52,16 @@ function ExperienceEditModal({ open, handleOpen }) {
         }
     })
 
+    if (!selectedExperience) {
+        return null
+    }
+
     return (
         <>
             <ToastContainer />
             <Dialog open={open} handler={handleOpen}>
                 <ToastContainer />
-                <form action="" onSubmit={formik.handleChange} encType='multipart/form-data'>
+                <form action="" onSubmit={formik.handleSubmit} encType='multipart/form-data'>
                     <DialogHeader>Edit Experience</DialogHeader>
                     <DialogBody>
                         <div className="grid grid-cols-2 gap-4">
@@ -95,6 +95,7 @@ function ExperienceEditModal({ open, handleOpen }) {
                                     name="organization"  // Added name attribute
                                     onChange={formik.handleChange}
                                     onBlur={formik.handleBlur}
+                                    value={formik.values.organization}
                                     className={
                                         formik.errors.organization && formik.touched.organization
                                             ? 'form-control shadow appearance-none border rounded w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline border-red-500'
@@ -114,6 +115,7 @@ function ExperienceEditModal({ open, handleOpen }) {
                                     name="job_type"
                                     onChange={formik.handleChange}
                                     onBlur={formik.handleBlur}
+                                    value={formik.values.job_type}
                                     className={
                                         formik.errors.job_type && formik.touched.job_type
                                             ? 'form-control shadow appearance-none border rounded w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline border-red-500'
@@ -140,6 +142,7 @@ function ExperienceEditModal({ open, handleOpen }) {
                                     name="location"  // Added name attribute
                                     onChange={formik.handleChange}
                                     onBlur={formik.handleBlur}
+                                    value={formik.values.location}
                                     className={
                                         formik.errors.location && formik.touched.location
                                             ? 'form-control shadow appearance-none border rounded w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline border-red-500'
@@ -159,6 +162,7 @@ function ExperienceEditModal({ open, handleOpen }) {
                                     name="work_type"  // Added name attribute
                                     onChange={formik.handleChange}
                                     onBlur={formik.handleBlur}
+                                    value={formik.values.work_type}
                                     className={
                                         formik.errors.work_type && formik.touched.work_type
                                             ? 'form-control shadow appearance-none border rounded w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline border-red-500'
@@ -184,6 +188,7 @@ function ExperienceEditModal({ open, handleOpen }) {
                                     name="state"  // Added name attribute
                                     onChange={formik.handleChange}
                                     onBlur={formik.handleBlur}
+                                    value={formik.values.state}
                                     className={
                                         formik.errors.state && formik.touched.state
                                             ? 'form-control shadow appearance-none border rounded w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline border-red-500'
@@ -204,6 +209,7 @@ function ExperienceEditModal({ open, handleOpen }) {
                                     name="start_date"  // Added name attribute
                                     onChange={formik.handleChange}
                                     onBlur={formik.handleBlur}
+                                    value={formik.values.start_date}
                                     className={
                                         formik.errors.start_date && formik.touched.start_date
                                             ? 'form-control shadow appearance-none border rounded w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline border-red-500'
@@ -223,6 +229,7 @@ function ExperienceEditModal({ open, handleOpen }) {
                                 name="end_date"  // Added name attribute
                                 onChange={formik.handleChange}
                                 onBlur={formik.handleBlur}
+                                value={formik.values.end_date}
                                 disabled={formik.values.currently_working}
                             />
                             {/* end date */}
@@ -242,6 +249,7 @@ function ExperienceEditModal({ open, handleOpen }) {
                                     type="checkbox"
                                     className='w-5 h-5 text-green-500'
                                     style={{ color: 'blue' }}
+                                    checked={formik.values.currently_working}
                                 />
                             </div>
                             {/* check box */}
@@ -265,6 +273,7 @@ function ExperienceEditModal({ open, handleOpen }) {
                                     rows={4}
                                     onChange={formik.handleChange}
                                     onBlur={formik.handleBlur}
+                                    value={formik.values.description}
                                     className={
                                         formik.errors.description && formik.touched.description
                                             ? 'form-control shadow appearance-none border rounded w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline border-red-500'
@@ -285,6 +294,7 @@ function ExperienceEditModal({ open, handleOpen }) {
                                     rows={2}
                                     onChange={formik.handleChange}
                                     onBlur={formik.handleBlur}
+                                    value={formik.values.skills}
                                     className={
                                         formik.errors.skills && formik.touched.skills
                                             ? 'form-control shadow appearance-none border rounded w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline border-red-500'
@@ -321,7 +331,7 @@ function ExperienceEditModal({ open, handleOpen }) {
                         >
                             <span>Cancel</span>
                         </Button>
-                        <Button variant="gradient" color="green" onClick={handleOpen}>
+                        <Button variant="gradient" color="green" type='submit'>
                             <span>Confirm</span>
                         </Button>
                     </DialogFooter>

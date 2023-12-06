@@ -45,12 +45,14 @@ function ExperienceCard() {
         }
     }, [])
 
-    const handleEditClick = (experience) => {
+    const handleEditClick = async (experience) => {
         try {
             if (experience) {
-                dispatch(experienceDetailsAction(experience))
+                console.log(experience);
+                console.log("working");
+                await dispatch(experienceDetailsAction(experience))
+                handleOpen();
             }
-            handleOpen();
         } catch (error) {
             console.log(error);
         }
