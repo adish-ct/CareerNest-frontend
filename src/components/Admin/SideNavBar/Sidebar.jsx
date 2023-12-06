@@ -73,7 +73,7 @@ function Sidebar() {
             </div>
             <h2
               style={{ transitionDelay: `${i + 3}00ms` }}
-              className={`whitespace-pre duration-500 text-2xl font-medium ${!open && "opacity-0 -translate-x-1 overflow-hidden"
+              className={`whitespace-pre duration-500 text-xl font-medium ${!open && "opacity-0 -translate-x-1 overflow-hidden"
                 } ${activeLink === menu.link
                   ? "bg-indigo-500 text-white"
                   : "hover:bg-indigo-500 hover:text-white"

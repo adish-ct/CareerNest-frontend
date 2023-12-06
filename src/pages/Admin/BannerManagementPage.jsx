@@ -5,11 +5,13 @@ import BannerManagement from "../../components/Admin/MainComponents/BannerManage
 
 function BannerManagementPage() {
   return (
-    <div>
+    <div className="flex flex-col h-screen">
       <Navbar />
-      <div className="flex">
+      <div className="flex flex-1 overflow-hidden">
         <Sidebar />
-        <BannerManagement />
+        <div className="flex-1 overflow-y-auto bg-[#f0efef]">
+          <BannerManagement />
+        </div>
       </div>
     </div>
   );
