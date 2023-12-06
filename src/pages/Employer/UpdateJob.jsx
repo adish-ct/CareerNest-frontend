@@ -13,7 +13,6 @@ import { locations } from '../../components/HelperFile/Locations';
 import { jwtDecode } from 'jwt-decode';
 import setUserDetails from '../../redux/Actions/UserAction'
 import { toggleLoading } from '../../redux/Actions/AuthAction'
-import PageHeader from '../../components/Employer/PageHeader';
 import { jobType, workType } from '../../components/HelperFile/Types';
 
 function UpdateJob() {
@@ -110,7 +109,6 @@ function UpdateJob() {
 
                 {/* main dashboard */}
                 <div className=" w-5/6">
-                    <PageHeader header="UPDATE JOB" />
 
                     <div className="text-start p-5 md:ps-20 ps-10 md:pt-10">
                         <Typography variant="h1" className="text-3xl font-bold">

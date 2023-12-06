@@ -13,7 +13,6 @@ import { jwtDecode } from 'jwt-decode';
 import setUserDetails from '../../redux/Actions/UserAction'
 import { toggleLoading } from '../../redux/Actions/AuthAction'
 import { useNavigate } from 'react-router-dom';
-import PageHeader from '../../components/Employer/PageHeader';
 import { jobType, workType } from '../../components/HelperFile/Types';
 
 
@@ -96,7 +95,6 @@ function CreateJob() {
                 {/* main dashboard */}
                 <div className="h-screen w-5/6">
 
-                    <PageHeader header="CREATE JOB" />
 
                     {/* Dashboard cards */}
                     <div className="text-start p-5 md:ps-20 ps-10 md:pt-10">
