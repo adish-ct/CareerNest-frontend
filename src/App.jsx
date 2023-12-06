@@ -10,7 +10,7 @@ import EmployerProfile from "./pages/Employer/EmployerProfile";
 import HomePage from "./pages/Candidate/HomePage";
 import Jobs from "./pages/Candidate/Jobs";
 import PrivateRoute from "./components/PrivateRoute";
-import EmployerJobs from "./pages/Employer/EmployerJobs";
+import EmployerJobs from "./pages/Employer/EmployerJobsPage";
 import UpdateJob from "./pages/Employer/UpdateJob";
 import ViewJob from "./pages/Employer/ViewJob";
 import Profile from "./pages/Candidate/Profile";
@@ -25,17 +25,21 @@ function App() {
     <>
       <Router>
         <Routes>
+          {/* ........Registrations.......... */}
           <Route path="register/" element={<SignupPage />} />
           <Route path="login/" element={<Login />} />
+          {/* ........User Interface.......... */}
           <Route path="/" element={<HomePage />} />
           <Route path="jobs/" element={<Jobs />} />
           <Route path="profile/" element={<Profile />} />
+          {/* ........Employeer Side.......... */}
           <Route path="employer/dashboard/" element={<EmployerDashboard />} />
           <Route path="employer/create-job/" element={<CreateJob />} />
           <Route path="employer/jobs/" element={<EmployerJobs />} />
           <Route path="employer/update-job/:id/" element={<UpdateJob />} />
           <Route path="employer/view-job/:jobId/" element={<ViewJob />} />
           <Route path="employer/profile" element={<EmployerProfile />} />
+          {/* ........Company Side.......... */}
           <Route path="adminlogin/" element={<AdminLogin />} />
           <Route path="admindashboard/" element={<DashboardPage />} />
           <Route
@@ -47,6 +51,7 @@ function App() {
             element={<CandidateManagementPage />}
           />
           <Route path="bannermanagement/" element={<BannerManagementPage />} />
+          {/* .................. */}
         </Routes>
       </Router>
     </>
