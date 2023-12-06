@@ -92,7 +92,7 @@ function ExperienceDialog({ open, handleOpen }) {
                 <ToastContainer />
 
                 {/* form should be inside the Dialog block */}
-                <form onSubmit={formik.handleSubmit}>
+                <form onSubmit={formik.handleSubmit} encType="multipart/form-data">
                     <DialogHeader>Add Experience</DialogHeader>
                     <DialogBody>
                         <div className="grid grid-cols-2 gap-4">
@@ -333,10 +333,10 @@ function ExperienceDialog({ open, handleOpen }) {
                                 <input
                                     type="file"
                                     label="Documents"
-                                    name='document'
+                                    name='documents'
                                     onChange={(event) => {
                                         const file = event.currentTarget.files[0];
-                                        formik.setFieldValue('document', file);
+                                        formik.setFieldValue('documents', file);
                                     }}
                                 />
                             </div>
