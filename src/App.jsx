@@ -2,7 +2,7 @@
 import React from "react";
 import Login from "./pages/Login/Login";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import EmployerDashboard from "./pages/Employer/EmployerDashboard";
+import EmployerDashboard from "./pages/Employer/EmployerDashboardPage";
 import CreateJob from "./pages/Employer/CreateJob";
 import SignupPage from "./pages/Register/SignupPage";
 import EmployerProfile from "./pages/Employer/EmployerProfile";
