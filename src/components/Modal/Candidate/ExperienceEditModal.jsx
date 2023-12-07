@@ -4,12 +4,15 @@ import { useDispatch, useSelector } from 'react-redux';
 import { experienceDetailsAction } from '../../../redux/Actions/ExperienceAction'
 import { useFormik } from 'formik';
 import * as Yup from 'yup'
-import { ToastContainer } from 'react-toastify';
+import { ToastContainer, toast } from 'react-toastify';
+import axios from 'axios';
+import getLocal from '../../../helper/Auth';
+import { baseUrl } from '../../../api/Api';
 
 
-function ExperienceEditModal({ open, handleOpen }) {
+function ExperienceEditModal({ open, handleOpen, selectedExperience }) {
 
-    const selectedExperience = useSelector((state) => state.selectedExperience)
+    // const selectedExperience = useSelector((state) => state.selectedExperience)
     const dispatch = useDispatch()
 
     const handleCancel = () => {
@@ -17,6 +20,9 @@ function ExperienceEditModal({ open, handleOpen }) {
         handleOpen();
     }
 
+    if (!selectedExperience) {
+        return null
+    }
 
     const formik = useFormik({
         initialValues: {
@@ -47,18 +53,44 @@ function ExperienceEditModal({ open, handleOpen }) {
             skills: Yup.string().required("* required field"),
         }),
         onSubmit: async (values) => {
-            console.log(formik.values);
-            console.log("working");
+            try {
+                const token = getLocal()
+                if (token) {
+                    const response = await axios.put(`${baseUrl}/experience/${selectedExperience.id}/`, values, {
+                        headers: {
+                            Authorization: `Bearer ${token}`
+                        }
+                    })
+                    toast.success("Experience updated")
+                }
+            } catch (error) {
+                if (error.response && error.response.data) {
+                    // Extract validation errors from the error response
+                    const validationErrors = error.response.data;
+
+                    // Display validation errors on the front-end
+                    Object.keys(validationErrors).forEach(field => {
+                        if (field && field !== 'non_field_errors') {
+                            toast.error(`${field} ${validationErrors[field].join(", ")}`);
+                        } else {
+                            toast.error(`${validationErrors[field].join(", ")}`);
+
+                        }
+
+                    });
+                } else {
+                    console.log(error);
+                    toast.error("Something went wrong");
+                }
+            } finally {
+                handleOpen()
+
+            }
         }
     })
 
-    if (!selectedExperience) {
-        return null
-    }
-
     return (
         <>
-            <ToastContainer />
             <Dialog open={open} handler={handleOpen}>
                 <ToastContainer />
                 <form action="" onSubmit={formik.handleSubmit} encType='multipart/form-data'>

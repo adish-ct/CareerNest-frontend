@@ -9,6 +9,7 @@ import { baseUrl } from '../../../../api/Api';
 import getLocal from '../../../../helper/Auth';
 import { jwtDecode } from 'jwt-decode';
 import experienceAction, { experienceDetailsAction } from '../../../../redux/Actions/ExperienceAction'
+import ReactDOM from 'react-dom';
 
 function ExperienceCard() {
 
@@ -46,10 +47,11 @@ function ExperienceCard() {
     }, [])
 
     const handleEditClick = async (experience) => {
+        const selectExperience = () => {
+            return experience
+        }
         try {
             if (experience) {
-                console.log(experience);
-                console.log("working");
                 await dispatch(experienceDetailsAction(experience))
                 handleOpen();
             }
@@ -84,7 +86,7 @@ function ExperienceCard() {
                     </div>
                 ))
             )}
-            <ExperienceEditModal open={open} handleOpen={handleOpen} />
+            <ExperienceEditModal open={open} handleOpen={handleOpen} selectedExperience={selectedExperience} />
         </>
     )
 }
