@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { Button, Dialog, DialogHeader, DialogBody, DialogFooter, Input, Textarea } from "@material-tailwind/react";
+import { Button, Dialog, DialogHeader, DialogBody, DialogFooter, Input, Textarea, Spinner } from "@material-tailwind/react";
 import { useDispatch, useSelector } from 'react-redux';
 import { experienceDetailsAction } from '../../../redux/Actions/ExperienceAction'
 import { useFormik } from 'formik';
@@ -12,21 +12,12 @@ import { baseUrl } from '../../../api/Api';
 
 function ExperienceEditModal({ open, handleOpen, selectedExperience }) {
 
-    // const selectedExperience = useSelector((state) => state.selectedExperience)
-    const dispatch = useDispatch()
-
-    const handleCancel = () => {
-        dispatch(experienceDetailsAction(null))
-        handleOpen();
-    }
-
     if (!selectedExperience) {
-        return null
+        <Spinner />
     }
 
     const formik = useFormik({
         initialValues: {
-            enableReinitialize: true,
             job_role: selectedExperience?.job_role || '',
             organization: selectedExperience?.organization || '',
             job_type: selectedExperience?.job_type || '',
@@ -84,16 +75,15 @@ function ExperienceEditModal({ open, handleOpen, selectedExperience }) {
                 }
             } finally {
                 handleOpen()
-
             }
         }
     })
 
     return (
         <>
-            <Dialog open={open} handler={handleOpen}>
+            <Dialog open={open}>
                 <ToastContainer />
-                <form action="" onSubmit={formik.handleSubmit} encType='multipart/form-data'>
+                <form onSubmit={formik.handleSubmit} encType='multipart/form-data'>
                     <DialogHeader>Edit Experience</DialogHeader>
                     <DialogBody>
                         <div className="grid grid-cols-2 gap-4">
@@ -358,7 +348,7 @@ function ExperienceEditModal({ open, handleOpen, selectedExperience }) {
                         <Button
                             variant="text"
                             color="red"
-                            onClick={handleCancel}
+                            onClick={handleOpen}
                             className="mr-1"
                         >
                             <span>Cancel</span>

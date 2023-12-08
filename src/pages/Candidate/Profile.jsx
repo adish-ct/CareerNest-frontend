@@ -215,7 +215,7 @@ function Profile() {
                                 {/* Education section */}
                                 <TabPanel id="education" isActive={activeTab === 'education'}>
                                     <Typography variant="h5" color="blue-gray" className="mb-2">
-                                        Work Experience
+                                        Education
                                     </Typography>
                                     <hr />
 
