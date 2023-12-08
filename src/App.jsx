@@ -19,6 +19,8 @@ import DashboardPage from "./pages/Admin/DashboardPage";
 import EmployeerManagementPage from "./pages/Admin/EmployeerManagementPage";
 import CandidateManagementPage from "./pages/Admin/CandidateManagementPage";
 import BannerManagementPage from "./pages/Admin/BannerManagementPage";
+import MaintenancePage from "./components/MaintenancePage";
+import ApplicationPage from "./pages/Employer/Applications/ApplicationPage";
 
 function App() {
   return (
@@ -39,6 +41,7 @@ function App() {
           <Route path="employer/update-job/:id/" element={<UpdateJob />} />
           <Route path="employer/view-job/:jobId/" element={<ViewJob />} />
           <Route path="employer/profile" element={<EmployerProfile />} />
+          <Route path="employer/application/" element={<ApplicationPage />} />
           {/* ........Company Side.......... */}
           <Route path="adminlogin/" element={<AdminLogin />} />
           <Route path="admindashboard/" element={<DashboardPage />} />
@@ -52,6 +55,7 @@ function App() {
           />
           <Route path="bannermanagement/" element={<BannerManagementPage />} />
           {/* .................. */}
+          <Route path="/*" element={<MaintenancePage />} />
         </Routes>
       </Router>
     </>

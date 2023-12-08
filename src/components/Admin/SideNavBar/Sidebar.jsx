@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import { FaUserTie, FaRegImage } from "react-icons/fa";
 import { Link } from "react-router-dom";
-import { BsCaretLeftSquareFill } from "react-icons/bs";
 import { MdDashboard } from "react-icons/md";
 import { FaBuildingUser } from "react-icons/fa6";
 import { RiMessage2Fill } from "react-icons/ri";
+import { TfiArrowCircleLeft, TfiArrowCircleRight } from "react-icons/tfi";
 
 function Sidebar() {
   const [open, setOpen] = useState(true);
@@ -49,12 +49,21 @@ function Sidebar() {
       } duration-500 text-dark-900 px-4`}
     >
       <div className="py-3 flex justify-end">
-        <BsCaretLeftSquareFill
-          size={32}
-          color="gray"
-          className="cursor-pointer rounded-xl"
-          onClick={() => setOpen(!open)}
-        />
+        {open ? (
+          <TfiArrowCircleLeft
+            size={32}
+            color="gray"
+            className="cursor-pointer rounded-xl"
+            onClick={() => setOpen(!open)}
+          />
+        ) : (
+          <TfiArrowCircleRight
+            size={32}
+            color="gray"
+            className="cursor-pointer rounded-xl"
+            onClick={() => setOpen(!open)}
+          />
+        )}
       </div>
       <div className="mt-4 flex flex-col md:gap-7 gap-1 relative">
         {menus?.map((menu, i) => (

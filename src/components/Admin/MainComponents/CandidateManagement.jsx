@@ -14,7 +14,7 @@ function CandidateManagement() {
             </h1>
           </div>
           <div class="p-5 border border-[#b4b3b3] mt-2 bg-white rounded flex flex-row justify-between items-center">
-            <h1 class="text-xl font-medium text-start">Employeer Table</h1>
+            <h1 class="text-xl font-medium text-start">Candidate Table</h1>
             <div class="flex flex-row justify-end items-center gap-10 cursor-pointer">
               <h1 className="text-3xl text-[#7c7c7c]">
                 <FaSort />
