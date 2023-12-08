@@ -12,18 +12,17 @@ function EducationCard() {
     const [open, setOpen] = useState(false);
     const handleOpen = () => setOpen(!open);
 
-    const token = getLocal()
 
     const fetchData = async () => {
         try {
+            const token = getLocal()
             if (token) {
-                const decodedToken = jwtDecode(token)
                 const response = await axios.get(`${baseUrl}/education/`, {
                     headers: {
                         Authorization: `Bearer ${token}`
                     }
                 })
-                console.log(response);
+                console.log(response.data);
             }
         } catch (error) {
 
@@ -31,7 +30,11 @@ function EducationCard() {
     }
 
     useEffect(() => {
-        
+        try {
+            fetchData();
+        } catch (error) {
+            console.log(error);
+        }
     }, [])
 
     return (

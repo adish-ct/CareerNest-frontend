@@ -5,6 +5,7 @@ import jobReducer from './JobReducer'
 import employerReducer from './EmployerReducer'
 import profileReducer from './ProfileReducer'
 import experienceReducer, { experienceDetailsReducer } from './ExperienceReducer'
+import educationReducer from './EducationReducer'
 
 
 const appReducer = combineReducers({
@@ -16,6 +17,7 @@ const appReducer = combineReducers({
     profile: profileReducer,
     experience: experienceReducer,
     selectedExperience: experienceDetailsReducer,
+    education: educationReducer,
 })
 
 export default appReducer;
