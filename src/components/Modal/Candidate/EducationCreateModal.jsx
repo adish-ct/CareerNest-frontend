@@ -82,7 +82,7 @@ function EducationCreateModal({ open, handler }) {
     return (
         <>
             <ToastContainer />
-            <Dialog open={open} handler={handler}>
+            <Dialog open={open}>
                 <ToastContainer />
 
                 {/* form should be inside the Dialog block */}
@@ -139,7 +139,7 @@ function EducationCreateModal({ open, handler }) {
                                     onChange={formik.handleChange}
                                     onBlur={formik.handleBlur}
                                     className={
-                                        formik.errors.job_type && formik.touched.job_type
+                                        formik.errors.course_type && formik.touched.course_type
                                             ? 'form-control shadow appearance-none border rounded w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline border-red-500'
                                             : 'form-control shadow appearance-none border rounded w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
                                     }
@@ -149,8 +149,8 @@ function EducationCreateModal({ open, handler }) {
                                     <option value="part time">Part Time</option>
                                     <option value="internship">Internship</option>
                                 </select>
-                                {formik.errors.job_type && formik.touched.job_type && (
-                                    <small className="text-red-500 text-xs italic">{formik.errors.job_type}</small>
+                                {formik.errors.course_type && formik.touched.course_type && (
+                                    <small className="text-red-500 text-xs italic">{formik.errors.course_type}</small>
                                 )}
                             </div>
                             {/* Course type */}
