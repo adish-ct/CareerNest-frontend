@@ -1,7 +1,5 @@
 import React, { useEffect } from 'react'
 import { Button, Dialog, DialogHeader, DialogBody, DialogFooter, Input, Textarea, Spinner } from "@material-tailwind/react";
-import { useDispatch, useSelector } from 'react-redux';
-import { experienceDetailsAction } from '../../../redux/Actions/ExperienceAction'
 import { useFormik } from 'formik';
 import * as Yup from 'yup'
 import { ToastContainer, toast } from 'react-toastify';
@@ -12,9 +10,6 @@ import { baseUrl } from '../../../api/Api';
 
 function ExperienceEditModal({ open, handleOpen, selectedExperience }) {
 
-    if (!selectedExperience) {
-        <Spinner />
-    }
 
     const formik = useFormik({
         initialValues: {
@@ -78,6 +73,29 @@ function ExperienceEditModal({ open, handleOpen, selectedExperience }) {
             }
         }
     })
+
+
+    useEffect(() => {
+        if (selectedExperience) {
+            formik.setValues({
+                job_role: selectedExperience?.job_role || '',
+                organization: selectedExperience?.organization || '',
+                job_type: selectedExperience?.job_type || '',
+                location: selectedExperience?.location || '',
+                work_type: selectedExperience?.work_type || '',
+                state: selectedExperience?.state || '',
+                start_date: selectedExperience?.start_date || null,
+                end_date: selectedExperience?.end_date || null,
+                currently_working: selectedExperience?.currently_working || false,
+                time_period: selectedExperience?.time_period || '',
+                description: selectedExperience?.description || '',
+                skills: selectedExperience?.skills || '',
+                documents: null,
+            })
+        }
+    }, [selectedExperience, open])
+
+
 
     return (
         <>

@@ -13,6 +13,7 @@ function ExperienceCard() {
 
     const experience = useSelector((state) => state.experience)
     const dispatch = useDispatch()
+    const [selectedExperience, setSelectedExperience] = useState(null)
     const [open, setOpen] = useState(false);
 
     const handleOpen = () => setOpen(!open);
@@ -42,6 +43,13 @@ function ExperienceCard() {
         }
     }, [])
 
+    const handleExperience = (index) => {
+        if (experience) {
+            const data = experience[index]
+            setSelectedExperience(data)
+        }
+        handleOpen()
+    }
 
     return (
         <>
@@ -56,7 +64,7 @@ function ExperienceCard() {
                                         {experience.job_role}
                                     </Typography>
                                 </div>
-                                <CiEdit onClick={handleOpen} variant="gradient" className='text-blue-800 hover:text-red-600' />
+                                <CiEdit onClick={() => handleExperience(index)} variant="gradient" className='text-blue-800 hover:text-red-600' />
                             </div>
                             <h1>{experience.organization}</h1>
                             <h1>{experience.start_date} - {experience.end_date} </h1>
@@ -66,7 +74,7 @@ function ExperienceCard() {
                         <hr className='mt-4' />
 
                         {/* Render the ExperienceDialog component and pass the necessary props */}
-                        <ExperienceEditModal open={open} handleOpen={handleOpen} selectedExperience={experience} />
+                        <ExperienceEditModal open={open} handleOpen={handleOpen} selectedExperience={selectedExperience} />
                     </div>
                 ))
             )}
