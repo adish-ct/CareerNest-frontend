@@ -13,6 +13,8 @@ import { toggleLoading } from '../../redux/Actions/AuthAction';
 import ExperienceCard from '../../components/Candidate/Profile/Experience/ExperienceCard';
 import ExperienceCreateModal from '../../components/Modal/Candidate/ExperienceCreateModal';
 import { FiPlus } from "react-icons/fi";
+import EducationCard from '../../components/Candidate/Profile/Education/EducationCard';
+import EducationCreateModal from '../../components/Modal/Candidate/EducationCreateModal';
 
 
 const TabPanel = ({ id, children, isActive }) => (
@@ -52,8 +54,10 @@ function Profile() {
     const dispatch = useDispatch()
     const [userDetails, setUserDetails] = useState(null)
     const [open, setOpen] = useState(false)
+    const [openEducation, setOpenEducation] = useState(false)
 
     const handleOpen = () => setOpen(!open);
+    const handleEducation = () => setOpenEducation(!openEducation);
 
     const fetchUser = async () => {
         try {
@@ -219,9 +223,15 @@ function Profile() {
                                     </Typography>
                                     <hr />
 
-                                    <div className="flex gap-3 flex-row p-3" >
-                                        <h1>hello</h1>
+                                    <div className="flex flex-col gap-3 p-3" >
+                                        <EducationCard />
                                     </div>
+                                    <div onClick={handleEducation} className="flex justify-end items-center gap-1 text-blue-900 hover:text-red-400 cursor-pointer">
+                                        <FiPlus />
+                                        <h1>add</h1>
+                                    </div>
+
+                                    <EducationCreateModal open={openEducation} handler={handleEducation} />
                                 </TabPanel>
                                 {/* Education section end */}
 
