@@ -33,7 +33,7 @@ function CandidateManagement() {
               </h1>
             </div>
           </div>
-          <div className="flex flex-col mt-6">
+          <div className="flex flex-col pt-6">
             <div className="inline-block w-full  py-2 align-middle md:px-6 lg:px-8">
               <div className="overflow-hidden w-full border border-gray-200 dark:border-gray-700 md:rounded-lg">
                 <table className="min-w-full divide-y divide-gray-200 text-center dark:divide-gray-700">
