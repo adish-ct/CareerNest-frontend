@@ -71,7 +71,7 @@ function Dashboard() {
                 </h1>
                 <div className="w-40 md:w-72 h-8 md:h-10 shadow-sm rounded-lg bg-[#555353]">
                   <input
-                    className="w-full h-full bg-[#ecebeb] rounded-lg border text-sm md:text-base"
+                    className="w-full h-full pl-2 bg-[#ecebeb] rounded-lg border text-sm md:text-base"
                     type="text"
                     placeholder="Search..."
                   />

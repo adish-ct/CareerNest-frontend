@@ -71,9 +71,9 @@ function JobDetails() {
               <h1 className="font-bold">ID : #CN234545-23</h1>
             </div>
           </div>
-          <div className="p-2 md:p-4 lg:p-8 mt-2 md:mt-4 lg:mt-8">
-            <div className="bg-white rounded-md">
-              <div className="flex flex-col text-sm md:text-base lg:text-lg p-7 md:p-6 lg:p-11 gap-1 md:gap-2 lg:gap-3">
+          <div className="p-2 md:p-4 lg:p-8 border border-[#b3acac] mt-2 md:mt-4 lg:mt-8">
+            <div className="rounded-xl shadow bg-[#f7f7f7]">
+              <div className="flex flex-col shadow text-sm md:text-base lg:text-lg p-7 md:p-6 lg:p-11 gap-1 md:gap-2 lg:gap-3">
                 <div className="flex">
                   <div className="w-1/4 font-bold">Role:</div>
                   <div className="w-3/4 text-start font-bold">

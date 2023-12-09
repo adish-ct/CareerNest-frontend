@@ -1,6 +1,4 @@
 import React from "react";
-import { Typography, Card, CardBody, Button } from "@material-tailwind/react";
-import { ToastContainer } from "react-toastify";
 import Sidebar from "../../components/Employer/SideNavBar/Sidebar";
 import Navbar from "../../components/Employer/SideNavBar/Navbar";
 import Dashboard from "../../components/Employer/MainComponents/Dashboard";
