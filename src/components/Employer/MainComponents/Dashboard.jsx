@@ -19,7 +19,7 @@ function Dashboard() {
           </div>
 
           {/* Dashboard cards */}
-          <div className="flex flex-col md:flex-row md:flex-wrap md:justify-around pt-10">
+          <div className="flex flex-col md:flex-row md:flex-wrap md:justify-around pt-6">
             <Card className="mt-6 w-full md:w-80 bg-[#6d7ea3] text-white md:mx-2">
               <CardBody className="text-center">
                 <Typography variant="h5" color="white" className="mb-2">

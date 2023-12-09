@@ -19,7 +19,7 @@ function Sidebar() {
     },
     {
       name: "Candidates",
-      link: "1",
+      link: "/employer/candidatedetails/",
       icon: FaUserTie,
     },
     {

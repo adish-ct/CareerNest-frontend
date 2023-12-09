@@ -21,6 +21,7 @@ import CandidateManagementPage from "./pages/Admin/CandidateManagementPage";
 import BannerManagementPage from "./pages/Admin/BannerManagementPage";
 import MaintenancePage from "./components/MaintenancePage";
 import ApplicationPage from "./pages/Employer/Applications/ApplicationPage";
+import CandidateDetailsPage from "./pages/Employer/Candidate/CandidateDetailsPage";
 
 function App() {
   return (
@@ -42,6 +43,10 @@ function App() {
           <Route path="employer/view-job/:jobId/" element={<ViewJob />} />
           <Route path="employer/profile" element={<EmployerProfile />} />
           <Route path="employer/application/" element={<ApplicationPage />} />
+          <Route
+            path="employer/candidatedetails/"
+            element={<CandidateDetailsPage />}
+          />
           {/* ........Company Side.......... */}
           <Route path="adminlogin/" element={<AdminLogin />} />
           <Route path="admindashboard/" element={<DashboardPage />} />
