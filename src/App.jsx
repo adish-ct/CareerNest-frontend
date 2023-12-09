@@ -22,6 +22,7 @@ import BannerManagementPage from "./pages/Admin/BannerManagementPage";
 import MaintenancePage from "./components/MaintenancePage";
 import ApplicationPage from "./pages/Employer/Applications/ApplicationPage";
 import CandidateDetailsPage from "./pages/Employer/Candidate/CandidateDetailsPage";
+import InterviewsPage from "./pages/Employer/InterviewsPage";
 
 function App() {
   return (
@@ -47,6 +48,8 @@ function App() {
             path="employer/candidatedetails/"
             element={<CandidateDetailsPage />}
           />
+          <Route path="employer/interviews/" element={<InterviewsPage />} />
+
           {/* ........Company Side.......... */}
           <Route path="adminlogin/" element={<AdminLogin />} />
           <Route path="admindashboard/" element={<DashboardPage />} />

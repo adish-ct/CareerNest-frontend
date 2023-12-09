@@ -24,7 +24,6 @@ function Sidebar() {
     },
     {
       name: "Jobs",
-      link: "#",
       icon: RiUserSearchFill,
       submenus: [
         {
@@ -39,7 +38,7 @@ function Sidebar() {
     },
     {
       name: "Interviews",
-      link: "3",
+      link: "/employer/interviews/",
       icon: PiUsersThreeFill,
     },
     {
