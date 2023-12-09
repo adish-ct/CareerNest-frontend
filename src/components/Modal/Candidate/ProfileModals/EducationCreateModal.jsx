@@ -1,11 +1,11 @@
 import { Button, Dialog, DialogBody, DialogFooter, DialogHeader, Input } from '@material-tailwind/react';
 import React from 'react'
 import { ToastContainer, toast } from 'react-toastify';
-import getLocal from '../../../helper/Auth';
+import getLocal from '../../../../helper/Auth';
 import { useSelector } from 'react-redux';
 import { useFormik } from 'formik';
 import * as Yup from 'yup'
-import { baseUrl } from '../../../api/Api';
+import { baseUrl } from '../../../../api/Api';
 import axios from 'axios';
 
 function EducationCreateModal({ open, handler }) {

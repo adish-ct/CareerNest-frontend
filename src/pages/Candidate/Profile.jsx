@@ -11,10 +11,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import axios from 'axios';
 import { toggleLoading } from '../../redux/Actions/AuthAction';
 import ExperienceCard from '../../components/Candidate/Profile/Experience/ExperienceCard';
-import ExperienceCreateModal from '../../components/Modal/Candidate/ExperienceCreateModal';
+import ExperienceCreateModal from '../../components/Modal/Candidate/ProfileModals/ExperienceCreateModal';
 import { FiPlus } from "react-icons/fi";
 import EducationCard from '../../components/Candidate/Profile/Education/EducationCard';
-import EducationCreateModal from '../../components/Modal/Candidate/EducationCreateModal';
+import EducationCreateModal from '../../components/Modal/Candidate/ProfileModals/EducationCreateModal';
+import ProjectCard from '../../components/Candidate/Profile/Project/ProjectCard';
+import ProjectCreateModal from '../../components/Modal/Candidate/ProfileModals/ProjectCreateModal';
 
 
 const TabPanel = ({ id, children, isActive }) => (
@@ -55,9 +57,11 @@ function Profile() {
     const [userDetails, setUserDetails] = useState(null)
     const [open, setOpen] = useState(false)
     const [openEducation, setOpenEducation] = useState(false)
+    const [openProject, setOpenProject] = useState(false)
 
     const handleOpen = () => setOpen(!open);
     const handleEducation = () => setOpenEducation(!openEducation);
+    const handleProject = () => setOpenProject(!openProject);
 
     const fetchUser = async () => {
         try {
@@ -100,12 +104,11 @@ function Profile() {
     }, [dispatch]);
 
 
-    if (loading || !profile) {
+    if (loading || !profile || !userDetails) {
         return (
-            // <div className="fixed top-0 right-0 h-screen w-screen z-50 flex justify-center items-center">
-            //     <div className="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-gray-900"></div>
-            // </div>
-            null
+            <div className="fixed top-0 right-0 h-screen w-screen z-50 flex justify-center items-center">
+                <div className="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-gray-900"></div>
+            </div>
         );
     }
 
@@ -266,8 +269,14 @@ function Profile() {
                                     </Typography>
                                     <hr />
                                     <div className="flex gap-3 flex-row p-3" >
-                                        <h1>hello</h1>
+                                        <ProjectCard />
                                     </div>
+                                    <div onClick={handleProject} className="flex justify-end items-center gap-1 text-blue-900 hover:text-red-400 cursor-pointer">
+                                        <FiPlus />
+                                        <h1>add</h1>
+                                    </div>
+
+                                    <ProjectCreateModal open={openProject} handler={handleProject} />
                                 </TabPanel>
                                 {/* Project section end */}
 

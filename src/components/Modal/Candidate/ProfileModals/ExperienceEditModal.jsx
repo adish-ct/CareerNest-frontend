@@ -4,8 +4,8 @@ import { useFormik } from 'formik';
 import * as Yup from 'yup'
 import { ToastContainer, toast } from 'react-toastify';
 import axios from 'axios';
-import getLocal from '../../../helper/Auth';
-import { baseUrl } from '../../../api/Api';
+import getLocal from '../../../../helper/Auth';
+import { baseUrl } from '../../../../api/Api';
 
 
 function ExperienceEditModal({ open, handleOpen, selectedExperience }) {

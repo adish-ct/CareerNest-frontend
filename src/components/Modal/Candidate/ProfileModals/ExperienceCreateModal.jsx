@@ -3,14 +3,14 @@ import React, { useState } from 'react'
 import { Button, Dialog, DialogHeader, DialogBody, DialogFooter, Input, Textarea, Select } from "@material-tailwind/react";
 import { useSelector } from 'react-redux';
 import { useFormik } from 'formik';
-import { jobType, workType } from '../../HelperFile/Types';
-import { locations } from '../../HelperFile/Locations';
-import indianStates from '../../HelperFile/IndianStates';
+import { jobType, workType } from '../../../HelperFile/Types';
+import { locations } from '../../../HelperFile/Locations';
+import indianStates from '../../../HelperFile/IndianStates';
 import * as Yup from 'yup';
 import { ToastContainer, toast } from 'react-toastify';
 import axios from 'axios';
-import { baseUrl } from '../../../api/Api';
-import getLocal from '../../../helper/Auth';
+import { baseUrl } from '../../../../api/Api';
+import getLocal from '../../../../helper/Auth';
 
 
 function ExperienceDialog({ open, handleOpen }) {

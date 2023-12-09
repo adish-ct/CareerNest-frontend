@@ -3,9 +3,9 @@ import { useFormik } from 'formik';
 import React, { useEffect } from 'react'
 import { ToastContainer, toast } from 'react-toastify';
 import * as Yup from 'yup'
-import getLocal from '../../../helper/Auth';
+import getLocal from '../../../../helper/Auth';
 import axios from 'axios';
-import { baseUrl } from '../../../api/Api';
+import { baseUrl } from '../../../../api/Api';
 
 function EducationEditModal({ open, handleOpen, selectedEducation }) {
 

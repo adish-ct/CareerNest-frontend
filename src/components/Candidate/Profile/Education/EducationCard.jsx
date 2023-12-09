@@ -7,7 +7,7 @@ import axios from 'axios';
 import { baseUrl } from '../../../../api/Api';
 import { useDispatch, useSelector } from 'react-redux';
 import educationAction from '../../../../redux/Actions/EducationsAction';
-import EducationEditModal from '../../../Modal/Candidate/EducationEditModal';
+import EducationEditModal from '../../../Modal/Candidate/ProfileModals/EducationEditModal';
 
 function EducationCard() {
     const [open, setOpen] = useState(false);

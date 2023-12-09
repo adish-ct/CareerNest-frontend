@@ -2,7 +2,7 @@ import { Typography } from '@material-tailwind/react'
 import React, { useEffect, useState } from 'react'
 import { FaRegStar } from "react-icons/fa";
 import { CiEdit } from "react-icons/ci";
-import ExperienceEditModal from '../../../Modal/Candidate/ExperienceEditModal';
+import ExperienceEditModal from '../../../Modal/Candidate/ProfileModals/ExperienceEditModal';
 import { useDispatch, useSelector } from 'react-redux';
 import axios from 'axios';
 import { baseUrl } from '../../../../api/Api';
