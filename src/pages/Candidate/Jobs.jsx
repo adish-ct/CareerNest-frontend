@@ -55,7 +55,7 @@ const Jobs = () => {
         getEmployer(job);
     };
 
-    if (loading) {
+    if (loading || !jobs) {
         return (
             <div className="fixed top-0 right-0 h-screen w-screen z-50 flex justify-center items-center">
                 <div className="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-gray-900"></div>
@@ -76,17 +76,21 @@ const Jobs = () => {
                 </div>
             </div>
             <div className=" p-4 lg:p-8 xl:px-24 2xl:px-72">
-                <div className="flex flex-col justify-between md:flex-row ">
-                    <div className="w-1/3  flex gap-2 p-2 md:flex-col">
-                        {jobs.map((job, index) => (
-                            <JobCard key={index} job={job} getEmployer={getEmployer} onClick={() => handleJobClick(job)} />
-                        ))}
-                    </div>
-                    <div className="w-2/3  p-2 flex flex-col gap-2">
-                        <SelectedJob />
-                        <SelectedJobDetails />
-                    </div>
-                </div>
+                {
+                    jobs && (
+                        <div className="flex flex-col justify-between md:flex-row ">
+                            <div className="w-1/3  flex gap-2 p-2 md:flex-col">
+                                {jobs.map((job, index) => (
+                                    <JobCard key={index} job={job} getEmployer={getEmployer} onClick={() => handleJobClick(job)} />
+                                ))}
+                            </div>
+                            <div className="w-2/3  p-2 flex flex-col gap-2">
+                                <SelectedJob />
+                                <SelectedJobDetails />
+                            </div>
+                        </div>
+                    )
+                }
             </div>
         </>
     );

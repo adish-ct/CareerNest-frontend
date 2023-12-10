@@ -11,9 +11,8 @@ import ProjectEditModal from '../../../Modal/Candidate/ProfileModals/ProjectEdit
 
 function ProjectCard() {
 
-    const [open, setOpen] = useState(null)
-    const [projectDetails, setProjectDetails] = useState(null)
-    const [selectedProject, setSelectedProject] = useState(null)
+    const [open, setOpen] = useState(false)
+    const [selectedProject, setSelectedProject] = useState({})
 
     const project = useSelector((state) => state.project)
 
