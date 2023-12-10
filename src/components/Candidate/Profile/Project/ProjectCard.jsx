@@ -1,17 +1,25 @@
 import { Typography } from '@material-tailwind/react'
 import axios from 'axios'
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { CiEdit } from 'react-icons/ci'
 import { baseUrl } from '../../../../api/Api'
 import getLocal from '../../../../helper/Auth'
 import { useDispatch, useSelector } from 'react-redux'
 import projectAction from '../../../../redux/Actions/ProjectAction'
 import { PiProjectorScreenDuotone } from "react-icons/pi";
+import ProjectEditModal from '../../../Modal/Candidate/ProfileModals/ProjectEditModal'
 
 function ProjectCard() {
 
+    const [open, setOpen] = useState(null)
+    const [projectDetails, setProjectDetails] = useState(null)
+    const [selectedProject, setSelectedProject] = useState(null)
+
     const project = useSelector((state) => state.project)
+
     const dispatch = useDispatch()
+
+    const handleOpen = () => setOpen(!open);
 
     const fetchProfile = async () => {
         const token = getLocal()
@@ -21,13 +29,14 @@ function ProjectCard() {
                     Authorization: `Bearer ${token}`
                 }
             })
-            console.log(response.data);
             dispatch(projectAction(response.data))
         }
     }
 
     const handleProject = (index) => {
-        console.log("working");
+        const choosedProject = project[index]
+        setSelectedProject(choosedProject)
+        handleOpen()
     }
 
     useEffect(() => {
@@ -51,7 +60,7 @@ function ProjectCard() {
                                         {data.project_name}
                                     </Typography>
                                 </div>
-                                <CiEdit onClick={() => handleExperience(index)} variant="gradient" className='text-blue-800 hover:text-red-600' />
+                                <CiEdit onClick={() => handleProject(index)} variant="gradient" className='text-blue-800 hover:text-red-600' />
                             </div>
                             <h1>{data.category}</h1>
                             <div className="flex gap-3">
@@ -64,10 +73,10 @@ function ProjectCard() {
                         <hr className='mt-4' />
 
                         {/* Render the ExperienceDialog component and pass the necessary props */}
-                        {/* <ExperienceEditModal open={open} handleOpen={handleOpen} selectedExperience={selectedExperience} /> */}
                     </div>
                 ))
             )}
+            <ProjectEditModal open={open} handler={handleOpen} selectedProject={selectedProject} />
         </>
     )
 }

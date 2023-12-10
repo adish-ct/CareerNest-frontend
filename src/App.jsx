@@ -44,9 +44,9 @@ const App = () => {
           <Route path="employer/update-job/:id/" element={<PrivateRoute element={<UpdateJob />} accessType="employer" />} />
           <Route path="employer/view-job/:jobId/" element={<PrivateRoute element={<ViewJob />} accessType="employer" />} />
           <Route path="employer/profile" element={<PrivateRoute element={<EmployerProfile />} accessType="employer" />} />
-          <Route path="employer/application/" element={<ApplicationPage />} />
-          <Route path="employer/candidatedetails/" element={<CandidateDetailsPage />} />
-          <Route path="employer/interviews/" element={<InterviewsPage />} />
+          <Route path="employer/application/" element={<PrivateRoute element={<ApplicationPage />} accessType="employer" />} />
+          <Route path="employer/candidatedetails/" element={<PrivateRoute element={<CandidateDetailsPage />} accessType="employer" />} />
+          <Route path="employer/interviews/" element={<PrivateRoute element={<InterviewsPage />} accessType="employer" />} />
 
           <Route path="super-admin/login" element={<AdminLogin />} />
           <Route path="super-admin/dashboard" element={<DashboardPage />} />

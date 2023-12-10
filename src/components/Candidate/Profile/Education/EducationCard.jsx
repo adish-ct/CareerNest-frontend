@@ -12,7 +12,9 @@ import EducationEditModal from '../../../Modal/Candidate/ProfileModals/Education
 function EducationCard() {
     const [open, setOpen] = useState(false);
     const [selectedEducation, setSelectedEducation] = useState(null);
+
     const education = useSelector((state) => state.education);
+    
     const handleOpen = () => setOpen(!open);
     const dispatch = useDispatch();
 

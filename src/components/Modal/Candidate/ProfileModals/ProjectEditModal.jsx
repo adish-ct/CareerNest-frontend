@@ -4,20 +4,20 @@ import React from 'react'
 import { ToastContainer } from 'react-toastify'
 import * as Yup from 'yup'
 
-function ProjectEditModal() {
+function ProjectEditModal({ open, handler, selectedProject }) {
+
     const formik = useFormik({
         initialValues: {
-            user: user?.user_id,
-            project_name: '',
-            category: '',
-            start_date: null,
-            end_date: null,
-            currently_working: false,
-            collab_project: false,
-            git_link: '',
-            website_link: '',
-            description: '',
-            features: '',
+            project_name: selectedProject?.project_name || '',
+            category: selectedProject?.category || '',
+            start_date: selectedProject?.start_data || null,
+            end_date: selectedProject?.end_date || null,
+            currently_working: selectedProject?.currently_working || false,
+            collab_project: selectedProject?.collab_project || false,
+            git_link: selectedProject?.git_link || '',
+            website_link: selectedProject?.website_link || '',
+            description: selectedProject?.description || '',
+            features: selectedProject?.features || '',
         },
         validationSchema: Yup.object({
             project_name: Yup.string().required("* required field"),
