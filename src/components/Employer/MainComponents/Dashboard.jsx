@@ -19,7 +19,7 @@ function Dashboard() {
                     </div>
 
                     {/* Dashboard cards */}
-                    <div className="flex flex-col md:flex-row md:flex-wrap md:justify-around pt-10">
+                    <div className="flex flex-col md:flex-row md:flex-wrap md:justify-around pt-6">
                         <Card className="mt-6 w-full md:w-80 bg-[#6d7ea3] text-white md:mx-2">
                             <CardBody className="text-center">
                                 <Typography variant="h5" color="white" className="mb-2">
@@ -71,7 +71,7 @@ function Dashboard() {
                                 </h1>
                                 <div className="w-40 md:w-72 h-8 md:h-10 shadow-sm rounded-lg bg-[#555353]">
                                     <input
-                                        className="w-full h-full bg-[#ecebeb] rounded-lg border text-sm md:text-base"
+                                        className="w-full h-full pl-2 bg-[#ecebeb] rounded-lg border text-sm md:text-base"
                                         type="text"
                                         placeholder="Search..."
                                     />

@@ -6,29 +6,32 @@ import { IoCloudDownloadOutline } from "react-icons/io5";
 function EmployeerManagement() {
   return (
     <>
-      <div className="bg-[#ecebeb] w-full p-2 rounded-md">
+      <div className="w-full bg-[#f0efef] p-2 rounded-md">
         <div className="w-fullrounded-md">
-          <div className="p-5 bg-white shadow-sm border rounded">
-            <h1 class="text-2xl my-auto mx-auto font-extrabold text-center">
+          <div className="p-2 bg-white shadow-sm border rounded">
+            <h1 className="text-2xl my-4 mx-auto font-extrabold text-center sm:text-2xl lg:text-3xl">
               EMPLOYER MANAGEMENT
             </h1>
           </div>
-          <div class="p-5 border border-[#b4b3b3] mt-2 bg-white rounded flex flex-row justify-between items-center">
-            <h1 class="text-xl font-medium text-start">Employeer Table</h1>
-            <div class="flex flex-row justify-end items-center gap-10 cursor-pointer">
-              <h1 className="text-3xl text-[#7c7c7c]">
+          <div className="p-5 border border-[#b4b3b3] mt-2 w-full md:w-full mx-auto bg-white rounded flex flex-col md:flex-row md:justify-between items-center">
+            <h1 className="text-xl font-medium text-start md:text-center md:mb-0">
+              Employeer Table
+            </h1>
+            <div className="flex flex-row justify-center md:justify-end items-center mt-4 md:mt-0 gap-4 md:gap-10 cursor-pointer">
+              <h1 className="text-2xl md:text-3xl text-[#7c7c7c]">
                 <FaSort />
               </h1>
-              <div className="w-72 h-10 shadow-sm rounded-lg bg-[#555353]">
+              <div className="w-40 md:w-72 h-8 md:h-10 shadow-sm rounded-lg bg-[#555353]">
                 <input
-                  className="w-full h-full bg-[#ecebeb] rounded-lg border"
+                  className="w-full h-full bg-[#ecebeb] rounded-lg border text-sm md:text-base"
                   type="text"
+                  placeholder="Search..."
                 />
               </div>
-              <h1 className="text-3xl pr-2 text-[#555353]">
+              <h1 className="text-2xl md:text-3xl pr-2 text-[#555353]">
                 <IoSearch />
               </h1>
-              <h1 className="text-3xl pr-7 text-[#555353]">
+              <h1 className="text-2xl md:text-3xl pr-4 md:pr-7 text-[#555353]">
                 <IoCloudDownloadOutline />
               </h1>
             </div>
@@ -76,7 +79,7 @@ function EmployeerManagement() {
                   </thead>
                   <tbody className="bg-[#dddcdc] divide-y divide-gray-200 dark:divide-gray-700 dark:bg-gray-900">
                     <tr className="w-full">
-                      <t-mx-1d className="pl-12 text-center py-4 whitespace-nowrap">
+                      <td className="text-center whitespace-nowrap">
                         <div className="flex text-center justify-center pt-2">
                           <img
                             className="object-cover w-12 h-12 border-2 border-white rounded-full dark:border-gray-700 shrink-0"
@@ -84,7 +87,7 @@ function EmployeerManagement() {
                             alt=""
                           />
                         </div>
-                      </t-mx-1d>
+                      </td>
                       <td className="px-12 py-4 text-sm font-medium whitespace-nowrap">
                         <div className="inline px-3 py-1 text-sm font-normal rounded-full text-emerald-500 gap-x-2 bg-emerald-100/60 dark:bg-gray-800">
                           Vishnu Krishnakumar

@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-import { FaUserTie, FaRegImage } from "react-icons/fa";
+import { FaUserTie } from "react-icons/fa";
 import { Link } from "react-router-dom";
-import { BsCaretLeftSquareFill } from "react-icons/bs";
 import { MdDashboard } from "react-icons/md";
 import { PiUsersThreeFill } from "react-icons/pi";
 import { RiMessage2Fill, RiUserSearchFill } from "react-icons/ri";
+import { TfiArrowCircleLeft, TfiArrowCircleRight } from "react-icons/tfi";
 
 function Sidebar() {
     const [open, setOpen] = useState(true);
@@ -19,34 +19,31 @@ function Sidebar() {
         },
         {
             name: "Candidates",
-            link: "#",
+            link: "/employer/candidatedetails/",
             icon: FaUserTie,
         },
         {
             name: "Jobs",
-            link: "#",
             icon: RiUserSearchFill,
             submenus: [
                 {
-                    name: "Submenu 1",
-                    link: "/employer/jobs/submenu1",
-                    icon: FaRegImage,
+                    name: "View Jobs",
+                    link: "/employer/jobs/",
                 },
                 {
-                    name: "Submenu 2",
-                    link: "/employer/jobs/submenu2",
-                    icon: FaRegImage,
+                    name: "Create Jobs",
+                    link: "/employer/create-job/",
                 },
             ],
         },
         {
             name: "Interviews",
-            link: "#",
+            link: "/employer/interviews/",
             icon: PiUsersThreeFill,
         },
         {
             name: "Services",
-            link: "#",
+            link: "4",
             icon: RiMessage2Fill,
         },
     ];
@@ -67,12 +64,21 @@ function Sidebar() {
                 } duration-500 text-dark-900 px-4`}
         >
             <div className="py-3 flex justify-end">
-                <BsCaretLeftSquareFill
-                    size={32}
-                    color="gray"
-                    className="cursor-pointer rounded-xl"
-                    onClick={() => setOpen(!open)}
-                />
+                {open ? (
+                    <TfiArrowCircleLeft
+                        size={32}
+                        color="gray"
+                        className="cursor-pointer rounded-xl"
+                        onClick={() => setOpen(!open)}
+                    />
+                ) : (
+                    <TfiArrowCircleRight
+                        size={32}
+                        color="gray"
+                        className="cursor-pointer rounded-xl"
+                        onClick={() => setOpen(!open)}
+                    />
+                )}
             </div>
             <div className="mt-4 flex flex-col md:gap-7 gap-1 relative">
                 {menus?.map((menu, i) => (
@@ -85,7 +91,10 @@ function Sidebar() {
                                 gap-10 font-medium p-2 rounded-xl ${activeLink === menu.link && open
                                     ? "bg-indigo-900  font-bold rounded-lg shadow-md"
                                     : ""
-                                } ${showJobSubmenus && menu.name === "Jobs" ? "bg-indigo-900  font-bold rounded-lg shadow-md" : ""}`}
+                                } ${showJobSubmenus && menu.name === "Jobs"
+                                    ? "bg-indigo-900  font-bold rounded-lg shadow-md"
+                                    : ""
+                                }`}
                         >
                             <div className="">
                                 {React.createElement(menu?.icon, { size: "25" })}
@@ -94,8 +103,8 @@ function Sidebar() {
                                 style={{ transitionDelay: `${i + 3}00ms` }}
                                 className={`whitespace-pre duration-500 text-xl font-medium ${!open && "opacity-0 -translate-x-1 overflow-hidden"
                                     } ${activeLink === menu.link
-                                        ? "bg-indigo-500 text-white"
-                                        : "hover:bg-indigo-500 hover:text-white"
+                                        ? " text-white"
+                                        : " hover:text-blue-900"
                                     } rounded-lg duration-500`}
                             >
                                 {menu?.name}
@@ -113,32 +122,33 @@ function Sidebar() {
                             </h2>
                         </Link>
                         {showJobSubmenus && menu.submenus && (
-                            <div className="ml-8">
-                                {menu.submenus.map((submenu, j) => (
-                                    <Link
-                                        key={j}
-                                        to={submenu.link}
-                                        onClick={() => handleLinkClick(submenu)}
-                                        className={`group flex items-center text-sm 
-                                        gap-10 font-medium p-2 rounded-xl ${activeLink === submenu.link && open
+                            <div className="">
+                                <div className="mx-auto flex flex-col w-1/2 gap-3 pt-2">
+                                    {menu.submenus.map((submenu, j) => (
+                                        <Link
+                                            key={j}
+                                            to={submenu.link}
+                                            onClick={() => handleLinkClick(submenu)}
+                                            className={`group flex items-center text-sm font-medium rounded-xl ${activeLink === submenu.link && open
                                                 ? "bg-indigo-900  font-bold rounded-lg shadow-md"
                                                 : ""
-                                            }`}
-                                    >
-                                        <div className="">
-                                            {React.createElement(submenu?.icon, { size: "25" })}
-                                        </div>
-                                        <h2
-                                            className={`whitespace-pre duration-500 text-xl font-medium ${!open && "opacity-0 -translate-x-1 overflow-hidden"
-                                                } ${activeLink === submenu.link
-                                                    ? "bg-indigo-500 text-white"
-                                                    : "hover:bg-indigo-500 hover:text-white"
-                                                } rounded-lg duration-500`}
+                                                }`}
                                         >
-                                            {submenu?.name}
-                                        </h2>
-                                    </Link>
-                                ))}
+                                            {/* <div className="">
+                      {React.createElement(submenu?.icon, { size: "25" })}
+                    </div> */}
+                                            <h2
+                                                className={`whitespace-pre duration-500 text-base font-medium ${!open && "opacity-0 -translate-x-1 overflow-hidden"
+                                                    } ${activeLink === submenu.link
+                                                        ? "bg-indigo-500 text-white"
+                                                        : "hover:bg-indigo-500 hover:text-white"
+                                                    } rounded-lg duration-500`}
+                                            >
+                                                <div>{submenu?.name}</div>
+                                            </h2>
+                                        </Link>
+                                    ))}
+                                </div>
                             </div>
                         )}
                     </div>

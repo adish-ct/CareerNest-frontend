@@ -1,20 +1,19 @@
 import React, { useEffect } from 'react';
-import Sidebar from '../../components/Employer/Sidebar';
-import { Button, Card, Typography } from '@material-tailwind/react';
+import { Button, Card } from '@material-tailwind/react';
 import { useSelector, useDispatch } from 'react-redux'
 import { Input } from "@material-tailwind/react";
-import "./Css/CreateJob.css";
-import { locations } from '../../components/HelperFile/Locations';
+import { locations } from '../../../components/HelperFile/Locations';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import axios from 'axios';
-import { baseUrl } from '../../api/Api';
+import { baseUrl } from '../../../api/Api';
 import { jwtDecode } from 'jwt-decode';
-import setUserDetails from '../../redux/Actions/UserAction'
-import { toggleLoading } from '../../redux/Actions/AuthAction'
+import setUserDetails from '../../../redux/Actions/UserAction'
+import { toggleLoading } from '../../../redux/Actions/AuthAction'
 import { useNavigate } from 'react-router-dom';
-import PageHeader from '../../components/Employer/PageHeader';
-import { jobType, workType } from '../../components/HelperFile/Types';
+import { jobType, workType } from '../../../components/HelperFile/Types';
+
+
 
 
 function CreateJob() {
@@ -91,18 +90,12 @@ function CreateJob() {
 
     return (
         <>
-            <div className="flex">
-                <Sidebar />
-                {/* main dashboard */}
-                <div className="h-screen w-5/6">
-
-                    <PageHeader header="CREATE JOB" />
-
-                    {/* Dashboard cards */}
-                    <div className="text-start p-5 md:ps-20 ps-10 md:pt-10">
-                        <Typography variant="h1" className="text-3xl font-bold">
-                            Provide the job details
-                        </Typography>
+            <div className="w-full bg-[#f0efef] p-2 rounded-md">
+                <div className="w-fullrounded-md">
+                    <div className="p-2 bg-white shadow-sm border rounded">
+                        <h1 className="text-2xl my-4 mx-auto font-extrabold text-center sm:text-2xl lg:text-3xl">
+                            CREATE
+                        </h1>
                     </div>
                     {/* Dashboard cards */}
 
@@ -114,8 +107,8 @@ function CreateJob() {
                                     <div className="flex flex-col gap-7">
 
                                         {/* Job Role and Location */}
-                                        <div className="flex flex-col md:flex-row gap-5">
-                                            <div className="w-full text-left md:w-2/4">
+                                        <div className="flex flex-col lg:flex-row gap-5">
+                                            <div className="w-full text-left lg:w-2/4">
                                                 <Input
                                                     label="Job Role"
                                                     type="text"
@@ -165,7 +158,7 @@ function CreateJob() {
 
                                         {/* Job CTC, Required Experience, and Work Type */}
                                         <div className="flex flex-col md:flex-row gap-5 w-full">
-                                            <div className="w-full md:w-1/4">
+                                            <div className="w-full lg:w-1/4">
                                                 <Input
                                                     label="Job CTC"
                                                     type='number'

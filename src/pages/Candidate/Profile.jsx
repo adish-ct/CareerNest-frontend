@@ -268,7 +268,7 @@ function Profile() {
                                         Projects
                                     </Typography>
                                     <hr />
-                                    <div className="flex gap-3 flex-row p-3" >
+                                    <div className="flex flex-col gap-3 p-3" >
                                         <ProjectCard />
                                     </div>
                                     <div onClick={handleProject} className="flex justify-end items-center gap-1 text-blue-900 hover:text-red-400 cursor-pointer">
