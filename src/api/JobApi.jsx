@@ -13,8 +13,6 @@ const fetchSelectedJobApi = async (jobId) => {
     }
 }
 
-export { fetchSelectedJobApi }
-
 
 const fetchEmployerJobApi = async () => {
     try {
@@ -27,4 +25,4 @@ const fetchEmployerJobApi = async () => {
     }
 }
 
-export { fetchEmployerJobApi }
+export { fetchEmployerJobApi, fetchSelectedJobApi }

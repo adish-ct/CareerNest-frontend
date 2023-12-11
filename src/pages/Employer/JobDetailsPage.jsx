@@ -38,7 +38,6 @@ function JobDetailsPage() {
 
     if (loading) {
         return;
-
     }
 
     return (

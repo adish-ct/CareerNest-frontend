@@ -1,8 +1,15 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Card, CardBody, Typography } from "@material-tailwind/react";
-import AllJobs from "./AllJobs";
+import AllJobs from "./ApplicationCard";
 import { FaSort } from "react-icons/fa";
 import { IoSearch } from "react-icons/io5";
+import ApplicationCard from "./ApplicationCard";
+import { useDispatch, useSelector } from "react-redux";
+import { toggleLoading } from "../../../../redux/Actions/AuthAction";
+import { useParams } from "react-router-dom";
+import { fetchApplicationsApi } from "../../../../api/ApplicationApi";
+import getLocal from "../../../../helper/Auth";
+import { jwtDecode } from "jwt-decode";
 
 const TabPanel = ({ id, children, isActive }) => (
     <div
@@ -35,12 +42,48 @@ const TabButton = ({ id, label, isActive, onClick }) => (
 );
 
 function JobApplications() {
-    const handleOpen = () => setOpen(!open);
-    const [activeTab, setActiveTab] = useState("profile");
-    const handleEducation = () => setOpenEducation(!openEducation);
+    const [activeTab, setActiveTab] = useState("all");
+    const [applicaionDetails, setApplicaionDetails] = useState([])
+    const loading = useSelector((state) => state.loading)
+    const user = useSelector((state) => state.user)
+    const dispatch = useDispatch()
+    const params = useParams()
+
     const handleTabClick = (tabId) => {
         setActiveTab(tabId);
     };
+
+    const fetchApplications = async (jobId) => {
+        const token = getLocal()
+        if (token) {
+            const decodedToken = jwtDecode(token)
+            try {
+                console.log();
+                if (jobId !== undefined) {
+                    const response = await fetchApplicationsApi(jobId, decodedToken.role)
+                    setApplicaionDetails(response)
+                    console.log(response);
+                }
+            } catch (error) {
+
+            }
+        }
+
+    }
+
+    useEffect(() => {
+        const token = getLocal()
+        const decodedToken = jwtDecode(token)
+        if (token) {
+            const fetchData = async () => {
+                await fetchApplications(params.jobId, token.role)
+                dispatch(toggleLoading())
+
+            }
+            fetchData()
+        }
+
+    }, [])
 
     return (
         <>
@@ -96,139 +139,158 @@ function JobApplications() {
                         <div className="w-full p-2 rounded-xl bg-[#f7f7f7]">
                             <Card className="shadow">
                                 <CardBody>
-                                    <TabPanel id="all" isActive={activeTab === "all"}>
-                                        <div className="flex flex-col md:flex-row items-center justify-between">
-                                            <div className="md:mb-2">
-                                                <Typography
-                                                    variant="h5"
-                                                    color="blue-gray"
-                                                    className="mb-2"
-                                                >
-                                                    All Jobs
-                                                </Typography>
-                                            </div>
-                                            <div className="flex flex-col md:flex-row items-center md:justify-end mt-4 md:mt-0 gap-4 md:gap-10 cursor-pointer">
-                                                <div className="text-2xl md:text-2xl text-[#7c7c7c]">
-                                                    <FaSort />
+                                    {
+                                        activeTab === 'all' && (
+                                            <TabPanel id="all" isActive={activeTab === "all"}>
+                                                <div className="flex flex-col md:flex-row items-center justify-between">
+                                                    <div className="md:mb-2">
+                                                        <Typography
+                                                            variant="h5"
+                                                            color="blue-gray"
+                                                            className="mb-2"
+                                                        >
+                                                            All Jobs
+                                                        </Typography>
+                                                    </div>
+                                                    <div className="flex flex-col md:flex-row items-center md:justify-end mt-4 md:mt-0 gap-4 md:gap-10 cursor-pointer">
+                                                        <div className="text-2xl md:text-2xl text-[#7c7c7c]">
+                                                            <FaSort />
+                                                        </div>
+                                                        <div className="w-full md:w-72 h-8 md:h-8 shadow-sm rounded-lg bg-[#555353] mt-2 md:mt-0">
+                                                            <input
+                                                                className="w-full h-full pl-2 bg-[#ecebeb] rounded-lg border text-sm md:text-base"
+                                                                type="text"
+                                                                placeholder="Search..."
+                                                            />
+                                                        </div>
+                                                        <div className="text-2xl md:text-2xl pr-3 pl-2 text-[#555353]">
+                                                            <IoSearch />
+                                                        </div>
+                                                    </div>
                                                 </div>
-                                                <div className="w-full md:w-72 h-8 md:h-8 shadow-sm rounded-lg bg-[#555353] mt-2 md:mt-0">
-                                                    <input
-                                                        className="w-full h-full pl-2 bg-[#ecebeb] rounded-lg border text-sm md:text-base"
-                                                        type="text"
-                                                        placeholder="Search..."
-                                                    />
+                                                <hr className="mt-4" />
+                                                <div className="p-3">
+                                                    <ApplicationCard applicaionDetails={applicaionDetails} />
                                                 </div>
-                                                <div className="text-2xl md:text-2xl pr-3 pl-2 text-[#555353]">
-                                                    <IoSearch />
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <hr className="mt-4" />
-                                        <div className="p-3">
-                                            <AllJobs />
-                                        </div>
-                                    </TabPanel>
+                                            </TabPanel>
+                                        )
+                                    }
 
-                                    <TabPanel id="pending" isActive={activeTab === "pending"}>
-                                        <div className="flex flex-col md:flex-row items-center justify-between">
-                                            <div className="md:mb-2">
-                                                <Typography
-                                                    variant="h5"
-                                                    color="blue-gray"
-                                                    className="mb-2"
-                                                >
-                                                    Pending Jobs
-                                                </Typography>
-                                            </div>
-                                            <div className="flex flex-col md:flex-row items-center md:justify-end mt-4 md:mt-0 gap-4 md:gap-10 cursor-pointer">
-                                                <div className="text-2xl md:text-2xl text-[#7c7c7c]">
-                                                    <FaSort />
+                                    {
+                                        activeTab === 'pending' && (
+                                            <TabPanel id="pending" isActive={activeTab === "pending"}>
+                                                <div className="flex flex-col md:flex-row items-center justify-between">
+                                                    <div className="md:mb-2">
+                                                        <Typography
+                                                            variant="h5"
+                                                            color="blue-gray"
+                                                            className="mb-2"
+                                                        >
+                                                            Pending Jobs
+                                                        </Typography>
+                                                    </div>
+                                                    <div className="flex flex-col md:flex-row items-center md:justify-end mt-4 md:mt-0 gap-4 md:gap-10 cursor-pointer">
+                                                        <div className="text-2xl md:text-2xl text-[#7c7c7c]">
+                                                            <FaSort />
+                                                        </div>
+                                                        <div className="w-full md:w-72 h-8 md:h-8 shadow-sm rounded-lg bg-[#555353] mt-2 md:mt-0">
+                                                            <input
+                                                                className="w-full h-full pl-2 bg-[#ecebeb] rounded-lg border text-sm md:text-base"
+                                                                type="text"
+                                                                placeholder="Search..."
+                                                            />
+                                                        </div>
+                                                        <div className="text-2xl md:text-2xl pr-3 pl-2 text-[#555353]">
+                                                            <IoSearch />
+                                                        </div>
+                                                    </div>
                                                 </div>
-                                                <div className="w-full md:w-72 h-8 md:h-8 shadow-sm rounded-lg bg-[#555353] mt-2 md:mt-0">
-                                                    <input
-                                                        className="w-full h-full pl-2 bg-[#ecebeb] rounded-lg border text-sm md:text-base"
-                                                        type="text"
-                                                        placeholder="Search..."
-                                                    />
+                                                <hr className="mt-4" />
+                                                <div className="p-3">
+                                                    <AllJobs />
                                                 </div>
-                                                <div className="text-2xl md:text-2xl pr-3 pl-2 text-[#555353]">
-                                                    <IoSearch />
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <hr className="mt-4" />
-                                        <div className="p-3">
-                                            <AllJobs />
-                                        </div>
-                                    </TabPanel>
-                                    <TabPanel
-                                        id="shortlisted"
-                                        isActive={activeTab === "shortlisted"}
-                                    >
-                                        <div className="flex flex-col md:flex-row items-center justify-between">
-                                            <div className="md:mb-2">
-                                                <Typography
-                                                    variant="h5"
-                                                    color="blue-gray"
-                                                    className="mb-2"
-                                                >
-                                                    Shortlisted Jobs
-                                                </Typography>
-                                            </div>
-                                            <div className="flex flex-col md:flex-row items-center md:justify-end mt-4 md:mt-0 gap-4 md:gap-10 cursor-pointer">
-                                                <div className="text-2xl md:text-2xl text-[#7c7c7c]">
-                                                    <FaSort />
-                                                </div>
-                                                <div className="w-full md:w-72 h-8 md:h-8 shadow-sm rounded-lg bg-[#555353] mt-2 md:mt-0">
-                                                    <input
-                                                        className="w-full h-full pl-2 bg-[#ecebeb] rounded-lg border text-sm md:text-base"
-                                                        type="text"
-                                                        placeholder="Search..."
-                                                    />
-                                                </div>
-                                                <div className="text-2xl md:text-2xl pr-3 pl-2 text-[#555353]">
-                                                    <IoSearch />
-                                                </div>
-                                            </div>
-                                        </div>
+                                            </TabPanel>
+                                        )
+                                    }
 
-                                        <hr className="mt-4" />
-                                        <div className="p-3">
-                                            <AllJobs />
-                                        </div>
-                                    </TabPanel>
-                                    <TabPanel id="rejected" isActive={activeTab === "rejected"}>
-                                        <div className="flex flex-col md:flex-row items-center justify-between">
-                                            <div className="md:mb-2">
-                                                <Typography
-                                                    variant="h5"
-                                                    color="blue-gray"
-                                                    className="mb-2"
-                                                >
-                                                    Rejected Jobs
-                                                </Typography>
-                                            </div>
-                                            <div className="flex flex-col md:flex-row items-center md:justify-end mt-4 md:mt-0 gap-4 md:gap-10 cursor-pointer">
-                                                <div className="text-2xl md:text-2xl text-[#7c7c7c]">
-                                                    <FaSort />
+                                    {
+                                        activeTab === 'shortlisted' && (
+                                            <TabPanel
+                                                id="shortlisted"
+                                                isActive={activeTab === "shortlisted"}
+                                            >
+                                                <div className="flex flex-col md:flex-row items-center justify-between">
+                                                    <div className="md:mb-2">
+                                                        <Typography
+                                                            variant="h5"
+                                                            color="blue-gray"
+                                                            className="mb-2"
+                                                        >
+                                                            Shortlisted Jobs
+                                                        </Typography>
+                                                    </div>
+                                                    <div className="flex flex-col md:flex-row items-center md:justify-end mt-4 md:mt-0 gap-4 md:gap-10 cursor-pointer">
+                                                        <div className="text-2xl md:text-2xl text-[#7c7c7c]">
+                                                            <FaSort />
+                                                        </div>
+                                                        <div className="w-full md:w-72 h-8 md:h-8 shadow-sm rounded-lg bg-[#555353] mt-2 md:mt-0">
+                                                            <input
+                                                                className="w-full h-full pl-2 bg-[#ecebeb] rounded-lg border text-sm md:text-base"
+                                                                type="text"
+                                                                placeholder="Search..."
+                                                            />
+                                                        </div>
+                                                        <div className="text-2xl md:text-2xl pr-3 pl-2 text-[#555353]">
+                                                            <IoSearch />
+                                                        </div>
+                                                    </div>
                                                 </div>
-                                                <div className="w-full md:w-72 h-8 md:h-8 shadow-sm rounded-lg bg-[#555353] mt-2 md:mt-0">
-                                                    <input
-                                                        className="w-full h-full pl-2 bg-[#ecebeb] rounded-lg border text-sm md:text-base"
-                                                        type="text"
-                                                        placeholder="Search..."
-                                                    />
+
+                                                <hr className="mt-4" />
+                                                <div className="p-3">
+                                                    <AllJobs />
                                                 </div>
-                                                <div className="text-2xl md:text-2xl pr-3 pl-2 text-[#555353]">
-                                                    <IoSearch />
+                                            </TabPanel>
+                                        )
+                                    }
+
+                                    {
+                                        activeTab === 'rejected' && (
+                                            <TabPanel id="rejected" isActive={activeTab === "rejected"}>
+                                                <div className="flex flex-col md:flex-row items-center justify-between">
+                                                    <div className="md:mb-2">
+                                                        <Typography
+                                                            variant="h5"
+                                                            color="blue-gray"
+                                                            className="mb-2"
+                                                        >
+                                                            Rejected Jobs
+                                                        </Typography>
+                                                    </div>
+                                                    <div className="flex flex-col md:flex-row items-center md:justify-end mt-4 md:mt-0 gap-4 md:gap-10 cursor-pointer">
+                                                        <div className="text-2xl md:text-2xl text-[#7c7c7c]">
+                                                            <FaSort />
+                                                        </div>
+                                                        <div className="w-full md:w-72 h-8 md:h-8 shadow-sm rounded-lg bg-[#555353] mt-2 md:mt-0">
+                                                            <input
+                                                                className="w-full h-full pl-2 bg-[#ecebeb] rounded-lg border text-sm md:text-base"
+                                                                type="text"
+                                                                placeholder="Search..."
+                                                            />
+                                                        </div>
+                                                        <div className="text-2xl md:text-2xl pr-3 pl-2 text-[#555353]">
+                                                            <IoSearch />
+                                                        </div>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        </div>
-                                        <hr className="mt-4" />
-                                        <div className="p-3">
-                                            <AllJobs />
-                                        </div>
-                                    </TabPanel>
+                                                <hr className="mt-4" />
+                                                <div className="p-3">
+                                                    <AllJobs />
+                                                </div>
+                                            </TabPanel>
+                                        )
+                                    }
+
                                 </CardBody>
                             </Card>
                         </div>

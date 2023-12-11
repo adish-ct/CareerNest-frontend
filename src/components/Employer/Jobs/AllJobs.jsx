@@ -45,7 +45,7 @@ const AllJobs = () => {
 
     useEffect(() => {
         fetchEmployerJobs();
-    }, []);
+    }, [jobs, dispatch]);
 
     const handleViewClick = (jobId) => {
         navigate(`/employer/view-job/${jobId}`);

@@ -91,9 +91,13 @@ function JobDetails({ selectedJob }) {
                                                 <div className="bg-[#817d7d] text-white ps-10 pe-10 pt-2 pb-1 rounded-lg">
                                                     <Link>UPDATE</Link>
                                                 </div>
-                                                <div className="bg-[#312f97] text-white ps-10 pe-10 pt-2 pb-1 rounded-lg">
-                                                    <Link to={`/employer/application/`}>APPLICATIONS</Link>
-                                                </div>
+
+                                                <Link to={`/employer/application/${selectedJob.id}`}>
+                                                    <div className="bg-[#312f97] text-white ps-10 pe-10 pt-2 pb-1 rounded-lg">
+                                                        <h6>APPLICATIONS</h6>
+                                                    </div>
+                                                </Link>
+
                                             </div>
                                         </div>
                                     </div>
