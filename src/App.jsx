@@ -9,9 +9,8 @@ import EmployerProfile from './pages/Employer/EmployerProfile';
 import HomePage from './pages/Candidate/HomePage';
 import Jobs from './pages/Candidate/Jobs';
 import PrivateRoute from './components/PrivateRoute';
-import EmployerJobs from './pages/Employer/EmployerJobs';
+import EmployerJobs from './pages/Employer/EmployerJobsPage';
 import UpdateJob from './pages/Employer/UpdateJob';
-import ViewJob from './pages/Employer/ViewJob';
 import Profile from './pages/Candidate/Profile';
 import AdminLogin from './components/Register/AdminLogin';
 import DashboardPage from './pages/Admin/DashboardPage';
@@ -23,6 +22,7 @@ import ApplicationPage from "./pages/Employer/Applications/ApplicationPage";
 import CandidateDetailsPage from "./pages/Employer/Candidate/CandidateDetailsPage";
 import InterviewsPage from "./pages/Employer/InterviewsPage";
 import MaintenancePage from "./components/MaintenancePage";
+import JobDetailsPage from './pages/Employer/JobDetailsPage';
 
 
 
@@ -42,9 +42,9 @@ const App = () => {
           <Route path="employer/create-job/" element={<PrivateRoute element={<CreateJob />} accessType="employer" />} />
           <Route path="employer/jobs/" element={<PrivateRoute element={<EmployerJobs />} accessType="employer" />} />
           <Route path="employer/update-job/:id/" element={<PrivateRoute element={<UpdateJob />} accessType="employer" />} />
-          <Route path="employer/view-job/:jobId/" element={<PrivateRoute element={<ViewJob />} accessType="employer" />} />
+          <Route path="employer/view-job/:jobId/" element={<PrivateRoute element={<JobDetailsPage />} accessType="employer" />} />
           <Route path="employer/profile" element={<PrivateRoute element={<EmployerProfile />} accessType="employer" />} />
-          <Route path="employer/application/" element={<PrivateRoute element={<ApplicationPage />} accessType="employer" />} />
+          <Route path="employer/application/:jobId/" element={<PrivateRoute element={<ApplicationPage />} accessType="employer" />} />
           <Route path="employer/candidatedetails/" element={<PrivateRoute element={<CandidateDetailsPage />} accessType="employer" />} />
           <Route path="employer/interviews/" element={<PrivateRoute element={<InterviewsPage />} accessType="employer" />} />
 
