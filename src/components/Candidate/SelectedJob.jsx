@@ -32,7 +32,7 @@ function SelectedJob() {
             checkExistingApplication();
         }
 
-        
+
     }, [user, selectedJob]);
 
     const formatDate = (dateString) => {
@@ -72,13 +72,27 @@ function SelectedJob() {
         }
     };
 
+
     const renderActionButton = () => {
         if (isApplied) {
             return <Button className='bg-[#5e90ed]'>Applied</Button>;
         } else {
-            return <Button onClick={handleApplyJob} className='bg-[#f44]'>Apply Job</Button>;
+            return (
+                <main className="grid w-full place-items-center bg-gray-100">
+                    <button
+                        onClick={handleApplyJob}
+                        className="group relative h-10 w-32 overflow-hidden rounded-lg bg-white text-md shadow"
+                    >
+                        <div className="absolute inset-0 w-3 bg-[#E83E3E] transition-all duration-[300ms] ease-out group-hover:w-full" />
+                        <span className="relative text-black group-hover:text-white">
+                            Apply Job
+                        </span>
+                    </button>
+                </main>
+            );
         }
     };
+
 
     return (
         <>
