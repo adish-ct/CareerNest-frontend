@@ -1,9 +1,37 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { FaSort } from "react-icons/fa";
 import { IoSearch } from "react-icons/io5";
 import { IoCloudDownloadOutline } from "react-icons/io5";
+import CandidateTableRow from "../Candidate/CandidateTableRow";
+import { fetchUserApi } from "../../../api/UserApi";
+import { useDispatch, useSelector } from "react-redux";
+import { toggleLoading } from "../../../redux/Actions/AuthAction";
 
 function CandidateManagement() {
+
+  const [candidatedetails, setCandidatedetails] = useState([])
+  const loading = useSelector((state) => state.loading)
+  const dispatch = useDispatch()
+
+  const fetchCandidate = async () => {
+    try {
+      const role = "Candidate"
+      const responce = await fetchUserApi(role)
+      setCandidatedetails(responce)
+      dispatch(toggleLoading())
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  useEffect(() => {
+    fetchCandidate()
+  }, [])
+
+  if (loading) {
+    return;
+  }
+
   return (
     <>
       <div className="bg-[#ecebeb] w-full p-2 rounded-md">
@@ -81,55 +109,7 @@ function CandidateManagement() {
                     </tr>
                   </thead>
                   <tbody className="bg-[#dddcdc] divide-y divide-gray-200 dark:divide-gray-700 dark:bg-gray-900">
-                    <tr className="w-full">
-                      <td className="text-center whitespace-nowrap">
-                        <div className="flex text-center justify-center pt-2">
-                          <img
-                            className="object-cover w-12 h-12 border-2 border-white rounded-full dark:border-gray-700 shrink-0"
-                            src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=256&q=80"
-                            alt=""
-                          />
-                        </div>
-                      </td>
-                      <td className="px-12 py-4 text-sm font-medium whitespace-nowrap">
-                        <div className="inline px-3 py-1 text-sm font-normal rounded-full text-emerald-500 gap-x-2 bg-emerald-100/60 dark:bg-gray-800">
-                          Vishnu Krishnakumar
-                        </div>
-                      </td>
-                      <td className="px-4 py-4 text-sm whitespace-nowrap">
-                        <div className="inline px-3 py-1 text-sm font-normal rounded-full text-emerald-500 gap-x-2 bg-emerald-100/60 dark:bg-gray-800">
-                          vishnu@gmail.com
-                        </div>
-                      </td>
-                      <td className="px-4 py-4 text-sm whitespace-nowrap">
-                        <div className="inline px-3 py-1 text-sm font-normal rounded-full text-emerald-500 gap-x-2 bg-emerald-100/60 dark:bg-gray-800">
-                          123456
-                        </div>
-                      </td>
-                      <td className="px-4 py-4 text-sm whitespace-nowrap">
-                        <div className="inline px-3 py-1 text-sm font-normal rounded-full text-emerald-500 gap-x-2 bg-emerald-100/60 dark:bg-gray-800">
-                          May 15, 2015
-                        </div>
-                      </td>
-                      <td className="px-4 py-4 text-sm whitespace-nowrap">
-                        <button className="px-1 py-1 text-gray-500 transition-colors duration-200 rounded-lg dark:text-gray-300 hover:bg-gray-100">
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            fill="none"
-                            viewBox="0 0 24 24"
-                            strokeWidth="1.5"
-                            stroke="currentColor"
-                            className="w-6 h-6"
-                          >
-                            <path
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              d="M12 6.75a.75.75 0 110-1.5.75.75 0 010 1.5zM12 12.75a.75.75 0 110-1.5.75.75 0 010 1.5zM12 18.75a.75.75 0 110-1.5.75.75 0 010 1.5z"
-                            />
-                          </svg>
-                        </button>
-                      </td>
-                    </tr>
+                    <CandidateTableRow candidatedetails={candidatedetails} />
                   </tbody>
                 </table>
               </div>
