@@ -14,7 +14,7 @@ function EducationCard() {
     const [selectedEducation, setSelectedEducation] = useState(null);
 
     const education = useSelector((state) => state.education);
-    
+
     const handleOpen = () => setOpen(!open);
     const dispatch = useDispatch();
 

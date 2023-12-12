@@ -1,8 +1,22 @@
-import React from "react";
-import { Card, CardBody } from "@material-tailwind/react";
+import React, { useState } from "react";
+import { Button, Card, CardBody } from "@material-tailwind/react";
 import { Link } from "react-router-dom";
+import ApplicationModal from "../../../Modal/Employer/Applications/ApplicationModal";
 
 function ApplicationCard({ applicaionDetails }) {
+
+    const [open, setOpen] = useState(false)
+    const [selectedApplication, setSelectedApplication] = useState(null)
+
+    const handleOpen = () => setOpen(!open);
+
+
+    const fetchApplcation = (index) => {
+        const data = applicaionDetails[index]
+        console.log(data.id);
+        setSelectedApplication(data)
+        handleOpen();
+    }
 
     return (
         <>
@@ -22,9 +36,12 @@ function ApplicationCard({ applicaionDetails }) {
                                         </div>
                                         <div className="flex items-center justify-center md:justify-end">
                                             <div className="flex gap-2 md:gap-4 font-bold cursor-pointer">
-                                                <div className="bg-[#312f97] text-white px-3 sm:p-1 md:px-4 py-1 rounded-lg">
-                                                    <Link to="#">Application</Link>
-                                                </div>
+                                                <Button
+                                                    className="bg-[#312f97] text-white px-3 sm:p-1 md:px-4 py-1 rounded-lg"
+                                                    onClick={() => fetchApplcation(index)}
+                                                >
+                                                    Application
+                                                </Button>
                                                 <div className="bg-[#312f97] text-white px-3 md:px-4 py-1 rounded-lg">
                                                     <Link to="#">View Profile</Link>
                                                 </div>
@@ -37,6 +54,7 @@ function ApplicationCard({ applicaionDetails }) {
                     ))
                 )
             }
+            <ApplicationModal open={open} handler={handleOpen} selectedApplication={selectedApplication} />
         </>
     );
 }

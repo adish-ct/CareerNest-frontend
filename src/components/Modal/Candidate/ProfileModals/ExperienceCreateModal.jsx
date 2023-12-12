@@ -1,11 +1,8 @@
 // ExperienceDialog.jsx
-import React, { useState } from 'react'
-import { Button, Dialog, DialogHeader, DialogBody, DialogFooter, Input, Textarea, Select } from "@material-tailwind/react";
+import React from 'react'
+import { Button, Dialog, DialogHeader, DialogBody, DialogFooter, Input, Textarea } from "@material-tailwind/react";
 import { useSelector } from 'react-redux';
 import { useFormik } from 'formik';
-import { jobType, workType } from '../../../HelperFile/Types';
-import { locations } from '../../../HelperFile/Locations';
-import indianStates from '../../../HelperFile/IndianStates';
 import * as Yup from 'yup';
 import { ToastContainer, toast } from 'react-toastify';
 import axios from 'axios';
