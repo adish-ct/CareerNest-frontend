@@ -12,6 +12,7 @@ import {
 } from "@material-tailwind/react";
 import setUserDetails from "../../../redux/Actions/UserAction";
 
+
 function Navbar() {
 
     const dispatch = useDispatch();

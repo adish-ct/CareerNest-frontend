@@ -1,11 +1,13 @@
 import React from 'react'
 import EmployerAction from '../Employer/EmployerAction'
+import { ToastContainer } from 'react-toastify'
 
 function CandidateTableRow({ candidatedetails }) {
 
 
     return (
         <>
+            <ToastContainer />
             {
                 candidatedetails && (
                     candidatedetails.map((data, index) => (

@@ -1,15 +1,33 @@
-import React, { useEffect, useState } from 'react'
-import { Popover, PopoverHandler, PopoverContent, Button, Input, Typography, } from "@material-tailwind/react";
-import { PiDotsThreeOutlineVerticalLight } from "react-icons/pi"
+import React, { useEffect, useState } from 'react';
+import { Popover, PopoverHandler, PopoverContent, Button, Input, Typography } from "@material-tailwind/react";
+import { PiDotsThreeOutlineVerticalLight } from "react-icons/pi";
+import { manageUserApi } from '../../../api/UserApi';
+import { toast } from 'react-toastify'
 
-function EmployerAction({ index, user }) {
+function EmployerAction({ user }) {
+    const [is_active, setIs_active] = useState(true);
 
-    const [employer, setEmployer] = useState(null)
+    const handleActive = () => setIs_active(prevState => !prevState);
 
-    console.log(user);
+    const handleAction = (userId) => {
+        if (user) {
+            const values = {
+                'is_active': !is_active,
+            }
+            manageUserApi(userId, values)
+                .then(() => handleActive());
+            toast.success("Status updated")
+        }
+    }
+
+    useEffect(() => {
+        if (user) {
+            setIs_active(user.is_active);
+        }
+    }, [user]);
 
     if (!user) {
-        return
+        return null;
     }
 
     return (
@@ -18,13 +36,12 @@ function EmployerAction({ index, user }) {
                 <button><PiDotsThreeOutlineVerticalLight /></button>
             </PopoverHandler>
             <PopoverContent className="w-96">
-
                 <Typography
                     variant="small"
                     color="blue-gray"
                     className="mb-1 font-bold"
                 >
-                    Block User : {user.username}
+                    Block User: {user.username}
                 </Typography>
                 <div className="flex gap-2">
                     <Input
@@ -35,8 +52,8 @@ function EmployerAction({ index, user }) {
                             className: "before:content-none after:content-none",
                         }}
                     />
-                    <Button className="flex-shrink-0 bg-red-500">
-                        Block
+                    <Button className="flex-shrink-0 bg-red-500" onClick={() => handleAction(user.id)}>
+                        {is_active ? 'Block' : 'Unblock'}
                     </Button>
                 </div>
             </PopoverContent>
@@ -44,4 +61,4 @@ function EmployerAction({ index, user }) {
     )
 }
 
-export default EmployerAction
+export default EmployerAction;

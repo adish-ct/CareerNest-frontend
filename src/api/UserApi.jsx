@@ -10,4 +10,14 @@ const fetchUserApi = async (role) => {
     }
 }
 
-export { fetchUserApi }
+
+const manageUserApi = async (userId, values) => {
+    try {
+        const response = await axios.put(`${baseUrl}/accounts/get-user/${userId}/`, values)
+        console.log(response.data);
+    } catch (error) {
+
+    }
+}
+
+export { fetchUserApi, manageUserApi }
