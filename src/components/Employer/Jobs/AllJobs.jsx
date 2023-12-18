@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { Button, Card, CardBody, Spinner, Typography } from '@material-tailwind/react';
+import { Card, CardBody, Spinner, Typography } from '@material-tailwind/react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { toggleLoading } from '../../../redux/Actions/AuthAction';
 import { fetchEmployerJobApi } from '../../../api/JobApi';
-
 
 const JobCard = ({ job, onViewClick, onUpdateClick }) => (
     <Card className="mt-6 w-full bg-[#f8f8f8]">
@@ -26,7 +25,7 @@ const JobCard = ({ job, onViewClick, onUpdateClick }) => (
 );
 
 const AllJobs = () => {
-    const [jobs, setJobs] = useState([])
+    const [jobs, setJobs] = useState([]);
     const loading = useSelector((state) => state.loading);
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -35,7 +34,7 @@ const AllJobs = () => {
         try {
             dispatch(toggleLoading(true));
             const jobData = await fetchEmployerJobApi();
-            setJobs(jobData)
+            setJobs(jobData);
         } catch (error) {
             console.error('Error fetching employer jobs:', error.message);
         } finally {
@@ -45,7 +44,7 @@ const AllJobs = () => {
 
     useEffect(() => {
         fetchEmployerJobs();
-    }, [jobs, dispatch]);
+    }, []);
 
     const handleViewClick = (jobId) => {
         navigate(`/employer/view-job/${jobId}`);
@@ -55,24 +54,24 @@ const AllJobs = () => {
         navigate(`/employer/update-job/${jobId}`);
     };
 
-    if (loading) {
-        return <Spinner />;
-    }
-
     return (
         <div className="flex">
             <div className="w-full">
                 <div className="text-center p-28">
-                    <div className="text-center">
-                        {jobs?.map((job, index) => (
-                            <JobCard
-                                key={index}
-                                job={job}
-                                onViewClick={handleViewClick}
-                                onUpdateClick={handleUpdateClick}
-                            />
-                        ))}
-                    </div>
+                    {loading ? (
+                        <Spinner />
+                    ) : (
+                        <div className="text-center">
+                            {jobs?.map((job, index) => (
+                                <JobCard
+                                    key={index}
+                                    job={job}
+                                    onViewClick={handleViewClick}
+                                    onUpdateClick={handleUpdateClick}
+                                />
+                            ))}
+                        </div>
+                    )}
                 </div>
             </div>
         </div>
