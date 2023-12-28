@@ -1,7 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
 import { Card, CardBody, Button } from "@material-tailwind/react";
+import { IoCopyOutline, IoCopy } from "react-icons/io5";
 
 function ScheduledInterview() {
+    const [isCopied, setIsCopied] = useState(false);
+
+    const handleCopyClick = () => {
+        setIsCopied(true);
+        setTimeout(() => setIsCopied(false), 2000);
+    };
     return (
         <>
             <div className="w-full bg-[#f0efef] p-2 rounded-md">
@@ -46,13 +53,20 @@ function ScheduledInterview() {
                                                     Interview Link :
                                                 </div>
                                                 <div className="w-3/6 text-start">
-                                                    https://gslhlfhllf/dfjdjlf/dfjflwal
+                                                    https://ningalude_interview_link_job_venamenkil_kayaram
                                                 </div>
-                                                <div className="text-end">
-                                                    <div className="flex gap-6 font-bold cursor-pointer">
-                                                        <div className="bg-[#312f97] text-white ps-6 pe-6 p-0.5 rounded-md">
-                                                            Copy
-                                                        </div>
+                                                <div className="mx-auto">
+                                                    <div
+                                                        className="flex gap-6 font-bold cursor-pointer"
+                                                        onClick={
+                                                            handleCopyClick
+                                                        }
+                                                    >
+                                                        {isCopied ? (
+                                                            <IoCopy className="text-2xl text-black" />
+                                                        ) : (
+                                                            <IoCopyOutline className="text-2xl text-black" />
+                                                        )}
                                                     </div>
                                                 </div>
                                             </div>
