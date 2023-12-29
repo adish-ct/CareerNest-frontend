@@ -1,8 +1,7 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import logo from "../../../images/logo.png";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-
 
 function Navbar() {
     const dispatch = useDispatch();
