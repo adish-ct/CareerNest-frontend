@@ -12,6 +12,7 @@ import Navbar from "../../components/Header/Accounts/Navbar";
 import { baseUrl } from '../../api/Api';
 import { toggleAuthentication, toggleLoading } from '../../redux/Actions/AuthAction';
 import setUserDetails from '../../redux/Actions/UserAction';
+import { Auth } from '../../Auth';
 
 const Login = () => {
     const dispatch = useDispatch();
@@ -29,6 +30,7 @@ const Login = () => {
         onSubmit: async (values) => {
             try {
                 const response = await axios.post(`${baseUrl}/accounts/login/`, values);
+                console.log(response);
                 toast.success("Login Successful");
 
                 const token = response.data.access;
@@ -46,7 +48,22 @@ const Login = () => {
                     console.log("super admin");
                 }
             } catch (error) {
-                toast.error('Credentials not matched');
+                if (error.response && error.response.data && error.response.data.detail) {
+                    const errorMessage = error.response.data.detail;
+
+                    // Check if the error message indicates unverified user
+                    if (errorMessage.includes("User is not verified")) {
+                        // Handle unverified user, e.g., show a notification to verify the account
+                        toast.warning("Account not verified. Please verify your account.");
+                    } else {
+                        // Handle other authentication errors
+                        toast.error('Credentials not matched');
+                    }
+                } else {
+                    // Handle other types of errors
+                    console.error(error);
+                    toast.error('An error occurred during login.');
+                }
             }
         },
     });
@@ -103,7 +120,9 @@ const Login = () => {
                                         <div className="-ml-2.5">
                                             <Checkbox label="Remember Me" />
                                         </div>
+                                        <Auth />
                                     </CardBody>
+
                                     <CardFooter className="pt-0">
                                         <Typography variant="small" className="mt-6 flex justify-center">
                                             Don&apos;t have an account?

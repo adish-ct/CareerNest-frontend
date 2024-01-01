@@ -9,7 +9,6 @@ import { fetchSelectedJobApi } from '../../api/JobApi';
 
 function JobDetailsPage() {
 
-    // taking parameters from api-end point.
     const params = useParams()
     const [selectedJob, setSelectedJob] = useState(null)
     const loading = useSelector((state) => state.loading)
@@ -26,7 +25,6 @@ function JobDetailsPage() {
     const fetchSelectedJob = async () => {
         try {
             if (params.jobId !== undefined) {
-                // use await if you are calling an api.
                 const response = await fetchSelectedJobApi(params.jobId);
                 setSelectedJob(response.data);
             }

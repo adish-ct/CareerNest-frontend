@@ -129,13 +129,13 @@ function Profile() {
                             <img className=' rounded-3xl h-32 w-32 md:h-36 md:w-36 xl:w-40 xl:h-40 2xl:h-44 2xl:w-44' src="https://png.pngtree.com/png-vector/20190710/ourlarge/pngtree-user-vector-avatar-png-image_1541962.jpg" alt="profile pic" />
                         </div>
                         <div className="flex flex-col">
-                            <h1>username</h1>
-                            <h1>username</h1>
+                            <h1> {user ? user.username : 'Vishnu'} </h1>
+                            <h1> {profile ? profile.candidate_designation : 'developer'} </h1>
                         </div>
                     </div>
                     <div className="flex flex-col gap-3">
                         <h1>about</h1>
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Provident sapiente obcaecati saepe, possimus quasi veritatis aut dicta natus nobis commodi magni hic nisi, laboriosam exercitationem delectus tempora. Vero, cumque alias.</p>
+                        <p> {profile ? profile.about : "passionate"} </p>
                     </div>
                 </div>
                 <hr className='mt-10 mb-10' />

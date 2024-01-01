@@ -38,7 +38,7 @@ function CandidateTableRow({ candidatedetails }) {
                             </td>
                             <td className="px-4 py-4 text-sm whitespace-nowrap">
                                 <div className="inline px-3 py-1 text-sm font-normal rounded-full text-emerald-500 gap-x-2 bg-emerald-100/60 dark:bg-gray-800">
-                                    {data.profile.candidate_designation}
+                                    {/* {data.profile.candidate_designation} */}
                                 </div>
                             </td>
                             <td className="px-4 py-4 text-sm whitespace-nowrap">

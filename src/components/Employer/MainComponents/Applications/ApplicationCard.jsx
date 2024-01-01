@@ -1,40 +1,48 @@
-import React, { useState } from "react";
-import { Button, Card, CardBody } from "@material-tailwind/react";
+import React, { useEffect, useState } from "react";
+import { Button, Card, CardBody, spinner } from "@material-tailwind/react";
 import { Link } from "react-router-dom";
 import ApplicationModal from "../../../Modal/Employer/Applications/ApplicationModal";
 
 function ApplicationCard({ applicaionDetails }) {
+    const [open, setOpen] = useState(false);
+    const [selectedApplication, setSelectedApplication] = useState(null);
 
-    const [open, setOpen] = useState(false)
-    const [selectedApplication, setSelectedApplication] = useState(null)
 
     const handleOpen = () => setOpen(!open);
 
-
     const fetchApplcation = (index) => {
-        const data = applicaionDetails[index]
-        console.log(data.id);
-        setSelectedApplication(data)
+        const data = applicaionDetails[index];
+        setSelectedApplication(data);
         handleOpen();
+    };
+
+    if (!applicaionDetails) {
+        return (
+            <h1>loading</h1>
+        )
     }
+
+    useEffect(() => {
+        fetchApplcation()
+    }, [])
 
     return (
         <>
-            {
-                applicaionDetails && (
-                    applicaionDetails.map((data, index) => (
-                        <div className="text-center" key={index}>
-                            <Card className="mt-6 w-11/12 md:w-5/6 mx-auto border-[#807f7f] border shadow-none">
-                                <CardBody className="p-4 md:p-6">
-                                    <div className="flex flex-col md:flex-row justify-between">
-                                        <div className="text-left mb-4 md:mb-0">
-                                            <h1>ID : CB234545-23-01</h1>
-                                            <div className="flex flex-col md:flex-row items-center gap-2 md:gap-10">
-                                                <h1 className="text-lg font-bold"> {data.user.username} </h1>
-                                                <h1 className="font-medium">{data.user.profile.candidate_designation}</h1>
-                                            </div>
+            {applicaionDetails && (
+                applicaionDetails.map((data, index) => (
+                    <div className="text-center" key={index}>
+                        <Card className="mt-6 w-11/12 md:w-5/6 mx-auto border-[#807f7f] border shadow-none">
+                            <CardBody className="p-4 md:p-6">
+                                <div className="flex flex-col md:flex-row justify-between">
+                                    <div className="text-left mb-4 md:mb-0">
+                                        <h1>ID : CB234545-23-01</h1>
+                                        <div className="flex flex-col md:flex-row items-center gap-2 md:gap-10">
+                                            {/* <h1 className="text-lg font-bold"> {data.user} </h1> */}
+                                            {/* <h1 className="font-medium">{data.user.profile.candidate_designation}</h1> */}
                                         </div>
-                                        <div className="flex items-center justify-center md:justify-end">
+                                    </div>
+                                    <div className="flex items-center justify-center md:justify-end">
+                                        <div className="flex flex-col gap-5">
                                             <div className="flex gap-2 md:gap-4 font-bold cursor-pointer">
                                                 <Button
                                                     className="bg-[#312f97] text-white px-3 sm:p-1 md:px-4 py-1 rounded-lg"
@@ -46,14 +54,17 @@ function ApplicationCard({ applicaionDetails }) {
                                                     <Link to="#">View Profile</Link>
                                                 </div>
                                             </div>
+                                            <div className="text-center">
+                                                <h1>Status: {data.status}</h1>
+                                            </div>
                                         </div>
                                     </div>
-                                </CardBody>
-                            </Card>
-                        </div>
-                    ))
-                )
-            }
+                                </div>
+                            </CardBody>
+                        </Card>
+                    </div>
+                ))
+            )}
             <ApplicationModal open={open} handler={handleOpen} selectedApplication={selectedApplication} />
         </>
     );

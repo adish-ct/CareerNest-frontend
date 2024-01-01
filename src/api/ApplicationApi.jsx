@@ -15,23 +15,35 @@ axiosInstance.interceptors.request.use((config) => {
 
 const fetchApplicationsApi = async (jobId, userRole) => {
     try {
-        const response = await axiosInstance.get(`${baseUrl}/application/?job=${jobId}&role=${userRole}`);
+        const response = await axiosInstance.get(`${baseUrl}/employer/application/?job=${jobId}&role=${userRole}`);
         return response.data;
     } catch (error) {
         console.error('Error fetching data:', error);
     }
 };
 
+
 const updateApplicationApi = async (applicationId, values) => {
     try {
-        const token = getLocal();
-        console.log(values);
-        const response = await axiosInstance.put(`${baseUrl}/application/${applicationId}/`, values)
-        console.log(response.data);
+        const response = await axiosInstance.put(`${baseUrl}/employer/application/${applicationId}/`, values)
         return response.data
     } catch (error) {
         console.error('Error updating application:', error);
     }
 };
 
-export { fetchApplicationsApi, updateApplicationApi };
+// change api from application/ to employer/application/
+
+const applyJobApplicationApi = async (formData) => {
+    try {
+        const token = getLocal()
+        if (token) {
+            const response = await axiosInstance.post(`${baseUrl}/application/`, formData)
+            return response
+        }
+    } catch (error) {
+
+    }
+}
+
+export { fetchApplicationsApi, updateApplicationApi, applyJobApplicationApi };

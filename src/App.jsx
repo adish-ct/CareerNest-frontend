@@ -23,6 +23,8 @@ import CandidateDetailsPage from "./pages/Employer/Candidate/CandidateDetailsPag
 import InterviewsPage from "./pages/Employer/InterviewsPage";
 import MaintenancePage from "./components/MaintenancePage";
 import JobDetailsPage from './pages/Employer/JobDetailsPage';
+import OtpPage from './pages/Candidate/OtpPage';
+import { Auth } from './Auth';
 
 
 
@@ -32,8 +34,10 @@ const App = () => {
     <>
       <Router>
         <Routes>
+
           <Route path="register/" element={<SignupPage />} />
           <Route path="login/" element={<Login />} />
+          <Route path="verify-account/" element={<OtpPage />} />
           <Route path="/" element={<PrivateRoute element={<HomePage />} accessType='user' />} />
           <Route path="jobs/" element={<PrivateRoute element={<Jobs />} accessType="user" />} />
           <Route path="profile/" element={<PrivateRoute element={<Profile />} accessType="user" />} />

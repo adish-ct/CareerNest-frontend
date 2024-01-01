@@ -8,7 +8,7 @@ function SignupPage() {
     <div>
       <Navbar />
       <SignUp />
-      {/* <Footer /> */}
+      <Footer />
     </div>
   );
 }

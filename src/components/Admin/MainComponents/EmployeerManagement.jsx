@@ -12,6 +12,7 @@ function EmployeerManagement() {
   const fetchEmployer = async () => {
     const role = "Employer"
     const response = await fetchUserApi(role)
+    console.log(response);
     setEmployers(response)
   }
 

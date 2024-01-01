@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Card, CardBody, Spinner, Typography } from '@material-tailwind/react';
+import { Button, Card, CardBody, Spinner, Typography } from '@material-tailwind/react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { toggleLoading } from '../../../redux/Actions/AuthAction';

@@ -1,5 +1,11 @@
 import axios from "axios"
 import { baseUrl } from "./Api"
+import getLocal from "../helper/Auth"
+import { jwtDecode } from "jwt-decode"
+import setUserDetails from "../redux/Actions/UserAction"
+import { useDispatch } from "react-redux"
+
+
 
 const fetchUserApi = async (role) => {
     try {
@@ -20,4 +26,15 @@ const manageUserApi = async (userId, values) => {
     }
 }
 
-export { fetchUserApi, manageUserApi }
+
+const setUserApi = () => {
+    const dispatch = useDispatch()
+
+    const token = getLocal()
+    if (token) {
+        const decodedToken = jwtDecode(token)
+        dispatch(setUserDetails(decodedToken))
+    }
+}
+
+export { fetchUserApi, manageUserApi, setUserApi }

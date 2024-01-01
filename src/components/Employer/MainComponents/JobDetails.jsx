@@ -1,12 +1,9 @@
-import React, { useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
-import { useParams } from 'react-router-dom';
+import React from "react";
+import { Link } from "react-router-dom";
 
 
 function JobDetails({ selectedJob }) {
 
-    const params = useParams();
 
     const formatDate = (date) => {
         const options = { year: 'numeric', month: 'short', day: 'numeric' }

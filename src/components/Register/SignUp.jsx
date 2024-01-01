@@ -23,19 +23,19 @@ const SignUp = () => {
   const [password, setPassword] = useState("")
   const [confirmPassword, setConfirmPassword] = useState("")
   const [isChecked, setIsChecked] = useState(false);
-  const [setstore, setSetstore] = useState([])
+  const [roles, setRoles] = useState([])
   const [error, setError] = useState("")
 
+  // Inside your component where you navigate after a successful registration
   const navigate = useNavigate()
 
   const handleCheckboxChange = () => {
     setIsChecked(!isChecked);
   };
 
-  const getRole = () => {
-    axios.get(`${baseUrl}/accounts/`).then((response) => {
-      setSetstore(response.data)
-    })
+  const getRole = async () => {
+    const response = await axios.get(`${baseUrl}/accounts/`)
+    setRoles(response.data)
   };
 
   useEffect(() => {
@@ -46,6 +46,7 @@ const SignUp = () => {
     e.preventDefault();
 
     try {
+
       const response = await axios.post(`${baseUrl}/accounts/register/`, {
         username,
         email,
@@ -55,15 +56,17 @@ const SignUp = () => {
       });
 
       if (response.data) {
-        toast.success("Successfully registered");
-        navigate('/login/')
+        toast.success("Verify your account");
+
+        // Pass user email as URL parameter to the OTP page
+        navigate(`/verify-account/?email=${encodeURIComponent(email)}`);
       }
     } catch (error) {
       if (error.response) {
         // The request was made and the server responded with a status code
         // that falls out of the range of 2xx
         console.error("Error response data:", error.response.data);
-        toast.error("Registration failed. Please check your inputs.");
+        toast.error("Invalid credentials");
       } else if (error.request) {
         // The request was made but no response was received
         console.error("Error request data:", error.request);
@@ -76,6 +79,7 @@ const SignUp = () => {
     }
 
   }
+
   return (
     <div>
       <ToastContainer />
@@ -170,24 +174,26 @@ const SignUp = () => {
               </div>
               <div className="flex justify-center gap-16 pt-5">
                 {
-                  setstore.map((role, index) => (
-                    <div className="flex flex-row gap-10 p-2 ps-6 pe-6 items-center justify-center shadow-lg rounded-2xl border" key={index}>
-                      <label
-                        className="relative flex cursor-pointer items-center rounded-full"
-                        htmlFor="indigo"
-                      >
-                        <input id={index} name="role" type="radio" value={role.id} onChange={(e) => setRole(e.target.value)}
-                          className="before:content[''] peer relative h-5 w-5 cursor-pointer appearance-none rounded-full border border-blue-gray-200 text-indigo-500 transition-all before:absolute before:top-2/4 before:left-2/4 before:block before:h-12 before:w-12 before:-translate-y-2/4 before:-translate-x-2/4 before:rounded-full before:bg-blue-gray-500 before:opacity-0 before:transition-opacity checked:border-indigo-500 checked:before:bg-indigo-500 hover:before:opacity-10"
-                        />
-                        <div className="pointer-events-none absolute top-2/4 left-2/4 -translate-y-2/4 -translate-x-2/4 text-indigo-500 opacity-0 transition-opacity peer-checked:opacity-100">
-                          <svg xmlns="http://www.w3.org/2000/svg" className="h-3.5 w-3.5" viewBox="0 0 16 16" fill="currentColor">
-                            <circle data-name="ellipse" cx="8" cy="8" r="8"></circle>
-                          </svg>
-                        </div>
-                      </label>
-                      <p className="text-lg">{role.role}</p>
-                    </div>
-                  ))
+                  roles && (
+                    roles.map((role, index) => (
+                      <div className="flex flex-row gap-10 p-2 ps-6 pe-6 items-center justify-center shadow-lg rounded-2xl border" key={index}>
+                        <label
+                          className="relative flex cursor-pointer items-center rounded-full"
+                          htmlFor="indigo"
+                        >
+                          <input id={index} name="role" type="radio" value={role.id} onChange={(e) => setRole(e.target.value)}
+                            className="before:content[''] peer relative h-5 w-5 cursor-pointer appearance-none rounded-full border border-blue-gray-200 text-indigo-500 transition-all before:absolute before:top-2/4 before:left-2/4 before:block before:h-12 before:w-12 before:-translate-y-2/4 before:-translate-x-2/4 before:rounded-full before:bg-blue-gray-500 before:opacity-0 before:transition-opacity checked:border-indigo-500 checked:before:bg-indigo-500 hover:before:opacity-10"
+                          />
+                          <div className="pointer-events-none absolute top-2/4 left-2/4 -translate-y-2/4 -translate-x-2/4 text-indigo-500 opacity-0 transition-opacity peer-checked:opacity-100">
+                            <svg xmlns="http://www.w3.org/2000/svg" className="h-3.5 w-3.5" viewBox="0 0 16 16" fill="currentColor">
+                              <circle data-name="ellipse" cx="8" cy="8" r="8"></circle>
+                            </svg>
+                          </div>
+                        </label>
+                        <p className="text-lg">{role.role}</p>
+                      </div>
+                    ))
+                  )
                 }
 
               </div>

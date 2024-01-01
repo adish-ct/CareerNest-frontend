@@ -2,14 +2,7 @@ import React from "react";
 import logo from "../../../images/logo.png";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-import {
-    Menu,
-    MenuHandler,
-    MenuList,
-    MenuItem,
-    Avatar,
-    Typography,
-} from "@material-tailwind/react";
+import { Menu, MenuHandler, MenuList, MenuItem, Avatar, Typography, } from "@material-tailwind/react";
 import setUserDetails from "../../../redux/Actions/UserAction";
 
 

@@ -3,11 +3,12 @@ import { Button, Typography } from '@material-tailwind/react';
 import { useSelector } from 'react-redux';
 import { MdAccessTime, MdLocationOn } from 'react-icons/md';
 import { TfiLightBulb } from "react-icons/tfi";
-import getLocal from '../../helper/Auth';
 import axios from 'axios';
 import { baseUrl } from '../../api/Api';
 import { useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
+import { applyJobApplicationApi } from '../../api/ApplicationApi';
+import getLocal from '../../helper/Auth';
 
 function SelectedJob() {
     const selectedJob = useSelector((state) => state.job);
@@ -22,6 +23,7 @@ function SelectedJob() {
                     params: { user: user?.user_id, job: selectedJob?.id, role: user?.role },
                     headers: { Authorization: `Bearer ${getLocal()}` },
                 });
+
                 setIsApplied(data.length > 0);
             } catch (error) {
                 console.error("Error fetching data", error);
@@ -32,14 +34,12 @@ function SelectedJob() {
             checkExistingApplication();
         }
 
-
     }, [user, selectedJob]);
 
     const formatDate = (dateString) => {
         const options = { year: 'numeric', month: 'long', day: 'numeric' };
         return new Date(dateString).toLocaleDateString(undefined, options);
     };
-
 
     const handleApplyJob = async () => {
         const token = getLocal();
@@ -50,15 +50,21 @@ function SelectedJob() {
         }
 
         if (!selectedJob || isApplied) {
-            toast.warn("You have already applied or no job selected");
+            toast.warn("You have already applied the job");
             return;
         }
 
         try {
-            const applicationData = { user: user.user_id, job: selectedJob.id, status: "applied" };
-            const response = await axios.post(`${baseUrl}/application/`, applicationData, {
-                headers: { Authorization: `Bearer ${token}` },
-            });
+            const applicationData = {
+                user: user.user_id,
+                job: selectedJob.id,
+                status: 'applied',
+                is_pending: true,
+                is_accept: false,
+                is_reject: false,
+            };
+
+            const response = await applyJobApplicationApi(applicationData);
 
             if (response.status === 201) {
                 setIsApplied(true);
@@ -67,32 +73,29 @@ function SelectedJob() {
                 toast.error("Failed to apply for the job");
             }
         } catch (error) {
-            console.error("Error applying for the job:", error);
             toast.error("An error occurred while applying for the job");
         }
     };
 
-
     const renderActionButton = () => {
         if (isApplied) {
             return <Button className='bg-[#5e90ed]'>Applied</Button>;
-        } else {
-            return (
-                <main className="grid w-full place-items-center bg-gray-100">
-                    <button
-                        onClick={handleApplyJob}
-                        className="group relative h-10 w-32 overflow-hidden rounded-lg bg-white text-md shadow"
-                    >
-                        <div className="absolute inset-0 w-3 bg-[#E83E3E] transition-all duration-[300ms] ease-out group-hover:w-full" />
-                        <span className="relative text-black group-hover:text-white">
-                            Apply Job
-                        </span>
-                    </button>
-                </main>
-            );
         }
-    };
 
+        return (
+            <main className="grid w-full place-items-center bg-gray-100">
+                <button
+                    onClick={handleApplyJob}
+                    className="group relative h-10 w-32 overflow-hidden rounded-lg bg-white text-md shadow"
+                >
+                    <div className="absolute inset-0 w-3 bg-[#E83E3E] transition-all duration-[300ms] ease-out group-hover:w-full" />
+                    <span className="relative text-black group-hover:text-white">
+                        Apply Job
+                    </span>
+                </button>
+            </main>
+        );
+    };
 
     return (
         <>
