@@ -5,7 +5,6 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import EmployerDashboard from "./pages/Employer/EmployerDashboardPage";
 import CreateJob from "./pages/Employer/Jobs/CreateJob";
 import SignupPage from "./pages/Register/SignupPage";
-import EmployerProfile from "./pages/Employer/EmployerProfile";
 // import Profile from './pages/Common/Profile';
 import HomePage from "./pages/Candidate/HomePage";
 import Jobs from "./pages/Candidate/Jobs";
@@ -25,6 +24,7 @@ import CandidateDetailsPage from "./pages/Employer/Candidate/CandidateDetailsPag
 import InterviewCalenderPage from "./pages/Employer/Interviews/InterviewCalenderPage";
 import InterviewsListPage from "./pages/Employer/Interviews/InterviewsListPage";
 import ScheduledInterviewPage from "./pages/Employer/Interviews/ScheduledInterviewPage";
+import EmployeerProfilePage from "./pages/Employer/Profile/EmployeerProfilePage";
 
 function App() {
     return (
@@ -58,7 +58,7 @@ function App() {
                     />
                     <Route
                         path="employer/profile"
-                        element={<EmployerProfile />}
+                        element={<EmployeerProfilePage />}
                     />
                     <Route
                         path="employer/application/"
