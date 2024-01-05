@@ -43,6 +43,14 @@ function ScheduledInterview() {
                                             </div>
                                             <div className="flex">
                                                 <div className="w-1/3 font-bold text-left">
+                                                    Date :
+                                                </div>
+                                                <div className="w-3/6 text-start">
+                                                    01 / 01 / 2024
+                                                </div>
+                                            </div>
+                                            <div className="flex">
+                                                <div className="w-1/3 font-bold text-left">
                                                     Interview Time :
                                                 </div>
                                                 <div className="w-3/6 text-start">
