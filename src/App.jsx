@@ -3,16 +3,15 @@ import React from "react";
 import Login from "./pages/Login/Login";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import EmployerDashboard from "./pages/Employer/EmployerDashboardPage";
-import CreateJob from "./pages/Employer/CreateJob";
+import CreateJob from "./pages/Employer/Jobs/CreateJob";
 import SignupPage from "./pages/Register/SignupPage";
-import EmployerProfile from "./pages/Employer/EmployerProfile";
 // import Profile from './pages/Common/Profile';
 import HomePage from "./pages/Candidate/HomePage";
 import Jobs from "./pages/Candidate/Jobs";
 import PrivateRoute from "./components/PrivateRoute";
-import EmployerJobs from "./pages/Employer/EmployerJobsPage";
-import UpdateJob from "./pages/Employer/UpdateJob";
-import ViewJob from "./pages/Employer/ViewJob";
+import EmployerJobs from "./pages/Employer/Jobs/EmployerJobsPage";
+import UpdateJob from "./pages/Employer/Jobs/UpdateJob";
+import ViewJob from "./pages/Employer/Jobs/ViewJob";
 import Profile from "./pages/Candidate/Profile";
 import AdminLogin from "./components/Register/AdminLogin";
 import DashboardPage from "./pages/Admin/DashboardPage";
@@ -25,6 +24,7 @@ import CandidateDetailsPage from "./pages/Employer/Candidate/CandidateDetailsPag
 import InterviewCalenderPage from "./pages/Employer/Interviews/InterviewCalenderPage";
 import InterviewsListPage from "./pages/Employer/Interviews/InterviewsListPage";
 import ScheduledInterviewPage from "./pages/Employer/Interviews/ScheduledInterviewPage";
+import EmployeerProfilePage from "./pages/Employer/Profile/EmployeerProfilePage";
 
 function App() {
     return (
@@ -58,7 +58,7 @@ function App() {
                     />
                     <Route
                         path="employer/profile"
-                        element={<EmployerProfile />}
+                        element={<EmployeerProfilePage />}
                     />
                     <Route
                         path="employer/application/"

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { FaUserTie } from "react-icons/fa";
+import { FaUserTie, FaUser } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { MdDashboard } from "react-icons/md";
 import { PiUsersThreeFill } from "react-icons/pi";
@@ -16,6 +16,11 @@ function Sidebar() {
             name: "Dashboard",
             link: "/employer/dashboard/",
             icon: MdDashboard,
+        },
+        {
+            name: "Our Profile",
+            link: "/employer/profile/",
+            icon: FaUser,
         },
         {
             name: "Candidates",

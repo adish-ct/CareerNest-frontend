@@ -48,11 +48,12 @@ function InterviewsList() {
         <>
             <div className="w-full bg-[#f0efef] p-2 rounded-md">
                 <div className="w-full rounded-md">
-                    <div className="p-2 bg-white shadow-sm border rounded">
-                        <h1 className="text-2xl my-4 mx-auto font-extrabold text-center sm:text-2xl lg:text-3xl">
+                    <div className="p-5 bg-white shadow-sm border rounded">
+                        <h1 class="text-2xl my-auto mx-auto font-extrabold text-center">
                             INTERVIEWS
                         </h1>
                     </div>
+
                     <div className="flex flex-col pt-4 gap-2 w-full">
                         <div className="w-full border border-[#686464]">
                             <Card className="shadow rounded-none">
