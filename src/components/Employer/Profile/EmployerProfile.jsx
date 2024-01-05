@@ -1,7 +1,6 @@
-import React, { useState } from "react";
+import React from "react";
 
 function EmployerProfile() {
-    const [openSettings, setOpenSettings] = useState(false);
     return (
         <>
             <div className="w-full bg-[#f0efef] p-2 rounded-md">
