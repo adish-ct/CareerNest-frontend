@@ -25,6 +25,7 @@ import InterviewCalenderPage from "./pages/Employer/Interviews/InterviewCalender
 import InterviewsListPage from "./pages/Employer/Interviews/InterviewsListPage";
 import ScheduledInterviewPage from "./pages/Employer/Interviews/ScheduledInterviewPage";
 import EmployeerProfilePage from "./pages/Employer/Profile/EmployeerProfilePage";
+import TestPage from "./TestPage";
 
 function App() {
     return (
@@ -98,6 +99,7 @@ function App() {
                     />
                     {/* .................. */}
                     <Route path="/*" element={<MaintenancePage />} />
+                    <Route path="testpage" element={<TestPage />} />
                 </Routes>
             </Router>
         </>
