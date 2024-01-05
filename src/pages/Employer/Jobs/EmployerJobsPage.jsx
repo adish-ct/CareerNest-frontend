@@ -1,7 +1,7 @@
 import React from "react";
-import Navbar from "../../components/Employer/SideNavBar/Navbar";
-import JobDetails from "../../components/Employer/MainComponents/JobDetails";
-import Sidebar from "../../components/Employer/SideNavBar/Sidebar";
+import Navbar from "../../../components/Employer/SideNavBar/Navbar";
+import JobDetails from "../../../components/Employer/MainComponents/JobDetails";
+import Sidebar from "../../../components/Employer/SideNavBar/Sidebar";
 
 function EmployerJobs() {
     return (

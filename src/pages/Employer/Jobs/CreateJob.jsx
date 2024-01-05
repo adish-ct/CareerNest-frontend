@@ -1,19 +1,19 @@
 import React, { useEffect } from "react";
-import Sidebar from "../../components/Employer/Sidebar";
+import Sidebar from "../../../components/Employer/Sidebar";
 import { Button, Card, Typography } from "@material-tailwind/react";
 import { useSelector, useDispatch } from "react-redux";
 import { Input } from "@material-tailwind/react";
-import "./Css/CreateJob.css";
-import { locations } from "../../components/HelperFile/Locations";
+import "../Css/CreateJob.css";
+import { locations } from "../../../components/HelperFile/Locations";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import axios from "axios";
-import { baseUrl } from "../../api/Api";
+import { baseUrl } from "../../../api/Api";
 import { jwtDecode } from "jwt-decode";
-import setUserDetails from "../../redux/Actions/UserAction";
-import { toggleLoading } from "../../redux/Actions/AuthAction";
+import setUserDetails from "../../../redux/Actions/UserAction";
+import { toggleLoading } from "../../../redux/Actions/AuthAction";
 import { useNavigate } from "react-router-dom";
-import { jobType, workType } from "../../components/HelperFile/Types";
+import { jobType, workType } from "../../../components/HelperFile/Types";
 
 function CreateJob() {
     const dispatch = useDispatch();

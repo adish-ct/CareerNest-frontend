@@ -1,16 +1,16 @@
 // JobDetails.js
 
 import React, { useEffect, useState } from "react";
-import Sidebar from "../../components/Employer/Sidebar";
+import Sidebar from "../../../components/Employer/Sidebar";
 import { Card, CardBody, Typography, Button } from "@material-tailwind/react";
 import { useNavigate, useParams } from "react-router-dom";
 import { jwtDecode } from "jwt-decode";
-import setUserDetails from "../../redux/Actions/UserAction";
+import setUserDetails from "../../../redux/Actions/UserAction";
 import { Formik } from "formik";
-import { toggleLoading } from "../../redux/Actions/AuthAction";
+import { toggleLoading } from "../../../redux/Actions/AuthAction";
 import { useDispatch } from "react-redux";
 import axios from "axios";
-import { baseUrl } from "../../api/Api";
+import { baseUrl } from "../../../api/Api";
 
 function JobDetails() {
   const { jobId } = useParams();

@@ -3,17 +3,17 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate, useParams } from 'react-router-dom';
-import { baseUrl } from '../../api/Api';
+import { baseUrl } from '../../../api/Api';
 import { useFormik } from 'formik';
 import { useDispatch, useSelector } from 'react-redux';
 import * as Yup from 'yup';
-import Sidebar from '../../components/Employer/Sidebar';
+import Sidebar from '../../../components/Employer/Sidebar';
 import { Button, Card, Input, Typography } from '@material-tailwind/react';
-import { locations } from '../../components/HelperFile/Locations';
+import { locations } from '../../../components/HelperFile/Locations';
 import { jwtDecode } from 'jwt-decode';
-import setUserDetails from '../../redux/Actions/UserAction'
-import { toggleLoading } from '../../redux/Actions/AuthAction'
-import { jobType, workType } from '../../components/HelperFile/Types';
+import setUserDetails from '../../../redux/Actions/UserAction'
+import { toggleLoading } from '../../../redux/Actions/AuthAction'
+import { jobType, workType } from '../../../components/HelperFile/Types';
 
 function UpdateJob() {
 
