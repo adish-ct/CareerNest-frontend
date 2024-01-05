@@ -16,7 +16,7 @@ function EmployerProfile() {
                             <div className="flex justify-between container mx-auto">
                                 <div className="w-full">
                                     <div className="mt-4 px-2">
-                                        <h1 className="font-thin text-2xl pt-10 px-5">
+                                        <h1 className="font-thin drop-shadow-md text-2xl pt-10 px-5">
                                             Update Profile
                                         </h1>
                                         <form className="mx-3 my-3">
@@ -29,13 +29,13 @@ function EmployerProfile() {
                                                     />
                                                 </div>
                                                 <div className="flex items-center pl-2">
-                                                    <label className="block pt-2">
+                                                    <label className="block pt-2 drop-shadow-md">
                                                         <span className="sr-only t-2">
                                                             Choose Banner photo
                                                         </span>
                                                         <input
                                                             type="file"
-                                                            className="w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-pink-200 file:text-zinc-900 hover:file:bg-rose-300"
+                                                            className="w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-[#dad5d5] file:text-zinc-900 hover:file:bg-rose-300"
                                                         />
                                                     </label>
                                                 </div>
@@ -47,19 +47,19 @@ function EmployerProfile() {
                                                     />
                                                 </div>
                                                 <div className="flex items-center pl-2">
-                                                    <label className="block pt-2">
+                                                    <label className="block pt-2 drop-shadow-md">
                                                         <span className="sr-only t-2">
                                                             Choose Banner photo
                                                         </span>
                                                         <input
                                                             type="file"
-                                                            className="w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-pink-200 file:text-zinc-900 hover:file:bg-rose-300"
+                                                            className="w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-[#dad5d5] file:text-zinc-900 hover:file:bg-rose-300"
                                                         />
                                                     </label>
                                                 </div>
                                             </div>
                                             <div className="flex flex-col md:flex-row gap-4">
-                                                <label className="relative block p-2 mt-5 border-2 border-gray-400 rounded md:w-1/2">
+                                                <label className="relative drop-shadow-md block p-2 mt-5 border-2 border-gray-400 rounded md:w-1/2">
                                                     <span
                                                         className="text-sm font-semibold text-zinc-900"
                                                         htmlFor="name"
@@ -73,7 +73,7 @@ function EmployerProfile() {
                                                         placeholder="Name"
                                                     />
                                                 </label>
-                                                <label className="relative block p-2 mt-5 border-2 border-gray-400 rounded md:w-1/2">
+                                                <label className="relative drop-shadow-md block p-2 mt-5 border-2 border-gray-400 rounded md:w-1/2">
                                                     <span
                                                         className="text-sm font-semibold text-zinc-900"
                                                         htmlFor="name"
@@ -90,7 +90,7 @@ function EmployerProfile() {
                                             </div>
 
                                             <div className="flex flex-col md:flex-row gap-4">
-                                                <label className="relative block p-2 mt-5 border-2 border-gray-400 rounded md:w-1/2">
+                                                <label className="relative drop-shadow-md block p-2 mt-5 border-2 border-gray-400 rounded md:w-1/2">
                                                     <span
                                                         className="text-sm font-semibold text-zinc-900"
                                                         htmlFor="name"
@@ -104,7 +104,7 @@ function EmployerProfile() {
                                                         placeholder="Name"
                                                     />
                                                 </label>
-                                                <label className="relative block p-2 mt-5 border-2 border-gray-400 rounded md:w-1/2">
+                                                <label className="relative drop-shadow-md block p-2 mt-5 border-2 border-gray-400 rounded md:w-1/2">
                                                     <span
                                                         className="text-sm font-semibold text-zinc-900"
                                                         htmlFor="name"
@@ -120,7 +120,7 @@ function EmployerProfile() {
                                                 </label>
                                             </div>
                                             <div className="flex flex-col md:flex-row gap-4">
-                                                <label className="relative block p-2 mt-5 border-2 border-gray-400 rounded md:w-1/2">
+                                                <label className="relative drop-shadow-md block p-2 mt-5 border-2 border-gray-400 rounded md:w-1/2">
                                                     <span
                                                         className="text-sm font-semibold text-zinc-900"
                                                         htmlFor="name"
@@ -134,7 +134,7 @@ function EmployerProfile() {
                                                         placeholder="Name"
                                                     />
                                                 </label>
-                                                <label className="relative block p-2 mt-5 border-2 border-gray-400 rounded md:w-1/2">
+                                                <label className="relative drop-shadow-md block p-2 mt-5 border-2 border-gray-400 rounded md:w-1/2">
                                                     <span
                                                         className="text-sm font-semibold text-zinc-900"
                                                         htmlFor="name"
@@ -149,7 +149,7 @@ function EmployerProfile() {
                                                     />
                                                 </label>
                                             </div>
-                                            <button className="mt-5 border-2 px-5 py-2 rounded-lg border-gray-900  border-b-4 font-black translate-y-2 border-l-4">
+                                            <button className="mt-5 border-2 drop-shadow-md px-5 py-2 rounded-lg border-gray-900  border-b-4 font-black translate-y-2 border-l-4">
                                                 Submit
                                             </button>
                                         </form>
