@@ -18,7 +18,7 @@ function EmployerProfile() {
                                         <h1 className="font-thin drop-shadow-md text-2xl pt-10 px-5">
                                             Update Profile
                                         </h1>
-                                        <form className="mx-3 my-3">
+                                        <form className="mx-2 my-2">
                                             <div className="flex flex-col md:flex-row justify-center md:items-center gap-4">
                                                 <div className="shrink-0 mt-5">
                                                     <img
@@ -63,7 +63,7 @@ function EmployerProfile() {
                                                         className="text-sm font-semibold text-zinc-900"
                                                         htmlFor="name"
                                                     >
-                                                        Employer Name
+                                                        Employer Name1
                                                     </span>
                                                     <input
                                                         className="w-full bg-transparent p-1 text-xs text-gray-500 focus:outline-none"
@@ -77,7 +77,7 @@ function EmployerProfile() {
                                                         className="text-sm font-semibold text-zinc-900"
                                                         htmlFor="name"
                                                     >
-                                                        Employer Name
+                                                        Employer Name2
                                                     </span>
                                                     <input
                                                         className="w-full bg-transparent p-1 text-xs text-gray-500 focus:outline-none"
@@ -94,7 +94,7 @@ function EmployerProfile() {
                                                         className="text-sm font-semibold text-zinc-900"
                                                         htmlFor="name"
                                                     >
-                                                        Employer Name
+                                                        Employer Name3
                                                     </span>
                                                     <input
                                                         className="w-full bg-transparent p-1 text-xs text-gray-500 focus:outline-none"
@@ -108,7 +108,7 @@ function EmployerProfile() {
                                                         className="text-sm font-semibold text-zinc-900"
                                                         htmlFor="name"
                                                     >
-                                                        Employer Name
+                                                        Employer Name4
                                                     </span>
                                                     <input
                                                         className="w-full bg-transparent p-1 text-xs text-gray-500 focus:outline-none"
@@ -124,7 +124,7 @@ function EmployerProfile() {
                                                         className="text-sm font-semibold text-zinc-900"
                                                         htmlFor="name"
                                                     >
-                                                        Employer Name
+                                                        Employer Name5
                                                     </span>
                                                     <input
                                                         className="w-full bg-transparent p-1 text-xs text-gray-500 focus:outline-none"
@@ -138,7 +138,7 @@ function EmployerProfile() {
                                                         className="text-sm font-semibold text-zinc-900"
                                                         htmlFor="name"
                                                     >
-                                                        Employer Name
+                                                        Employer Name6
                                                     </span>
                                                     <input
                                                         className="w-full bg-transparent p-1 text-xs text-gray-500 focus:outline-none"
