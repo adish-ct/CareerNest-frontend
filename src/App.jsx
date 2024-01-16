@@ -3,7 +3,7 @@ import React from "react";
 import Login from "./pages/Login/Login";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import EmployerDashboard from "./pages/Employer/EmployerDashboardPage";
-import CreateJob from "./pages/Employer/Jobs/CreateJob";
+import CreateJob from "./components/Jobs/CreateJob";
 import SignupPage from "./pages/Register/SignupPage";
 // import Profile from './pages/Common/Profile';
 import HomePage from "./pages/Candidate/HomePage";
@@ -24,8 +24,9 @@ import CandidateDetailsPage from "./pages/Employer/Candidate/CandidateDetailsPag
 import InterviewCalenderPage from "./pages/Employer/Interviews/InterviewCalenderPage";
 import InterviewsListPage from "./pages/Employer/Interviews/InterviewsListPage";
 import ScheduledInterviewPage from "./pages/Employer/Interviews/ScheduledInterviewPage";
-import EmployeerProfilePage from "./pages/Employer/Profile/EmployeerProfilePage";
+import EmployerProfilePage from "./pages/Employer/Profile/EmployerProfilePage";
 import TestPage from "./TestPage";
+import ApplicationDetailsPage from "./pages/Employer/Applications/ApplicationDetailsPage";
 
 function App() {
     return (
@@ -59,11 +60,15 @@ function App() {
                     />
                     <Route
                         path="employer/profile"
-                        element={<EmployeerProfilePage />}
+                        element={<EmployerProfilePage />}
                     />
                     <Route
-                        path="employer/application/"
+                        path="employer/jobapplication/"
                         element={<ApplicationPage />}
+                    />
+                    <Route
+                        path="employer/applicationdetails/"
+                        element={<ApplicationDetailsPage />}
                     />
                     <Route
                         path="employer/candidatedetails/"

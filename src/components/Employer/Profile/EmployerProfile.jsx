@@ -14,9 +14,9 @@ function EmployerProfile() {
                         <div className="sm:mx-24 lg:mx-24 xl:mx-32">
                             <div className="flex justify-between container mx-auto">
                                 <div className="w-full">
-                                    <div className="mt-4 px-2">
+                                    <div className="mt-2 px-2">
                                         <h1 className="font-thin drop-shadow-md text-2xl pt-10 px-5">
-                                            Update Profile
+                                            Profile
                                         </h1>
                                         <form className="mx-2 my-2">
                                             <div className="flex flex-col md:flex-row justify-center md:items-center gap-4">

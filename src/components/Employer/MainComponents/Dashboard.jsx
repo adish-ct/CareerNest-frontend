@@ -128,7 +128,7 @@ function Dashboard() {
                                                 View
                                             </Button>
                                             <Typography>
-                                                Status:{" "}
+                                                Status:
                                                 <span className="text-green-700">
                                                     active
                                                 </span>
