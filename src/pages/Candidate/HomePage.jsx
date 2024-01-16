@@ -6,15 +6,15 @@ import Jobs from "../../components/Candidate/Jobs";
 import { ToastContainer } from "react-toastify";
 
 function HomePage() {
-  return (
-    <div>
-      <ToastContainer />
-      <Navbar />
-      <Banner />
-      <TopCompanies />
-      <Jobs />
-    </div>
-  );
+    return (
+        <div>
+            <ToastContainer />
+            <Navbar />
+            <Banner />
+            <TopCompanies />
+            <Jobs />
+        </div>
+    );
 }
 
 export default HomePage;

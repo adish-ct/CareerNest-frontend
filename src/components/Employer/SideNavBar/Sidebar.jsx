@@ -28,16 +28,12 @@ function Sidebar() {
             icon: FaUserTie,
         },
         {
-            name: "Jobs",
+            name: "Job Applications",
             icon: RiUserSearchFill,
             submenus: [
                 {
-                    name: "View Jobs",
-                    link: "/employer/jobs/",
-                },
-                {
-                    name: "Create Jobs",
-                    link: "2",
+                    name: "View Applications",
+                    link: "/employer/jobapplication/",
                 },
             ],
         },
@@ -56,7 +52,7 @@ function Sidebar() {
     const handleLinkClick = (menu) => {
         setActiveLink(menu.link);
 
-        if (menu.name === "Jobs") {
+        if (menu.name === "Job Applications") {
             setShowJobSubmenus(!showJobSubmenus);
         } else {
             setShowJobSubmenus(false);
