@@ -27,88 +27,75 @@ import ScheduledInterviewPage from "./pages/Employer/Interviews/ScheduledIntervi
 import EmployerProfilePage from "./pages/Employer/Profile/EmployerProfilePage";
 import TestPage from "./TestPage";
 import ApplicationDetailsPage from "./pages/Employer/Applications/ApplicationDetailsPage";
+import ApplicantPage from "./pages/Candidate/ApplicantPage";
 
 function App() {
-    return (
-        <>
-            <Router>
-                <Routes>
-                    {/* ........Registrations.......... */}
-                    <Route path="register/" element={<SignupPage />} />
-                    <Route path="login/" element={<Login />} />
-                    {/* ........User Interface.......... */}
-                    <Route path="/" element={<HomePage />} />
-                    <Route path="jobs/" element={<Jobs />} />
-                    <Route path="profile/" element={<Profile />} />
-                    {/* ........Employeer Side.......... */}
-                    <Route
-                        path="employer/dashboard/"
-                        element={<EmployerDashboard />}
-                    />
-                    <Route
-                        path="employer/create-job/"
-                        element={<CreateJob />}
-                    />
-                    <Route path="employer/jobs/" element={<EmployerJobs />} />
-                    <Route
-                        path="employer/update-job/:id/"
-                        element={<UpdateJob />}
-                    />
-                    <Route
-                        path="employer/view-job/:jobId/"
-                        element={<ViewJob />}
-                    />
-                    <Route
-                        path="employer/profile"
-                        element={<EmployerProfilePage />}
-                    />
-                    <Route
-                        path="employer/jobapplication/"
-                        element={<ApplicationPage />}
-                    />
-                    <Route
-                        path="employer/applicationdetails/"
-                        element={<ApplicationDetailsPage />}
-                    />
-                    <Route
-                        path="employer/candidatedetails/"
-                        element={<CandidateDetailsPage />}
-                    />
-                    <Route
-                        path="employer/interviewslist/"
-                        element={<InterviewsListPage />}
-                    />
-                    <Route
-                        path="employer/interviewcalender/"
-                        element={<InterviewCalenderPage />}
-                    />
-                    <Route
-                        path="employer/scheduledinterview/"
-                        element={<ScheduledInterviewPage />}
-                    />
+  return (
+    <>
+      <Router>
+        <Routes>
+          {/* ........Registrations.......... */}
+          <Route path="register/" element={<SignupPage />} />
+          <Route path="login/" element={<Login />} />
+          {/* ........User Interface.......... */}
+          <Route path="/" element={<HomePage />} />
+          <Route path="jobs/" element={<Jobs />} />
+          <Route path="profile/" element={<Profile />} />
+          {/* ........Employeer Side.......... */}
+          <Route path="employer/dashboard/" element={<EmployerDashboard />} />
+          <Route path="employer/create-job/" element={<CreateJob />} />
+          <Route path="employer/jobs/" element={<EmployerJobs />} />
+          <Route path="employer/update-job/:id/" element={<UpdateJob />} />
+          <Route path="employer/view-job/:jobId/" element={<ViewJob />} />
+          <Route path="employer/profile" element={<EmployerProfilePage />} />
+          <Route
+            path="employer/jobapplication/"
+            element={<ApplicationPage />}
+          />
+          <Route
+            path="employer/applicantproflie/"
+            element={<ApplicantPage />}
+          />
+          <Route
+            path="employer/applicationdetails/"
+            element={<ApplicationDetailsPage />}
+          />
+          <Route
+            path="employer/candidatedetails/"
+            element={<CandidateDetailsPage />}
+          />
+          <Route
+            path="employer/interviewslist/"
+            element={<InterviewsListPage />}
+          />
+          <Route
+            path="employer/interviewcalender/"
+            element={<InterviewCalenderPage />}
+          />
+          <Route
+            path="employer/scheduledinterview/"
+            element={<ScheduledInterviewPage />}
+          />
 
-                    {/* ........Company Side.......... */}
-                    <Route path="adminlogin/" element={<AdminLogin />} />
-                    <Route path="admindashboard/" element={<DashboardPage />} />
-                    <Route
-                        path="employeermanagement/"
-                        element={<EmployeerManagementPage />}
-                    />
-                    <Route
-                        path="candidatemanagement/"
-                        element={<CandidateManagementPage />}
-                    />
-                    <Route
-                        path="bannermanagement/"
-                        element={<BannerManagementPage />}
-                    />
-                    {/* .................. */}
-                    <Route path="/*" element={<MaintenancePage />} />
-                    <Route path="testpage" element={<TestPage />} />
-                </Routes>
-            </Router>
-        </>
-    );
+          {/* ........Company Side.......... */}
+          <Route path="adminlogin/" element={<AdminLogin />} />
+          <Route path="admindashboard/" element={<DashboardPage />} />
+          <Route
+            path="employeermanagement/"
+            element={<EmployeerManagementPage />}
+          />
+          <Route
+            path="candidatemanagement/"
+            element={<CandidateManagementPage />}
+          />
+          <Route path="bannermanagement/" element={<BannerManagementPage />} />
+          {/* .................. */}
+          <Route path="/*" element={<MaintenancePage />} />
+          <Route path="testpage/" element={<TestPage />} />
+        </Routes>
+      </Router>
+    </>
+  );
 }
 
 export default App;
