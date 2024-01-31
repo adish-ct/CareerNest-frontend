@@ -9,24 +9,24 @@ import { FaLinkedin } from "react-icons/fa";
 import boy from "../../images/boy.png";
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/bootstrap.css";
-import axios from 'axios'
-import { baseUrl } from '../../api/Api'
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import axios from "axios";
+import { baseUrl } from "../../api/Api";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { useNavigate } from "react-router-dom";
 
 const SignUp = () => {
   const [phone, setPhone] = useState("");
-  const [role, setRole] = useState("")
-  const [username, setUsername] = useState("")
-  const [email, setEmail] = useState("")
-  const [password, setPassword] = useState("")
-  const [confirmPassword, setConfirmPassword] = useState("")
+  const [role, setRole] = useState("");
+  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
   const [isChecked, setIsChecked] = useState(false);
-  const [setstore, setSetstore] = useState([])
-  const [error, setError] = useState("")
+  const [setstore, setSetstore] = useState([]);
+  const [error, setError] = useState("");
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const handleCheckboxChange = () => {
     setIsChecked(!isChecked);
@@ -34,13 +34,13 @@ const SignUp = () => {
 
   const getRole = () => {
     axios.get(`${baseUrl}/accounts/`).then((response) => {
-      setSetstore(response.data)
-    })
+      setSetstore(response.data);
+    });
   };
 
   useEffect(() => {
     getRole();
-  }, [])
+  }, []);
 
   const signUpHandler = async (e) => {
     e.preventDefault();
@@ -51,12 +51,12 @@ const SignUp = () => {
         email,
         phone,
         password,
-        role
+        role,
       });
 
       if (response.data) {
         toast.success("Successfully registered");
-        navigate('/login/')
+        navigate("/login/");
       }
     } catch (error) {
       if (error.response) {
@@ -74,8 +74,7 @@ const SignUp = () => {
         toast.error("An unexpected error occurred. Please try again.");
       }
     }
-
-  }
+  };
   return (
     <div>
       <ToastContainer />
@@ -105,7 +104,6 @@ const SignUp = () => {
       {/* ........................................................ */}
 
       <div className="w-full flex  p-10">
-
         {/* --------------------left section--------------------- */}
 
         <div className="text-center hidden md:block lg:w-1/3 xl:w-1/3 md:w-1/3 p-10">
@@ -138,8 +136,8 @@ const SignUp = () => {
 
         <div className="w-2/3 text-center :w-3/3">
           <div className="border rounded-3xl shadow-xl p-10">
-            <p> { } </p>
-            <form action="" onSubmit={signUpHandler} >
+            <p> {} </p>
+            <form action="" onSubmit={signUpHandler}>
               <div>
                 <h1 className="text-4xl">Create an account</h1>
                 <h1 className="font-thin pt-3 text-gray-500">
@@ -148,7 +146,6 @@ const SignUp = () => {
                 <h1 className="font-thin pt-1 text-green-800">it's free!</h1>
               </div>
               <div className="flex justify-center gap-16 pt-5">
-
                 <div className="flex flex-row gap-10 cursor-pointer items-center justify-center shadow-lg w-1/3 h-12 ml-20 rounded-xl border">
                   <div className="flex flex-row gap-2 items-center transition-transform duration-300 hover:translate-x-1">
                     <FcGoogle className="text-2xl" />
@@ -169,46 +166,88 @@ const SignUp = () => {
                 <hr className="h-px border-b border-solid border-gray-200 grow" />
               </div>
               <div className="flex justify-center gap-16 pt-5">
-                {
-                  setstore.map((role, index) => (
-                    <div className="flex flex-row gap-10 p-2 ps-6 pe-6 items-center justify-center shadow-lg rounded-2xl border" key={index}>
-                      <label
-                        className="relative flex cursor-pointer items-center rounded-full"
-                        htmlFor="indigo"
-                      >
-                        <input id={index} name="role" type="radio" value={role.id} onChange={(e) => setRole(e.target.value)}
-                          className="before:content[''] peer relative h-5 w-5 cursor-pointer appearance-none rounded-full border border-blue-gray-200 text-indigo-500 transition-all before:absolute before:top-2/4 before:left-2/4 before:block before:h-12 before:w-12 before:-translate-y-2/4 before:-translate-x-2/4 before:rounded-full before:bg-blue-gray-500 before:opacity-0 before:transition-opacity checked:border-indigo-500 checked:before:bg-indigo-500 hover:before:opacity-10"
-                        />
-                        <div className="pointer-events-none absolute top-2/4 left-2/4 -translate-y-2/4 -translate-x-2/4 text-indigo-500 opacity-0 transition-opacity peer-checked:opacity-100">
-                          <svg xmlns="http://www.w3.org/2000/svg" className="h-3.5 w-3.5" viewBox="0 0 16 16" fill="currentColor">
-                            <circle data-name="ellipse" cx="8" cy="8" r="8"></circle>
-                          </svg>
-                        </div>
-                      </label>
-                      <p className="text-lg">{role.role}</p>
-                    </div>
-                  ))
-                }
-
+                {setstore.map((role, index) => (
+                  <div
+                    className="flex flex-row gap-10 p-2 ps-6 pe-6 items-center justify-center shadow-lg rounded-2xl border"
+                    key={index}
+                  >
+                    <label
+                      className="relative flex cursor-pointer items-center rounded-full"
+                      htmlFor="indigo"
+                    >
+                      <input
+                        id={index}
+                        name="role"
+                        type="radio"
+                        value={role.id}
+                        onChange={(e) => setRole(e.target.value)}
+                        className="before:content[''] peer relative h-5 w-5 cursor-pointer appearance-none rounded-full border border-blue-gray-200 text-indigo-500 transition-all before:absolute before:top-2/4 before:left-2/4 before:block before:h-12 before:w-12 before:-translate-y-2/4 before:-translate-x-2/4 before:rounded-full before:bg-blue-gray-500 before:opacity-0 before:transition-opacity checked:border-indigo-500 checked:before:bg-indigo-500 hover:before:opacity-10"
+                      />
+                      <div className="pointer-events-none absolute top-2/4 left-2/4 -translate-y-2/4 -translate-x-2/4 text-indigo-500 opacity-0 transition-opacity peer-checked:opacity-100">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          className="h-3.5 w-3.5"
+                          viewBox="0 0 16 16"
+                          fill="currentColor"
+                        >
+                          <circle
+                            data-name="ellipse"
+                            cx="8"
+                            cy="8"
+                            r="8"
+                          ></circle>
+                        </svg>
+                      </div>
+                    </label>
+                    <p className="text-lg">{role.role}</p>
+                  </div>
+                ))}
               </div>
 
               {/* Input Fields */}
               <div className="flex justify-center pt-1 items-center">
                 <div className="lg:w-3/5 ">
                   <div>
-                    <label className="text-gray-800 font-medium text-start block my-3 text-md" htmlFor="username">
+                    <label
+                      className="text-gray-800 font-medium text-start block my-3 text-md"
+                      htmlFor="username"
+                    >
                       Full Name
                     </label>
-                    <input onChange={(e) => { setUsername(e.target.value) }} className="w-full bg-gray-100 px-4 py-2 rounded-lg focus:outline-none" type="text" name="username" id="username" placeholder="full name" />
+                    <input
+                      onChange={(e) => {
+                        setUsername(e.target.value);
+                      }}
+                      className="w-full bg-gray-100 px-4 py-2 rounded-lg focus:outline-none"
+                      type="text"
+                      name="username"
+                      id="username"
+                      placeholder="full name"
+                    />
                   </div>
                   <div>
-                    <label className="text-gray-800 text-start font-medium block my-3 text-md" htmlFor="email">
+                    <label
+                      className="text-gray-800 text-start font-medium block my-3 text-md"
+                      htmlFor="email"
+                    >
                       Email
                     </label>
-                    <input onChange={(e) => { setEmail(e.target.value) }} className="w-full bg-gray-100 px-4 py-2 rounded-lg focus:outline-none" type="text" name="email" id="email" placeholder="email" />
+                    <input
+                      onChange={(e) => {
+                        setEmail(e.target.value);
+                      }}
+                      className="w-full bg-gray-100 px-4 py-2 rounded-lg focus:outline-none"
+                      type="text"
+                      name="email"
+                      id="email"
+                      placeholder="email"
+                    />
                   </div>
                   <div>
-                    <label className="text-gray-800 text-start font-medium block my-3 text-md" htmlFor="phone">
+                    <label
+                      className="text-gray-800 text-start font-medium block my-3 text-md"
+                      htmlFor="phone"
+                    >
                       Mobile Number
                     </label>
                     <PhoneInput
@@ -223,6 +262,7 @@ const SignUp = () => {
                         border: "None",
                         background: "rgb(245,245,245)",
                         borderRadius: "8px",
+                        outline: "none",
                       }}
                       value={phone}
                       onChange={(phone) => setPhone(phone)}
@@ -271,12 +311,14 @@ const SignUp = () => {
                             onChange={handleCheckboxChange}
                           />
                           <span
-                            className={`slider mr-3 flex h-[20px] w-[40px] items-center rounded-full p-1 duration-200 ${isChecked ? "bg-green-800" : "bg-[#CCCCCE]"
-                              }`}
+                            className={`slider mr-3 flex h-[20px] w-[40px] items-center rounded-full p-1 duration-200 ${
+                              isChecked ? "bg-green-800" : "bg-[#CCCCCE]"
+                            }`}
                           >
                             <span
-                              className={`dot h-[13px] w-[13px] rounded-full bg-white duration-200 ${isChecked ? "translate-x-6" : ""
-                                }`}
+                              className={`dot h-[13px] w-[13px] rounded-full bg-white duration-200 ${
+                                isChecked ? "translate-x-6" : ""
+                              }`}
                             ></span>
                           </span>
                         </label>
@@ -313,14 +355,13 @@ const SignUp = () => {
                     Register
                   </button>
                 </div>
-
               </div>
             </form>
           </div>
         </div>
       </div>
-    </div >
+    </div>
   );
-}
+};
 
 export default SignUp;

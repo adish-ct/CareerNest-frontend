@@ -1,33 +1,30 @@
 import React from "react";
 
 function TestPage() {
-    return (
-        <>
-            <h1 className="text-2xl font-semibold mt-5">Category :</h1>
-            <p className="text-black text-sm font-normal flex gap gap-2 pt-2">
-                <button className="border-2 border-black rounded-md border-b-4 border-l-4 font-black px-2">
-                    Business
-                </button>
-                <button className="border-2 border-black rounded-md border-b-4 border-l-4 font-black px-2">
-                    Creative
-                </button>
-                <button className="border-2 border-black rounded-md border-b-4 border-l-4 font-black px-2">
-                    Education
-                </button>
+  return (
+    <>
+      <div>
+        <div className="bg-brown-900 flex flex-col lg:flex-row md:flex-row sm:flex-col xl:flex-row gap-4 p-4">
+          <div className="bg-blue-gray-400 w-full lg:w-1/2 lg:items-center border-black3200 border-5">
+            <h1 className="p-3">Normal</h1>
+            <p className="p-4">
+              Lorem ipsum dolor sit amet consectetur, adipisicing elit. Vitae,
+              velit voluptas nisi ipsum voluptates ea temporibus dicta at enim,
+              et minima cumque iste quam.
             </p>
-            <p className="text-black text-sm font-normal flex gap gap-2 pt-2">
-                <button className="border-2 border-black rounded-md border-b-4 border-l-4 font-black px-2">
-                    Tech
-                </button>
-                <button className="border-2 border-black rounded-md border-b-4 border-l-4 font-black px-2">
-                    Entertainment
-                </button>
-                <button className="border-2 border-black rounded-md border-b-4 border-l-4 font-black px-2">
-                    Other
-                </button>
+          </div>
+          <div className="bg-blue-gray-400 w-full lg:w-1/2  lg:items-center border-black3200 border-5">
+            <h2 className="p-3">Bigger</h2>
+            <p className="p-4">
+              Lorem ipsum dolor sit amet consectetur, adipisicing elit. Vitae,
+              velit voluptas nisi ipsum voluptates ea temporibus dicta at enim,
+              et minima cumque iste quam.
             </p>
-        </>
-    );
+          </div>
+        </div>
+      </div>
+    </>
+  );
 }
 
 export default TestPage;
