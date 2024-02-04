@@ -1,12 +1,11 @@
-import React, { useState, useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { toggleLoading } from '../../redux/Actions/AuthAction';
+import React, { useState } from 'react';
+import { useSelector } from 'react-redux';
 import { IoMdStar } from 'react-icons/io';
-import employerAction from '../../redux/Actions/EmployerAction';
 import axios from 'axios';
 import { baseUrl } from '../../api/Api';
 import JobDetailsCard from '../Employer/Jobs/JobDetailsCard';
 import { Card, CardBody, Typography } from '@material-tailwind/react';
+import { useQuery } from 'react-query';
 
 const TabPanel = ({ id, children, isActive }) => (
     <div className={`bg-[#fff] rounded-lg dark:bg-gray-800 border-none ${isActive ? 'block' : 'hidden'}`} id={id} role="tabpanel" aria-labelledby={`${id}-tab`}>
@@ -34,40 +33,31 @@ const TabButton = ({ id, label, isActive, onClick }) => (
 
 function SelectedJobDetails() {
     const [activeTab, setActiveTab] = useState('jobDetails');
-    const dispatch = useDispatch();
     const job = useSelector((state) => state.job);
-    const loading = useSelector((state) => state.loading);
-    const employer = useSelector((state) => state.employer);
 
-    const getEmployer = async (job) => {
-        try {
-            const response = await axios.get(`${baseUrl}/accounts/get-user/${job.employer}`);
-            dispatch(employerAction(response.data));
-            return response.data;
-        } catch (error) {
-            console.error('Error fetching employer:', error);
-        }
-    };
 
-    useEffect(() => {
-        const fetchData = async () => {
+    // React Query setup for fetching employer details
+    const { isLoading: employerLoading, data: employerData, error: employerError } = useQuery(
+        ['employer', job.employer], // Unique query key, includes employer ID to differentiate queries
+        async () => {
             try {
-                dispatch(toggleLoading(true));
-                const employerData = await getEmployer(job);
-                // Do something with employerData if needed
-            } finally {
-                dispatch(toggleLoading(false));
+                const response = await axios.get(`${baseUrl}/accounts/get-user/${job.employer}`);
+                return response.data;
+            } catch (error) {
+                throw error;
             }
-        };
+        },
+        {
+            enabled: Boolean(job.employer), // Enable the query only when job.employer is truthy
+        }
+    );
 
-        fetchData();
-    }, [dispatch, job]);
 
     const handleTabClick = (tabId) => {
         setActiveTab(tabId);
     };
 
-    if (loading) {
+    if (employerLoading) {
         return <h1>Loading...</h1>;
     }
 
@@ -129,14 +119,26 @@ function SelectedJobDetails() {
                     </Card>
                 </TabPanel>
                 <TabPanel id="recruiterDetails" isActive={activeTab === 'recruiterDetails'}>
-                    {employer && (
-                        <>
-                            <h1>Company: {employer.username}</h1>
-                            <h1>Email: {employer.email}</h1>
-                            <h1>Website: www.{employer.username}.com</h1>
-                            <p>You can share your resume through mail also.</p>
-                        </>
-                    )}
+                    <Card className="mt-6 w-full">
+                        <CardBody>
+                            <Typography variant="h5" color="blue-gray" className="mb-2">
+                                Recruiter Details
+                            </Typography>
+                            <hr />
+
+                            <div className="flex gap-3 flex-col p-3" >
+                                {employerData && (
+                                    <>
+                                        <h1>Company: {employerData.username}</h1>
+                                        <h1>Email: {employerData.email}</h1>
+                                        <h1>Website: www.{employerData.username}.com</h1>
+                                        <p>You can share your resume through mail also.</p>
+                                    </>
+                                )}
+                            </div>
+                        </CardBody>
+                    </Card>
+
                 </TabPanel>
             </div>
         </div>

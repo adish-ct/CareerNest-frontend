@@ -63,30 +63,31 @@ function Profile() {
     const handleEducation = () => setOpenEducation(!openEducation);
     const handleProject = () => setOpenProject(!openProject);
 
-    const fetchUser = async () => {
-        try {
-            const token = getLocal();
-            const decodedToken = jwtDecode(token);
-            if (token) {
-                const response = await axios.get(`${baseUrl}/accounts/get-user/${decodedToken.user_id}`);
-                setUserDetails(response.data);
-            }
-        } catch (error) {
-            console.log(error);
-        }
-    };
+    // const fetchUser = async () => {
+    //     try {
+    //         const token = getLocal();
+    //         const decodedToken = jwtDecode(token);
+    //         if (token) {
+    //             const response = await axios.get(`${baseUrl}/accounts/get-user/${decodedToken.user_id}`);
+    //             setUserDetails(response.data);
+    //         }
+    //     } catch (error) {
+    //         console.log(error);
+    //     }
+    // };
 
     const fetchProfile = async () => {
         try {
             const token = getLocal();
             if (token) {
-                const decodedToken = jwtDecode(token);
                 const response = await axios.get(`${baseUrl}/profile`, {
                     headers: {
                         Authorization: `Bearer ${token}`,
                     },
                 });
                 dispatch(profileAction(response.data[0]));
+                dispatch(toggleLoading());
+
             }
         } catch (error) {
             console.error('Error fetching profile:', error);
@@ -96,7 +97,7 @@ function Profile() {
 
     useEffect(() => {
         const fetchData = async () => {
-            await Promise.all([fetchUser(), fetchProfile()]);
+            await Promise.all([fetchProfile()]);
             dispatch(toggleLoading());
         };
 
@@ -104,7 +105,7 @@ function Profile() {
     }, [dispatch]);
 
 
-    if (loading || !profile || !userDetails) {
+    if (loading || !profile) {
         return (
             <div className="fixed top-0 right-0 h-screen w-screen z-50 flex justify-center items-center">
                 <div className="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-gray-900"></div>

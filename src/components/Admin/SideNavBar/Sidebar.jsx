@@ -33,7 +33,7 @@ function Sidebar() {
     },
     {
       name: "Banners",
-      link: "/super-admin/bannermanagement",
+      link: "super-admin/bannermanagement",
       icon: FaRegImage,
     },
   ];
@@ -44,9 +44,8 @@ function Sidebar() {
 
   return (
     <div
-      className={`h-screen bg-white shadow-lg text-center shadow-indigo-400 ${open ? "w-72" : "w-16"
-        } duration-500 text-dark-900 px-4`}
-    >
+      className={`h-screen shadow-lg text-center  ${open ? "w-72" : "w-16"
+        } duration-500 text-black px-4`}>
       <div className="py-3 flex justify-end">
         {open ? (
           <TfiArrowCircleLeft
@@ -66,42 +65,44 @@ function Sidebar() {
       </div>
       <div className="mt-4 flex flex-col md:gap-7 gap-1 relative">
         {menus?.map((menu, i) => (
-          <Link
-            to={menu?.link}
-            key={i}
-            onClick={() => handleLinkClick(menu)}
-            className={` ${menu?.margin && "mt-5"
-              } group flex items-center text-sm 
-                  gap-10 font-medium p-2 rounded-xl ${activeLink === menu.link && open
-                ? "bg-indigo-900  font-bold rounded-lg shadow-md"
-                : ""
-              }`}
-          >
-            <div className="">
-              {React.createElement(menu?.icon, { size: "25" })}
-            </div>
-            <h2
-              style={{ transitionDelay: `${i + 3}00ms` }}
-              className={`whitespace-pre duration-500 text-xl font-medium ${!open && "opacity-0 -translate-x-1 overflow-hidden"
-                } ${activeLink === menu.link
-                  ? "bg-indigo-500 text-white"
-                  : "hover:bg-indigo-500 hover:text-white"
-                } rounded-lg duration-500`}
-            >
-              {menu?.name}
-            </h2>
-            <h2
-              className={`${open && "hidden"
-                } absolute left-20 font-bold whitespace-pre 
-                  text-gray-900 bg-indigo-400 rounded-xl drop-shadow-lg px-0 py-0 w-0 overflow-hidden group-hover:px-2 
-                  group-hover:py-1 group-hover:left-14 group-hover:duration-100 group-hover:w-fit ${activeLink === menu.link
-                  ? "hover:bg-indigo-500 hover:text-white"
-                  : "hover:bg-cyan-800 hover:text-white"
+          <React.Fragment key={i}>
+            <Link
+              to={menu?.link}
+              onClick={() => handleLinkClick(menu)}
+              className={` ${menu?.margin && "mt-5"
+                } group flex items-center text-sm 
+                      gap-10 font-medium p-2 rounded-xl ${activeLink === menu.link
+                  ? "font-bold rounded-lg bg-[#cccaca]"
+                  : ""
                 }`}
             >
-              {menu?.name}
-            </h2>
-          </Link>
+              <div
+                className={`${activeLink === menu.link && !open ? "" : ""
+                  }`}
+              >
+                {React.createElement(menu?.icon, { size: "25" })}
+              </div>
+
+              <div
+                style={{ transitionDelay: `${i + 3}00ms` }}
+                className={`whitespace-pre duration-500 text-xl font-medium ${!open &&
+                  "opacity-0 -translate-x-1 overflow-hidden"
+                  } ${activeLink === menu.link ? "text-black" : ""
+                  } rounded-lg duration-500`}
+              >
+                {menu?.name}
+              </div>
+              <div
+                className={`${open && "hidden"
+                  } absolute left-20 font-bold whitespace-pre rounded-xl drop-shadow-lg px-0 py-0 w-0 overflow-hidden group-hover:px-2 group-hover:py-1 group-hover:left-14 group-hover:duration-100 group-hover:w-fit ${activeLink === menu.link
+                    ? "bg-blue-gray-400 hover:text-black"
+                    : "bg-blue-gray-400 hover:text-black"
+                  }`}
+              >
+                {menu?.name}
+              </div>
+            </Link>
+          </React.Fragment>
         ))}
       </div>
     </div>

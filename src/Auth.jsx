@@ -14,7 +14,6 @@ export const Auth = () => {
       toast.success("Login Successful");
       localStorage.setItem('jwtToken', token);
       navigate('/');
-      localStorage.setItem()
     }
   }
   return (

@@ -6,7 +6,7 @@ import { toggleLoading } from '../../../redux/Actions/AuthAction';
 import { fetchEmployerJobApi } from '../../../api/JobApi';
 
 const JobCard = ({ job, onViewClick, onUpdateClick }) => (
-    <Card className="mt-6 w-full bg-[#f8f8f8]">
+    <Card className="mt-6 w-1/2 bg-[#f8f8f8]">
         <CardBody>
             <div className="flex justify-between ps-10 pe-10">
                 <div className="flex flex-col text-start">
@@ -57,11 +57,11 @@ const AllJobs = () => {
     return (
         <div className="flex">
             <div className="w-full">
-                <div className="text-center p-28">
+                <div className="text-center p-14">
                     {loading ? (
                         <Spinner />
                     ) : (
-                        <div className="text-center">
+                        <div className="text-center flex gap-12 mb-12">
                             {jobs?.map((job, index) => (
                                 <JobCard
                                     key={index}
@@ -79,3 +79,4 @@ const AllJobs = () => {
 };
 
 export default AllJobs;
+

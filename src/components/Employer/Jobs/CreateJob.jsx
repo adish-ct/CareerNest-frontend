@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { Button, Card } from '@material-tailwind/react';
 import { useSelector, useDispatch } from 'react-redux'
 import { Input } from "@material-tailwind/react";
-import { locations } from '../../../components/HelperFile/Locations';
+import { locations } from '../../HelperFile/Locations';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import axios from 'axios';
@@ -11,7 +11,7 @@ import { jwtDecode } from 'jwt-decode';
 import setUserDetails from '../../../redux/Actions/UserAction'
 import { toggleLoading } from '../../../redux/Actions/AuthAction'
 import { useNavigate } from 'react-router-dom';
-import { jobType, workType } from '../../../components/HelperFile/Types';
+import { jobType, workType } from '../../HelperFile/Types';
 
 
 

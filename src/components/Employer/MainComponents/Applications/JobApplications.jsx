@@ -38,6 +38,7 @@ const TabButton = ({ id, label, isActive, onClick }) => (
             {label}
         </button>
     </div>
+
 );
 
 const SearchBar = () => (
@@ -56,7 +57,20 @@ const SortingIcon = () => (
     </div>
 );
 
-function TabContent({ id, title, isActive, handleTabClick, applicaionDetails }) {
+function TabContent({ id, title, isActive, handleTabClick, applicaionDetails, onStatusChange }) {
+
+    const filteredDetails = applicaionDetails.filter(application => {
+        if (id == 'all') {
+            return true;
+        } else if (id == 'pending') {
+            return application.is_pending;
+        } else if (id == 'shortlisted') {
+            return application.is_accept;
+        } else if (id == 'rejected') {
+            return application.is_reject;
+        }
+    })
+
     return (
         <TabPanel id={id} isActive={isActive}>
             <div className="flex flex-col md:flex-row items-center justify-between">
@@ -71,7 +85,7 @@ function TabContent({ id, title, isActive, handleTabClick, applicaionDetails }) 
                 </div>
             </div>
             <hr className="mt-4" />
-            <div className="p-3">{applicaionDetails && <ApplicationCard applicaionDetails={applicaionDetails} />}</div>
+            <div className="p-3">{applicaionDetails && <ApplicationCard applicaionDetails={filteredDetails} onStatusChange={onStatusChange} />}</div>
         </TabPanel>
     );
 }
@@ -88,6 +102,8 @@ function JobApplications() {
     const handleTabClick = (tabId) => {
         setActiveTab(tabId);
     };
+
+
 
     const fetchApplications = async (jobId) => {
         const token = getLocal();
@@ -114,6 +130,11 @@ function JobApplications() {
             fetchData();
         }
     }, []);
+
+    const handleStatusChange = async () => {
+        // Fetch the updated application details after the status change
+        await fetchApplications(params.jobId);
+    };
 
     const tabConfig = [
         { id: "all", title: "All Jobs" },
@@ -161,6 +182,7 @@ function JobApplications() {
                                             isActive={activeTab === tab.id}
                                             handleTabClick={() => handleTabClick(tab.id)}
                                             applicaionDetails={applicaionDetails}
+                                            onStatusChange={handleStatusChange}
                                         />
                                     ))}
                                 </CardBody>

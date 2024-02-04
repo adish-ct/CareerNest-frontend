@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-import { FaUserTie } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { MdDashboard } from "react-icons/md";
 import { PiUsersThreeFill } from "react-icons/pi";
 import { RiMessage2Fill, RiUserSearchFill } from "react-icons/ri";
 import { TfiArrowCircleLeft, TfiArrowCircleRight } from "react-icons/tfi";
+import { FaUserTie, FaUser } from "react-icons/fa";
 
 function Sidebar() {
     const [open, setOpen] = useState(true);
@@ -16,6 +16,11 @@ function Sidebar() {
             name: "Dashboard",
             link: "/employer/dashboard/",
             icon: MdDashboard,
+        },
+        {
+            name: "Our Profile",
+            link: "/employer/profile/",
+            icon: FaUser,
         },
         {
             name: "Candidates",
@@ -38,7 +43,7 @@ function Sidebar() {
         },
         {
             name: "Interviews",
-            link: "/employer/interviews/",
+            link: "/employer/interviewcalender/",
             icon: PiUsersThreeFill,
         },
         {

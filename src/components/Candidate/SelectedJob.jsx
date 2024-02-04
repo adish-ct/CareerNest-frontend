@@ -9,6 +9,8 @@ import { useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import { applyJobApplicationApi } from '../../api/ApplicationApi';
 import getLocal from '../../helper/Auth';
+import { useQuery, useMutation, useQueryClient } from 'react-query';
+
 
 function SelectedJob() {
     const selectedJob = useSelector((state) => state.job);
@@ -16,7 +18,26 @@ function SelectedJob() {
     const [isApplied, setIsApplied] = useState(false);
     const navigate = useNavigate();
 
+    const getApplicationStatus = async () => {
+        try {
+            const { data } = await axios.get(`${baseUrl}/application/`, {
+                params: { user: user?.user_id, job: selectedJob?.id, role: user?.role },
+                headers: { Authorization: `Bearer ${getLocal()}` },
+            });
+
+            return data.length > 0;
+        } catch (error) {
+            console.error("Error fetching data", error);
+        }
+    };
+
+    const { data: applied, isLoading, isError } = useQuery('checkApplicationStatus', getApplicationStatus, {
+        enabled: !!getLocal() && !!user && !!selectedJob,
+        staleTime: Infinity,
+    });
+
     useEffect(() => {
+
         const checkExistingApplication = async () => {
             try {
                 const { data } = await axios.get(`${baseUrl}/application/`, {

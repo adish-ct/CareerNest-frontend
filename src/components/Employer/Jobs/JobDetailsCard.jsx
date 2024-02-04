@@ -16,28 +16,6 @@ function JobDetailsCard({ job }) {
             <JobKeySkillsCard job={job} />
             <JobDescriptionsCard job={job} />
             <JobHighlightsCard job={job} />
-
-            <div className="grid grid-cols-1 gap-4">
-                {/* Application Count Card */}
-                <div className="card col-span-2">
-                    <div className="card-body">
-                        <MdStar className="text-4xl mb-2 text-yellow-500" />
-                        <h5 className="card-title">Application Count</h5>
-                        <div className="card-text">{job.application_count}</div>
-                    </div>
-                </div>
-
-                {/* Department Card */}
-                <div className="card col-span-2">
-                    <div className="card-body">
-                        <MdStar className="text-4xl mb-2 text-yellow-500" />
-                        <h5 className="card-title">Department</h5>
-                        <div className="card-text">{job.department}</div>
-                    </div>
-                </div>
-
-                
-            </div>
         </>
     )
 }

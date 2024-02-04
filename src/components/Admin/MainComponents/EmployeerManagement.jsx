@@ -12,7 +12,6 @@ function EmployeerManagement() {
   const fetchEmployer = async () => {
     const role = "Employer"
     const response = await fetchUserApi(role)
-    console.log(response);
     setEmployers(response)
   }
 
@@ -33,32 +32,33 @@ function EmployeerManagement() {
     <>
       <div className="w-full bg-[#f0efef] p-2 rounded-md">
         <div className="w-fullrounded-md">
-          <div className="p-2 bg-white shadow-sm border rounded">
-            <h1 className="text-2xl my-4 mx-auto font-extrabold text-center sm:text-2xl lg:text-3xl">
+          <div className="p-5 bg-white shadow-sm border rounded">
+            <h1 class="text-2xl my-auto mx-auto font-extrabold text-center">
               EMPLOYER MANAGEMENT
             </h1>
           </div>
-          <div className="p-5 border border-[#b4b3b3] mt-2 w-full md:w-full mx-auto bg-white rounded flex flex-col md:flex-row md:justify-between items-center">
-            <h1 className="text-xl font-medium text-start md:text-center md:mb-0">
+
+          <div class="p-5 border border-gray-300 mt-2 bg-white rounded flex flex-row justify-between items-center shadow-sm">
+            <h1 class="text-xl font-semibold text-gray-800">
               Employeer Table
             </h1>
-            <div className="flex flex-row justify-center md:justify-end items-center mt-4 md:mt-0 gap-4 md:gap-10 cursor-pointer">
-              <h1 className="text-2xl md:text-3xl text-[#7c7c7c]">
+            <div class="flex flex-row justify-end items-center pr-8 gap-4 cursor-pointer">
+              <div class="text-2xl text-gray-600 hover:text-gray-800">
                 <FaSort />
-              </h1>
-              <div className="w-40 md:w-72 h-8 md:h-10 shadow-sm rounded-lg bg-[#555353]">
+              </div>
+              <div class="flex items-center bg-gray-100 rounded-lg shadow">
                 <input
-                  className="w-full h-full bg-[#ecebeb] rounded-lg border text-sm md:text-base"
+                  class="pl-3 py-2 bg-transparent rounded-l-lg focus:outline-none"
                   type="text"
                   placeholder="Search..."
                 />
+                <div class="p-2 text-gray-600 hover:text-gray-800">
+                  <IoSearch />
+                </div>
               </div>
-              <h1 className="text-2xl md:text-3xl pr-2 text-[#555353]">
-                <IoSearch />
-              </h1>
-              <h1 className="text-2xl md:text-3xl pr-4 md:pr-7 text-[#555353]">
+              <div class="text-2xl text-gray-600 hover:text-gray-800">
                 <IoCloudDownloadOutline />
-              </h1>
+              </div>
             </div>
           </div>
           <div className="flex flex-col mt-6">
